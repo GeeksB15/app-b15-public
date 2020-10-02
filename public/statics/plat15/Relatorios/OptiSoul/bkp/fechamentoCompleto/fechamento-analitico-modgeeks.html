@@ -1,0 +1,446 @@
+﻿<!DOCTYPE HTML>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tesouraria</title>
+    <link rel="stylesheet" type="text/css" href="impressos.css"/>    
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+    <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+    <script src="/Scripts/codigobarras.js"></script>
+    <script src="/Plugins/html2canvas.js"></script>
+
+    <script type="linhaResumoVendas" id="linhaResumoVendas">
+
+	  <tr>
+	    <td><h6>[nomeVendedor]</h6></td>
+	    <td class="text-align-right"><h6>[valorVendido]</h6></td>
+	    <td class="text-align-right"><h6>[numeroVendas]</h6></td>
+	    <td class="text-align-right"><h6>[numeroPecas]</h6></td>
+	    <td class="text-align-right"><h6>[ticketMedio]</h6></td>
+	  </tr>
+
+    </script>
+
+    <script type="linha2Colunas" id="linha2Colunas">
+
+    	<h6>[descricao]<span class="float-right">[valor]</span></h6>
+
+    </script>
+
+    <script type="linhaVendasDetalhado" id="linhaVendasDetalhado">
+
+	    <tr class="bold-600">
+	      <td class="box-bottom"><h5>[Data]</h5></td>
+	      <td class="box-bottom"><h5>[Fatura]</h5></td>
+	      <td class="box-bottom"><h5>[Cliente]</h5></td>
+	      <td class="box-bottom"><h5>[Valor]</h5></td>
+	    </tr>
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <table class="content-table">
+
+        <tr>
+          <td class="titulo-sessao"><h4>Fechamento de Caixa - Tesouraria</h4></td>
+        </tr>
+
+      </table>
+
+      <table class="content-table">
+
+        <tr>
+          <td class="box-bottom">
+            <h5>Caixa <span class="float-right"><span id="DescricaoCaixa">-</span></span></h5>
+            <h5>Data Abertura - Data Fechamento<span class="float-right"><span id="dataAbertura-dataFechamento">-</span></span></h5>
+            <h5>Abertura de caixa: <span class="float-right"><span id="valorAberturaCaixa">-</span></span></h5>
+          </td>
+        </tr>
+
+      </table>
+
+      <table class="content-table">
+        <tr class="bold-600">
+          <td colspan="5"><h5>Resumo de vendas por Operadores</h5></td>
+        </tr>
+
+        <tr class="bold-600">
+          <td style="width: 370px;"><h6>Operador</h6></td>
+          <td class="text-align-right"><h6>Valor Vendido R$</h6></td>
+          <td class="text-align-right"><h6>Nº Vendas    </h6></td>
+          <td class="text-align-right"><h6>Nº Peças     </h6></td>
+          <td class="text-align-right"><h6>Ticket Médio R$</h6></td>
+        </tr>
+        <tr><td class="box-bottom pbottom-03" colspan="5"></td></tr> 
+
+        <tbody id="linhasResumoVendas"></tbody>
+
+        <tr><td class="box-bottom ptop-05" colspan="5"></td></tr> 
+        <tr class="bold-600">
+          <td><h6 class="text-align-right">Total operadores:</h6></td>
+          <td><h6 class="text-align-right"><span id="somaValorVendido"></span></h6></td>
+          <td><h6 class="text-align-right"><span id="somaNumeroVendas"></span></h6></td>
+          <td><h6 class="text-align-right"><span id="somaNumeroPecas"></span></h6></td>
+        </tr>
+
+      </table>
+	  
+	 <table class="content-table">
+        
+        <tr class="bold-600">
+          <td><h5>Caixa</h5></td>
+        </tr>
+
+        <tr class="bold-600">
+          <td class="box-bottom pbottom-03">
+            <h6><span>Descrição</span><span class="float-right">Valor R$</span></h6>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="dashed-bottom">
+            <h6>Abertura de caixa: <span class="float-right" id="resumoAberturaCaixa">-</span></h6>
+            <!--<h6>Total Vendas (dinheiro): <span class="float-right" id="resumoVendasDinheiro">-</span></h6>-->
+            <h6>Total Recebimentos (dinheiro): <span class="float-right" id="resumoRecebimentosDinheiro">-</span></h6>
+            <h6>Total Abastecimentos de Caixa: <span class="float-right" id="resumoAbastecimentosCaixa">-</span></h6>
+            <h6>Total Despesas Simples: <span class="float-right" id="resumoDespesasSimples">-</span></h6>
+            <h6>Total Sangrias: <span class="float-right" id="resumoSangrias">-</span></h6>
+
+            <h5 class="box-top mtop-02">Fundo de caixa para <span id="amanha"></span><span class="float-right" id="valorParaAmanha">-</span></h5>
+          </td>
+        </tr>
+      </table>
+
+      <!-- <table class="content-table"> -->
+        
+        <!-- <tr class="bold-600"> -->
+          <!-- <td><h5>entradas (formas de pagamento)</h5></td> -->
+        <!-- </tr> -->
+
+        <!-- <tr class="bold-600"> -->
+          <!-- <td class="box-bottom pbottom-03"> -->
+            <!-- <h6><span>forma(s)</span><span class="float-right">valor r$</span></h6> -->
+          <!-- </td> -->
+        <!-- </tr> -->
+
+        <!-- <tr> -->
+          <!-- <td class="dashed-bottom"> -->
+            <!-- <div id="linhasvendasporformapgto"></div> -->
+          <!-- </td> -->
+        <!-- </tr> -->
+
+        <!-- <tr class="bold-600"> -->
+          <!-- <td class="box-top pbottom-05"> -->
+            <!-- <h5>total geral: <span class="float-right" id="totalvendasformapgto">-</span></h5> -->
+            <!-- <h5>total a receber: <span class="float-right" id="totalapagar">-</span></h5> -->
+            <!-- <h5>total recebido: <span class="float-right" id="totalrecebido">-</span></h5> -->
+          <!-- </td> -->
+        <!-- </tr> -->
+
+      <!-- </table> -->
+
+      <table class="content-table">
+        
+        <tr class="bold-600">
+          <td><h5>Abastecimentos de caixa</h5></td>
+        </tr>
+        
+        <tr class="bold-600">
+          <td class="box-bottom pbottom-03">
+            <h6><span>Descrição</span><span class="float-right">Valor R$</span></h6>
+          </td>
+        </tr>
+
+        <tbody id="linhasAbastecimentoCaixa"></tbody>
+
+        <tr class="bold-600">
+          <td class="box-top">
+            <h5>Total:<span class="float-right" id="totalAbastecimentoCaixa">-</span></h5>
+          </td>
+        </tr>
+
+      </table>
+
+      <table class="content-table">
+        
+        <tr class="bold-600">
+          <td><h5>Despesas Simples</h5></td>
+        </tr>
+        
+        <tr class="bold-600">
+          <td class="box-bottom pbottom-03">
+            <h6><span>Descrição</span><span class="float-right">Valor R$</span></h6>
+          </td>
+        </tr>
+
+        <tbody id="linhasDespesaSimples"></tbody>
+
+        <tr class="bold-600">
+          <td class="box-top">
+            <h5>Total:<span class="float-right" id="totalDespesaSimples">-</span></h5>
+          </td>
+        </tr>
+
+      </table>
+
+      <table class="content-table">
+        
+        <tr class="bold-600">
+          <td><h5>Sangrias</h5></td>
+        </tr>
+        
+        <tr class="bold-600">
+          <td class="box-bottom pbottom-03">
+            <h6><span>Descrição</span><span class="float-right">Valor R$</span></h6>
+          </td>
+        </tr>
+
+        <tbody id="linhasSangria"></tbody>
+
+        <tr class="bold-600">
+          <td class="box-top">
+            <h5>Total:<span class="float-right" id="totalSangria">-</span></h5>
+          </td>
+        </tr>
+
+      </table>
+
+
+
+      <table class="content-table" id="tblDetalhamentoVendas">
+        
+        <tr class="bold-600">
+          <td><h4>Detalhamento:</h4></td>
+        </tr>
+
+        <tbody id="linhasVendasDetalhado"></tbody>
+
+        <tr class="bold-600">
+          <td colspan=5>
+            <h5>TOTAL:<span class="float-right" id="totalVendasDetalhado">-</span></h5>
+          </td>
+        </tr>
+
+      </table>
+
+    </div>
+
+  <script>
+
+      $(document).ready(function() {
+
+          var CodigoDocumento = getParameterByName("CodigoDocumento");
+
+          var banco = getParameterByName("BancoDeDados");
+          var url = decodeURIComponent(getParameterByName("URLServidor"));
+          var usuario = getParameterByName("CodigoUsuario");
+
+          var ImprimeDetalhamento = getParameterByName("Detalhamento");
+
+          function ExecSQL(sql) {
+              return GeeksSQL(sql, false, url, banco, usuario);
+          };
+
+          var InfCaixa = ExecSQL("select CodigoCaixa, Descricao from Caixa where CodigoCaixa = (Select CodigoCaixa from Documento where CodigoDocumento = " + CodigoDocumento + ")");
+
+          var DadosAbertura = ExecSQL("select Convert(varchar(10), DataHoraEmissao, 103) + ' ' + Convert(varchar(10), DataHoraEmissao, 108) + ' < - > ' + Convert(varchar(10), DataHoraFinalizado, 103) + ' ' + Convert(varchar(10), DataHoraFinalizado, 108) DaraAberturaFechamento, ValorAbertura from Documento where CodigoDocumento = 0" + CodigoDocumento);
+
+          var VendasPorVendedor = ExecSQL("SELECT D.CodigoContatoVendedor, V.Nome Vendedor, Sum(D.TotalDocumento) TotalVendas, Count(D.CodigoDocumento) NumeroVendas, Count(P.CodigoDocumento) NumeroPecas, Sum(D.TotalDocumento) / Count(P.CodigoDocumento) TicketMedio FROM Documento D INNER JOIN Contato V ON V.CodigoContato = D.CodigoContatoVendedor LEFT JOIN Documento P ON P.CodigoDocumentoAdicional = D.CodigoDocumento AND P.Tipo = 'Item Venda' WHERE D.CodigoDocumento IN (SELECT DocumentoCodigo FROM CaixaConsolidacao WHERE DocumentoTipo = 'Venda'AND CodigoDocumentoCaixa = " + CodigoDocumento + ") GROUP BY D.CodigoContatoVendedor, V.Nome");
+
+          var FormasPgto = ExecSQL("select F.Descricao, D.Valor from DocumentoCondicaoPagamento D inner join FormaPagamento F on F.CodigoFormaPagamento = D.CodigoFormaPagamento where D.CodigoDocumento = " + CodigoDocumento + " and D.Ordem = (Select Max(CodigoDocumentoStatus) from DocumentoStatus where CodigoDocumento = " + CodigoDocumento + " and (Operacao = 'Fechamento Caixa' or Operacao = 'Correção Caixa'))");
+
+          var APagar = ExecSQL("Select IsNull((Select Sum(TituloValor) + 0 from CaixaConsolidacao where DocumentoTipo = 'Fatura' and DocumentoStatus = 'Finalizada' and CodigoDocumentoCaixa = " + CodigoDocumento + ") - (Select Sum(Valor) + 0 from DocumentoCondicaoPagamento where CodigoDocumento in (Select DocumentoCodigo from CaixaConsolidacao where CodigoDocumentoCaixa = " + CodigoDocumento + ")), 0) Diferenca");
+
+          var AbastecimentosCaixa = ExecSQL("select Convert(varchar(10), DataEmissao, 103) + ' ' + Convert(varchar(10), DataEmissao, 108) DataHora, ValorDebito - ValorCredito Valor from FinanceiroMovimentacao where CodigoFinanceiroPlanoConta = (select CodigoFinanceiroPlanoConta from Caixa where CodigoCaixa = (select CodigoCaixa from Documento where CodigoDocumento = " + CodigoDocumento + ")) and DataEmissao >= (select DataHoraEmissao from Documento where CodigoDocumento = " + CodigoDocumento + ") and DataEmissao <= (select DataHoraFinalizado from Documento where CodigoDocumento = " + CodigoDocumento + ") and CodigoFinanceiroPlanoConta = (Select CodigoPlanoConta from Caixa where CodigoCaixa = (select CodigoCaixa from Documento where CodigoDocumento = " + CodigoDocumento + ")) and DocumentoTipo = '' and Observacao = 'Transferência entre contas'");
+
+          var DespesasSimples = ExecSQL("SELECT * FROM (SELECT cc.CodigoDocumentoCaixa, TituloValor, Ltrim(fpc.Descricao) Conta FROM CaixaConsolidacao cc INNER JOIN FinanceiroTitulo ft ON cc.TituloCodigo = ft.CodigoFinanceiroTitulo INNER JOIN FinanceiroPlanoConta fpc ON fpc.CodigoFinanceiroPlanoConta = ft.CodigoFinanceiroPlanoConta WHERE cc.DocumentoTipo = 'DespesaSimples' AND Revisao = (SELECT Max(Revisao) FROM CaixaConsolidacao WHERE CodigoDocumentoCaixa = cc.CodigoDocumentoCaixa)) Despesas where CodigoDocumentoCaixa = 0" + CodigoDocumento);
+
+          var Sangrias = ExecSQL("Select DC.DocumentoTipo, DC.DocumentoValor, Convert(varchar(10), DC.DocumentoEmissao, 103) + ' ' + Convert(varchar(10), DC.DocumentoEmissao, 108) DataEmissao, D.Observacao from CaixaConsolidacao DC inner join Documento D on DC.DocumentoCodigo = D.CodigoDocumento where DC.CodigoDocumentoCaixa = " + CodigoDocumento + " and DC.Revisao = (Select Max(Revisao) from CaixaConsolidacao where CodigoDocumentoCaixa = " + CodigoDocumento + ") and (DC.DocumentoTipo = 'Sangria' or DC.DocumentoTipo = 'Sangria Final')");
+
+          var VendasDinheiro = ExecSQL("Select IsNull(sum(TituloValor), 0) Valor from CaixaConsolidacao where DocumentoTipo = 'Fatura' and CodigoFormaPagamento in (Select CodigoFormaPagamento from FormaPagamento where Tipo = 1) and CodigoDocumentoStatus = (Select Max(CodigoDocumentoStatus) from DocumentoStatus where CodigoDocumento = 0" + CodigoDocumento + " and StatusFinalizado = 'Aguardando Conferência') and CodigoDocumentoCaixa = 0" + CodigoDocumento);
+
+          var RecebimentosEmDinheiro = GeeksSQL("Select IsNull((select sum(valor) Valor from DocumentoCondicaoPagamento where CodigoDocumento in (select Codigodocumento from documento where codigocaixa = 0" + CodigoDocumento + ") and CodigoFormaPagamento = (select CodigoFormaPagamento from FormaPagamento where Tipo = 1)), 0) Valor", false, url, banco, usuario);
+
+          var Amanha = ExecSQL("select Convert(varchar(10), DateAdd(d, 1, (select DataHoraEmissao from Documento where CodigoDocumento = " + CodigoDocumento + ")), 103) Amanha");
+
+         // var TodasFormasPgtoDetalhado = ExecSQL("Select distinct FormaPgto from (Select (D.TotalDocumento - D.TotalDesconto) / F.TotalDocumento * DCP.Valor Valor, FP.Descricao FormaPgto FROM Documento D INNER JOIN Documento F ON D.CodigoFatura = F.CodigoDocumento INNER JOIN DocumentoCondicaoPagamento DCP ON DCP.CodigoDocumento = F.CodigoDocumento INNER JOIN FormaPagamento FP ON DCP.CodigoFormaPagamento = FP.CodigoFormaPagamento WHERE D.CodigoDocumento IN (SELECT DocumentoCodigo FROM CaixaConsolidacao WHERE DocumentoTipo = 'Venda' or DocumentoTipo ='Fatura' AND CodigoDocumentoCaixa = " + CodigoDocumento + ")) tmptbl GROUP by FormaPgto");
+            var TodasFormasPgtoDetalhado = ExecSQL("SELECT distinct DC.TituloFormaPagamento FormaPgto FROM CaixaConsolidacao DC WHERE CodigoDocumentoCaixa = " + CodigoDocumento + " AND DC.DocumentoTipo = 'Fatura' ");
+	
+		
+          var TotalAbastecimentoCaixa = 0.0;
+          var TotalDespesaSimples = 0.0;
+          var TotalSangria = 0.0;
+
+          if (InfCaixa.RecordsAffected > 0) {
+          	$("#DescricaoCaixa").html(InfCaixa.Records[0].CodigoCaixa + ' - ' + InfCaixa.Records[0].Descricao);
+          }
+
+          if (DadosAbertura.RecordsAffected > 0) {          	
+            $("#dataAbertura-dataFechamento").html(DadosAbertura.Records[0].DaraAberturaFechamento);
+            $("#valorAberturaCaixa").html("R$ " + DadosAbertura.Records[0].ValorAbertura.toFixed(2).replace('.', ','));
+          }
+
+          var SomaValorVendido = 0.0;
+          var SomaNumeroPecas = 0;
+          var SomaNumeroVendas = 0;
+
+          $(VendasPorVendedor.Records).each(function(index, row){
+          	$("#linhasResumoVendas").append(
+          		$("#linhaResumoVendas").html()
+          			.replace("[nomeVendedor]", row.Vendedor)
+          			.replace("[valorVendido]", "R$ " + row.TotalVendas.toFixed(2).replace('.', ','))
+          			.replace("[numeroVendas]", row.NumeroVendas)
+          			.replace("[numeroPecas]", row.NumeroPecas)
+          			.replace("[ticketMedio]", "R$ " + row.TicketMedio.toFixed(2).replace('.', ','))	
+          	);
+          	SomaNumeroVendas += row.NumeroVendas;
+          	SomaNumeroPecas += row.NumeroPecas;
+          	SomaValorVendido += row.TotalVendas;
+
+            console.log('VENDA POR VENDEDOR')
+            console.log(row.Vendedor)
+            console.log(row.TotalVendas)
+            console.log(row.NumeroVendas)
+            console.log(row.NumeroPecas)
+            console.log(row.TicketMedio)
+          });
+          console.log('VENDA POR VENDEDOR')
+          console.log(VendasPorVendedor)
+
+          $("#somaNumeroPecas").html(SomaNumeroPecas);
+          $("#somaNumeroVendas").html(SomaNumeroVendas);
+          $("#somaValorVendido").html("R$ " + SomaValorVendido.toFixed(2).replace('.', ','));
+
+          var TotalVendasFormaPgto = 0.0;
+
+          $(FormasPgto.Records).each(function (index, row) {
+          	$("#linhasVendasPorFormaPgto").append(
+          		$("#linha2Colunas").html()
+          			.replace("[descricao]", row.Descricao)
+          			.replace("[valor]", "R$ " + row.Valor.toFixed(2).replace('.', ',') + " (+)")
+          	);
+          	TotalVendasFormaPgto += row.Valor;
+          });
+
+          $("#totalVendasFormaPgto").html("R$ " + TotalVendasFormaPgto.toFixed(2).replace('.', ','));
+          $("#totalAPagar").html("R$ " + APagar.Records[0].Diferenca.toFixed(2).replace('.', ',') + " (-)");
+          $("#totalRecebido").html("R$ " + (TotalVendasFormaPgto - APagar.Records[0].Diferenca).toFixed(2).replace('.', ',') + " (+)");
+
+          $(AbastecimentosCaixa.Records).each(function (index, row) {
+          	$("#linhasAbastecimentoCaixa").append(
+          		$("#linha2Colunas").html()
+          			.replace("[descricao]", row.DataHora)
+          			.replace("[valor]", "R$ " + String(row.Valor.toFixed(2).replace('.', ',')) + (row.Valor >= 0 ? " (+)" : " (-)"))
+          	);
+          	TotalAbastecimentoCaixa += row.Valor;
+          });
+
+          $("#totalAbastecimentoCaixa").html("R$ " + String(TotalAbastecimentoCaixa.toFixed(2).replace('.', ',')) + (TotalAbastecimentoCaixa >= 0 ? " (+)" : " (-)"));
+
+          $(DespesasSimples.Records).each(function (index, row) {
+          	$("#linhasDespesaSimples").append(
+          		$("#linha2Colunas").html()
+          			.replace("[descricao]", row.Conta)
+          			.replace("[valor]", "R$ " + row.TituloValor.toFixed(2).replace('.', ',') + " (-)")
+          	);
+          	TotalDespesaSimples += row.TituloValor;
+          });
+
+          $("#totalDespesaSimples").html("R$ " + TotalDespesaSimples.toFixed(2).replace('.', ',') + " (+)");
+
+          $(Sangrias.Records).each(function (index, row) {
+          	$("#linhasSangria").append(
+          		$("#linha2Colunas").html()
+          			.replace("[descricao]", row.Observacao + " - " + row.DataEmissao)
+          			.replace("[valor]", "R$ " + row.DocumentoValor.toFixed(2).replace('.', ',') + " (-)")
+          	);
+          	TotalSangria += row.DocumentoValor;
+          });
+
+          $("#totalSangria").html("R$ " + TotalSangria.toFixed(2).replace('.', ',') + " (-)");
+
+          $("#resumoAberturaCaixa").html("R$ " + DadosAbertura.Records[0].ValorAbertura.toFixed(2).replace('.', ','));
+          $("#resumoVendasDinheiro").html("R$ " + VendasDinheiro.Records[0].Valor.toFixed(2).replace('.', ','));
+          $("#resumoRecebimentosDinheiro").html("R$ " + RecebimentosEmDinheiro.Records[0].Valor.toFixed(2).replace('.', ',') + " (+)");
+          $("#resumoAbastecimentosCaixa").html("R$ " + String(TotalAbastecimentoCaixa.toFixed(2).replace('.', ',')) + (TotalAbastecimentoCaixa >= 0 ? " (+)" : " (-)"));
+          $("#resumoDespesasSimples").html("R$ " + TotalDespesaSimples.toFixed(2).replace('.', ',') + " (-)");
+          $("#resumoSangrias").html("R$ " + TotalSangria.toFixed(2).replace('.', ',') + " (-)");
+
+          var FundoCaixaAmanha = DadosAbertura.Records[0].ValorAbertura + RecebimentosEmDinheiro.Records[0].Valor + TotalAbastecimentoCaixa - TotalDespesaSimples - TotalSangria;
+
+          $("#amanha").html(Amanha.Records[0].Amanha)
+          $("#valorParaAmanha").html("R$ " + FundoCaixaAmanha.toFixed(2).replace('.', ','));
+
+          if (ImprimeDetalhamento != '1') {
+
+          	$("#tblDetalhamentoVendas").remove();
+
+          } else {
+
+          	var TotalVendasDetalhado = 0.0;
+
+          	$(TodasFormasPgtoDetalhado.Records).each(function(index, row) {
+			
+				//var VendasDestaFormaPgto = ExecSQL("select CodigoFatura, DataHoraVenda, Cliente, Vendedor, IsNull(Valor, 0) Valor, COUNT (Parcelas) Parcelas, PorcentagemFatura from (Select D.CodigoDocumento, F.CodigoDocumento CodigoFatura, Convert(Varchar(10), D.DataHoraFinalizado, 103) + ' ' + Convert(Varchar(10), D.DataHoraFinalizado, 108) DataHoraVenda, C.Nome Cliente, V.Nome Vendedor, (D.TotalDocumento - F.TotalDesconto * (DCP.Valor / F.TotalDocumento)) / (F.TotalDocumento) * DCP.Valor Valor, (D.TotalDocumento - F.TotalDesconto * (DCP.Valor / F.TotalDocumento)) / (F.TotalDocumento) * DCP.Valor Parcelas, FP.Descricao FormaPgto, (DCP.Valor * 100 / F.TotalDocumento) PorcentagemFatura FROM Documento D INNER JOIN Documento F ON D.CodigoFatura = F.CodigoDocumento INNER JOIN DocumentoCondicaoPagamento DCP ON DCP.CodigoDocumento = F.CodigoDocumento INNER JOIN FormaPagamento FP ON DCP.CodigoFormaPagamento = FP.CodigoFormaPagamento INNER JOIN Contato C on C.CodigoContato = D.CodigoContato INNER JOIN Contato V on V.CodigoContato = D.CodigoContatoVendedor WHERE D.CodigoDocumento IN (SELECT DocumentoCodigo FROM CaixaConsolidacao WHERE DocumentoTipo = 'Venda' AND CodigoDocumentoCaixa = " + CodigoDocumento + ")) tmptbl where FormaPgto = '" + row.FormaPgto + "' GROUP by tmptbl.CodigoFatura, tmptbl.DataHoraVenda, tmptbl.Cliente, tmptbl.Vendedor, tmptbl.Valor, tmptbl.PorcentagemFatura, tmptbl.Parcelas ORDER by CodigoFatura, DataHoraVenda, Parcelas");
+				var VendasDestaFormaPgto = ExecSQL("SELECT DC.TituloFormaPagamento FormaPgto, convert(varchar, DC.DocumentoFinalizado, 103  ) + ' ' + convert(varchar, DC.DocumentoFinalizado, 108  ) as 'Data', FAT.DescricaoContato Cliente, DC.DocumentoCodigo Fatura, sum(DC.TituloValor) Valor FROM CaixaConsolidacao DC INNER JOIN Documento FAT on DC.DocumentoCodigo = FAT.CodigoDocumento WHERE CodigoDocumentoCaixa = " + CodigoDocumento + " AND DC.DocumentoTipo = 'Fatura' and DC.TituloFormaPagamento =  '" + row.FormaPgto + "' group by DC.DocumentoCodigo, DC.TituloFormaPagamento, FAT.DescricaoContato, DC.DocumentoFinalizado order by DC.DocumentoFinalizado");
+				
+          		$("#linhasVendasDetalhado").append(
+          			$("#linhaVendasDetalhado").html()
+          			.replace("[Data]", "<span>Forma de Pagamento: " + row.FormaPgto + "</span>")
+          			.replace("[Fatura]", "")
+          			.replace("[Cliente]", "")
+          			.replace("[Valor]", "")
+          		);
+
+          		$("#linhasVendasDetalhado").append(
+          			$("#linhaVendasDetalhado").html()
+          			.replace("[Data]", "<span>Data/Hora</span>")
+          			.replace("[Fatura]", "Nº Fatura")
+          			.replace("[Cliente]", "<span>Cliente</span>")
+          			.replace("[Valor]", "<span class='float-right'>Valor R$</span>")
+					
+          		);
+
+          		var TotalFP = 0.0;
+
+          		$(VendasDestaFormaPgto.Records).each(function(index, row2) {
+
+          			$("#linhasVendasDetalhado").append(
+	          			$("#linhaVendasDetalhado").html()
+	          			.replace("[Data]", "<h6>" + row2.Data + "</h6>")
+          				.replace("[Fatura]", "<h6>" + row2.Fatura + "</h6>")
+	          			.replace("[Cliente]", "<h6>" + row2.Cliente + "</h6>")
+	          			.replace("[Valor]", "<h6 class='float-right'>R$ " + row2.Valor.toFixed(2).replace('.', ',') + "</h6>")
+	          			.replace('class="bold-600"', "")
+	          		);
+
+	          		TotalFP += row2.Valor ;
+          		});
+
+          		$("#linhasVendasDetalhado").append(
+          			$("#linhaVendasDetalhado").html()
+          			.replace("[Data]", "<span>Total " + row.FormaPgto + "</span>")
+          			.replace("[Fatura]", "")
+          			.replace("[Cliente]", "")
+          			.replace("[Valor]", "<span class='float-right'> R$ " + TotalFP.toFixed(2).replace('.', ',') + "</span>")
+          		);
+
+          		TotalVendasDetalhado += TotalFP;
+
+          	});
+
+          	$("#totalVendasDetalhado").html("R$ " + TotalVendasDetalhado.toFixed(2).replace('.', ','));
+
+          }
+
+      });
+
+  </script>
+
+  </body>
+
+</html>

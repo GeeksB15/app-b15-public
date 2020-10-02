@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Registro de Receitas de Ótica</title>
+        <link rel="stylesheet" type="text/css" href="optidados.framework.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+        <script src="/Scripts/codigobarras.js"></script>
+        <script src="/Plugins/html2canvas.js"></script>
+
+        <style type="text/css" media="print">
+            @page {
+                margin-top: 0.50cm;
+                margin-bottom: 0.50cm;
+                margin-left: 0.50cm;
+                margin-right: 0.50cm;
+            }
+
+            .botao-apagar-parte {
+                display: none;
+            }
+        </style>
+
+        <script id="tempCliente" type="tempCliente">
+	        <div class="row w100 linef mt1 mb1 pf05" style='page-break-inside: avoid !important;'>
+				<h5><span class="b">Cliente:</span> <span>[CodigoCliente]</span> - <span>[NomeCliente]</span></h5>
+				<h5><span class="b">Endereço:</span> <span>[EnderecoCliente]</span></h5>
+				<h5><span class="b">Telefone:</span> <span>[TelefoneCliente]</span></h5>
+		</script>
+
+        <script id="tempPresc" type="tempPresc">
+  			<!--receita-->
+			<div class="row w100 mt1 pt03" style="border-top: 1px solid rgb(170,170,170);">
+				<!--dados do paciente-->
+				<div class="row w100">
+					[ID_DadosPaciente]
+				</div><!--.end dados do paciente-->
+
+				<!--datas-->
+				<div class="row w100 mb04">
+					<div class="col w50 txt-ac"> <h5> <span class="b">Data Venda:</span> <span>[DataVenda]</span></h5> </div>
+					<div class="col w50 txt-ac"> <h5> <span class="b">Data Prescrição:</span> <span>[DataPrescricao]</span></h5> </div>
+				</div><!--.end datas-->
+
+				<!--olho direito-->
+				<div class="col w49-1 linel lineb liner mr05">
+					<ul class="list-col txt-ac">
+						<li class="w10"> <h6 class="b linef">O.D.</h6> </li>
+						<li class="w12-8 lineb"> <h6> Adc. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Esf. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Cil. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Eixo </h6> </li>
+						<li class="w12-8 lineb"> <h6> Pris. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Base </h6> </li>
+						<li class="w12-8 lineb"> <h6> DNP  </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaDireitoLonge">
+						<li class="w10"> <h6 class="txt-al"> Longe </h6> </li>
+						<li class="w12-8"> <h6>.</h6> </li>
+						<li class="w12-8"> <h6> [ODLEsf] </h6> </li>
+						<li class="w12-8"> <h6> [ODLCil] </h6> </li>
+						<li class="w12-8"> <h6> [ODLEix] </h6> </li>
+						<li class="w12-8"> <h6> [ODLPri] </h6> </li>
+						<li class="w12-8"> <h6> [ODLBas] </h6> </li>
+						<li class="w12-8"> <h6> [ODLDNP] </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaDireitoMedio">
+						<li class="w10"> <h6 class="txt-al"> Medio </h6> </li>
+						<li class="w12-8"> <h6> [ODMAdi] </h6> </li>
+						<li class="w12-8"> <h6> [ODMEsf] </h6> </li>
+						<li class="w12-8"> <h6> [ODMCil] </h6> </li>
+						<li class="w12-8"> <h6> [ODMEix] </h6> </li>
+						<li class="w12-8"> <h6> [ODMPri] </h6> </li>
+						<li class="w12-8"> <h6> [ODMBas] </h6> </li>
+						<li class="w12-8"> <h6> [ODMDNP] </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaDireitoPerto">
+						<li class="w10"> <h6 class="txt-al"> Perto </h6> </li>
+						<li class="w12-8"> <h6> [ODPAdi] </h6> </li>
+						<li class="w12-8"> <h6> [ODPEsf] </h6> </li>
+						<li class="w12-8"> <h6> [ODPCil] </h6> </li>
+						<li class="w12-8"> <h6> [ODPEix] </h6> </li>
+						<li class="w12-8"> <h6> [ODPPri] </h6> </li>
+						<li class="w12-8"> <h6> [ODPBas] </h6> </li>
+						<li class="w12-8"> <h6> [ODPDNP] </h6> </li>
+					</ul>
+				</div><!--.end olho direito-->
+
+				<!--olho esquerdo-->
+				<div class="col w49-1 linel lineb liner">
+					<ul class="list-col txt-ac">
+						<li class="w10"> <h6 class="b linef">O.E.</h6> </li>
+						<li class="w12-8 lineb"> <h6> Adc. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Esf. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Cil. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Eixo </h6> </li>
+						<li class="w12-8 lineb"> <h6> Pris. </h6> </li>
+						<li class="w12-8 lineb"> <h6> Base </h6> </li>
+						<li class="w12-8 lineb"> <h6> DNP  </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaEsquerdoLonge">
+						<li class="w10"> <h6 class="txt-al"> Longe </h6> </li>
+						<li class="w12-8"> <h6>.</h6> </li>
+						<li class="w12-8"> <h6> [OELEsf] </h6> </li>
+						<li class="w12-8"> <h6> [OELCil] </h6> </li>
+						<li class="w12-8"> <h6> [OELEix] </h6> </li>
+						<li class="w12-8"> <h6> [OELPri] </h6> </li>
+						<li class="w12-8"> <h6> [OELBas] </h6> </li>
+						<li class="w12-8"> <h6> [OELDNP] </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaEsquerdoMedio">
+						<li class="w10"> <h6 class="txt-al"> Medio </h6> </li>
+						<li class="w12-8"> <h6> [OEMAdi] </h6> </li>
+						<li class="w12-8"> <h6> [OEMEsf] </h6> </li>
+						<li class="w12-8"> <h6> [OEMCil] </h6> </li>
+						<li class="w12-8"> <h6> [OEMEix] </h6> </li>
+						<li class="w12-8"> <h6> [OEMPri] </h6> </li>
+						<li class="w12-8"> <h6> [OEMBas] </h6> </li>
+						<li class="w12-8"> <h6> [OEMDNP] </h6> </li>
+					</ul>
+
+					<ul class="list-col txt-ac linhaEsquerdoPerto">
+						<li class="w10"> <h6 class="txt-al"> Perto </h6> </li>
+						<li class="w12-8"> <h6> [OEPAdi] </h6> </li>
+						<li class="w12-8"> <h6> [OEPEsf] </h6> </li>
+						<li class="w12-8"> <h6> [OEPCil] </h6> </li>
+						<li class="w12-8"> <h6> [OEPEix] </h6> </li>
+						<li class="w12-8"> <h6> [OEPPri] </h6> </li>
+						<li class="w12-8"> <h6> [OEPBas] </h6> </li>
+						<li class="w12-8"> <h6> [OEPDNP] </h6> </li>
+					</ul>
+				</div><!--.end olho esquerdo-->
+
+				<!--LOD-->
+				<div class="col w49-3 mt05 mb02 mr07 ml01 pb01 lineb">
+					<h6>[DescricaoItemLOD]</h6>
+					<h6>[LenteMaterialLOD]</h6>
+					<h6>[LenteTipoLOD]</h6>
+					<h6>[TratamentoLOD]</h6>
+				</div><!--.end LOD-->
+
+				<!--LOE-->
+				<div class="col w49-3 mt05 mb02 pb01 lineb">
+					<h6>[DescricaoItemLOE]</h6>
+					<h6>[LenteMaterialLOE]</h6>
+					<h6>[LenteTipoLOE]</h6>
+					<h6>[TratamentoLOE]</h6>
+				</div><!--.end LOE-->
+
+				<!--Armação-->
+				<div class="row w100">
+					<h6>[DescricaoItemArmacao] <span>[ArmacaoMaterial]</span> <span>[ArmacaoTipoMontagem]</span> [ArmacaoPropria]</h6>
+				</div><!--.end Armação-->
+
+				<!--Médico/Assinatura-->
+				<div class="row w100 mt2 mb1">
+					<div class="col w50">
+						<h6>
+							<span class="b">Médico</span> <span>[Medico]</span> </br>
+							<span class="b">End.</span> <span>[MedicoEndereco]</span> </br>
+							<span class="b">CRM</span> <span>[CRM]</span>
+						</h6>
+					</div>
+					<div class="col w50 txt-ac mt1"> <p class="float-r linet w80">Assinatura</p> </div>
+				</div><!--.end médico/assinatura-->
+			</div><!--.end receita-->
+        </script>
+	</head>
+
+	<body>
+		<div class="container">
+			<!--cabeçalho-->
+			<div class="row w100 mb1 pf05">
+				<h6> <span class="float-r i getDataImpressao"></span> </h6>
+				<h3 class="lineb txt-ac b">Registro de Receitas de Ótica</h3>
+				<h4><span id="getRazaoSocial"></span> <span id="getCNPJ" class="float-r"></span></h4>
+			</div>
+
+			<!--cliente-->
+			<div id="LayoutEstrutura"></div>
+		</div>
+
+		<script>
+			$(document).ready(function()
+			{
+				//Connection DB
+				var banco = getParameterByName("BancoDeDados");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+
+				//Date
+				var data_de = getParameterByName("DataDe").replaceAll('/', '-');
+				var data_ate = getParameterByName("DataAte").replaceAll('/', '-');
+				
+				//Dados Empresa
+				var codigoEmpresa = getParameterByName("CodigoEmpresa");
+				
+				console.log("data_de " + data_de);
+				console.log("data_ate " + data_ate);
+				console.log("codigoEmpresa " + codigoEmpresa);
+				console.log("banco " + banco);
+
+				//Get Data Impresso
+				function getDataImpressao(){
+				    var date = new Date();
+					
+					var Dia = date.getDate();
+					if(Dia.toString().length == 1){
+						Dia = "0"+Dia;
+					}
+				    
+					var Mes = date.getMonth()+1;
+					if(Mes.toString().length == 1){
+						Mes = "0"+Mes;
+					}
+
+					var Ano = date.getFullYear();
+					
+					return Dia+"/"+Mes+"/"+Ano;
+				}
+				$(".getDataImpressao").html('Data Impresso: '+getDataImpressao()); //Imprime data de impressão na tela
+
+				
+				var dadosEmpresa = GeeksSQL(
+					" SELECT"
+						+" IsNull(CEmp.CodigoContato, '') as CodigoEmpresa,"
+						+" IsNull(CEmp.Nome, '') as RazaoSocial,"
+						+" IsNull(CEmp.Apelido, '') as NomeFantasia,"
+						+" IsNull(CEmp.NumeroDocumentoNacional, '') as CNPJ,"
+						+" IsNull(CEmp.NumeroDocumentoEstadual, '') as InscricaoEstadual,"
+						+" IsNull(CEmp.Email, '') as EmailEmpresa,"
+						+" IsNull(CEmp.Site, '') as SiteEmpresa,"
+						+" (IsNull(CEEmp.Logradouro, ''))+' '+ (IsNull(CEEmp.Numero, ''))+', '+ (IsNull(CEEmp.Bairro, ''))+' - '+ (IsNull(CEEmp.Municipio, ''))+'-'+(IsNull(CEEmp.UF, '')) +' '+(IsNull(CEEmp.Cep, '')) as EnderecoEmpresa,"
+						+" IsNull(CTEmp.Telefone, '') as TelefoneEmpresa"
+					+" FROM Contato as CEmp"
+						+" LEFT JOIN ContatoEndereco as CEEmp ON(CEmp.CodigoContato = CEEmp.CodigoContato)"
+						+" LEFT JOIN ContatoTelefone as CTEmp ON(CEmp.CodigoContato = CTEmp.CodigoContato)"
+					+" WHERE"
+						+" CEmp.CodigoContato = '"+codigoEmpresa+"'"
+				,false ,url ,banco ,usuario);
+				
+				//Printscreen html Dados da Empresa
+				$("#getCNPJ").html(dadosEmpresa.Records[0].CNPJ);
+				$("#getRazaoSocial").html(dadosEmpresa.Records[0].RazaoSocial);
+
+
+
+				//Select Dados do Cliente
+				var dadosCliente = GeeksSQL(
+					" SELECT"
+						+" IsNull(Dv.CodigoContato, '') as CodigoCliente"
+						+" ,MAX(IsNull(Dv.DescricaoContato, '')) as NomeCliente"
+						+" ,MAX(IsNull(Dv.NumeroDocumentoContato, '')) as CPF"
+						+" ,MAX(IsNull(Dv.EmailContato, '')) as EmailCliente"
+						+" ,MAX(IsNull(Dv.DescricaoContatoEndereco, '')) as EnderecoCliente"
+						+" ,MAX(IsNull(Dv.TelefoneContato, '')) as TelefoneCliente"
+						+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOD') THEN(IsNull(Ditem.CodigoItem, '')) ELSE('') END) as LODPropria"
+						+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOE') THEN(IsNull(Ditem.CodigoItem, '')) ELSE('') END) as LOEPropria"
+					+" FROM Documento as DFat"
+						+" JOIN Documento as Dv ON(Dv.CodigoFatura = DFat.CodigoDocumento)"
+						+" JOIN Documento as Di ON(Di.CodigoDocumentoAdicional = Dv.CodigoDocumento)"
+						+" JOIN Documento as De ON((De.DocumentoCodigo = Dv.CodigoDocumento) AND(De.CodigoDocumentoAdicional = Di.CodigoDocumento))"
+						+" JOIN DocumentoItem as Ditem ON(Ditem.CodigoDocumento = Di.CodigoDocumento)"
+						+" JOIN Documento as Dp ON(Dp.CodigoDocumento = Ditem.CodigoDocumentoAdicional)"
+					+" WHERE"
+						+" ( (Convert(Date, Dfat.DataHoraEmissao, 103) >= '"+data_de+"') AND (Convert(Date, Dfat.DataHoraEmissao, 103) <= '"+data_ate+"') )"
+						+" AND(Dfat.Tipo = 'Fatura') AND(Dfat.Operacao = 'Faturamento') AND(Dfat.Status = 'Finalizada' OR Dfat.Status = 'Aberta')"
+						+" AND(Dv.Tipo = 'Venda') AND(Dv.DescricaoContato <> 'Consumidor')"
+						+" AND(De.Tipo = 'Envelope')"
+						+" AND(Di.Tipo = 'Item Venda')"
+						+" AND(Dp.Tipo = 'Prescrição')"
+					+" GROUP BY Dv.CodigoContato"
+				,false ,url ,banco ,usuario);
+
+
+				if(dadosCliente != null){
+					//Create array envelope
+					acumulaEnvelope=[];
+					for(cli = 0; cli < dadosCliente.RecordsAffected; cli++)
+					{
+						//Select Dados da Prescricao
+						var dadosPrescricao = GeeksSQL(
+							" SELECT"
+								+" IsNull(Convert(varchar(10), Dv.DataHoraEmissao, 103), '') as DataVenda"
+								+" ,IsNull(convert(varchar(10), Dp.DataHoraEmissao, 103), '') as DataPrescricao"
+								+" ,IsNull(DitemLDL.Eixo, 0) as EixoODLonge"
+								+" ,IsNull(DitemLDL.Cilindrico, 0) as CilindricoODLonge"
+								+" ,IsNull(DitemLDL.Adicao, 0) as AdicaoODLonge"
+								+" ,IsNull(DitemLDL.Esferico, 0) EsfericoODLonge"
+								+" ,IsNull(DitemLDL.Prisma, 0) as PrismaODLonge"
+								+" ,IsNull(DitemLDL.DI, 0) as DILonge"
+								+" ,IsNull(DitemLDL.DIOD, 0) as DIODLonge"
+								+" ,IsNull(DitemLDL.DIOE, 0) as DIOELonge"
+								+" ,(CASE WHEN(DitemLDL.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLDL.Base, '')) END) BaseODLonge"
+								+" ,IsNull(DitemLDM.Eixo, 0) as EixoODMedio"
+								+" ,IsNull(DitemLDM.Cilindrico, 0) as CilindricoODMedio"
+								+" ,IsNull(DitemLDM.Adicao, 0) as AdicaoODMedio"
+								+" ,IsNull(DitemLDM.Esferico, 0) as EsfericoODMedio"
+								+" ,IsNull(DitemLDM.Prisma, 0) as PrismaODMedio"
+								+" ,IsNull(DitemLDM.DI, 0) as DIMedio"
+								+" ,IsNull(DitemLDM.DIOD, 0) as DIODMedio"
+								+" ,IsNull(DitemLDM.DIOE, 0) as DIOEMedio"
+								+" ,(CASE WHEN(DitemLDM.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLDM.Base, '')) END) as BaseODMedio"
+								+" ,IsNull(DitemLDP.Eixo, 0) as EixoODPerto"
+								+" ,IsNull(DitemLDP.Cilindrico, 0) as CilindricoODPerto"
+								+" ,IsNull(DitemLDP.Adicao, 0) as AdicaoODPerto"
+								+" ,IsNull(DitemLDP.Esferico, 0) as EsfericoODPerto"
+								+" ,IsNull(DitemLDP.Prisma, 0) as PrismaODPerto"
+								+" ,IsNull(DitemLDP.DI, 0) as DIPerto"
+								+" ,IsNull(DitemLDP.DIOD, 0) as DIODPerto"
+								+" ,IsNull(DitemLDP.DIOE, 0) as DIOEPerto"
+								+" ,(CASE WHEN(DitemLDP.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLDP.Base, '')) END) as BaseODPerto"
+								+" ,IsNull(DitemLEL.Eixo, 0) as EixoOELonge"
+								+" ,IsNull(DitemLEL.Cilindrico, 0) as CilindricoOELonge"
+								+" ,IsNull(DitemLEL.Adicao, 0) as AdicaoOELonge"
+								+" ,IsNull(DitemLEL.Esferico, 0) as EsfericoOELonge"
+								+" ,IsNull(DitemLEL.Prisma, 0) as PrismaOELonge"
+								+" ,(CASE WHEN(DitemLEL.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLEL.Base, '')) END) as BaseOELonge"
+								+" ,IsNull(DitemLEM.Eixo, 0) as EixoOEMedio"
+								+" ,IsNull(DitemLEM.Cilindrico, 0) as CilindricoOEMedio"
+								+" ,IsNull(DitemLEM.Adicao, 0) as AdicaoOEMedio"
+								+" ,IsNull(DitemLEM.Esferico, 0) as EsfericoOEMedio"
+								+" ,IsNull(DitemLEM.Prisma, 0) as PrismaOEMedio"
+								+" ,(CASE WHEN(DitemLEM.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLEM.Base, '')) END) as BaseOEMedio"
+								+" ,IsNull(DitemLEP.Eixo, 0) as EixoOEPerto"
+								+" ,IsNull(DitemLEP.Cilindrico, 0) as CilindricoOEPerto"
+								+" ,IsNull(DitemLEP.Adicao, 0) as AdicaoOEPerto"
+								+" ,IsNull(DitemLEP.Esferico, 0) as EsfericoOEPerto"
+								+" ,IsNull(DitemLEP.Prisma, 0) as PrismaOEPerto"
+								+" ,(CASE WHEN(DitemLEP.Prisma = 0.0000) THEN('') ELSE(IsNull(DitemLEP.Base, '')) END) as BaseOEPerto"
+								+" ,MAX(CASE"
+									+" WHEN(IsNull(Ditem.TipoItem, '') = 'Armação')"
+									+" THEN(CASE"
+											+" WHEN(IsNull(Ditem.DescricaoItem, '') = '')"
+											+" THEN(IsNull(Ditem.Marca, '')+' '+ IsNull(Ditem.Modelo, '')+' '+ (CASE WHEN(convert(varchar(10), Ditem.Tamanho)='0.000') THEN('') ELSE(convert(varchar(10), Ditem.Tamanho)+'/') END)+''+ (CASE WHEN(convert(varchar(10), Ditem.Ponte)='0.0000') THEN('') ELSE(convert(varchar(10), Ditem.Ponte)+'/') END)+''+ (CASE WHEN(convert(varchar(10), Ditem.Haste)='0.0000') THEN('') ELSE(convert(varchar(10), Ditem.Haste)+'/') END)+' '+ IsNull(Ditem.AmarcaoCor, ''))"
+											+" ELSE(IsNull(Ditem.Marca, '') +' '+Ditem.DescricaoItem)"
+										+" END)"
+									+" ELSE('')"
+								+" END) as ArmacaoDescricao"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'Armação') THEN(IsNull(Ditem.ArmacaoMaterial, '')) ELSE('') END) as ArmacaoMaterial"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'Armação') THEN(IsNull(Ditem.TipoMontagem, '')) ELSE('') END) as ArmacaoTipoMontagem"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'Armação' AND IsNull(Ditem.CodigoItem, '') = '') THEN('Sim') ELSE('') END) as ArmacaoPropria"
+								+" ,MAX(CASE"
+									+" WHEN(IsNull(Ditem.TipoItem, '') = 'LOD')"
+									+" THEN(CASE"
+											+" WHEN(IsNull(Ditem.DescricaoItem, '') = '')"
+											+" THEN(IsNull(Ditem.Marca, '')+' '+ IsNull(Ditem.Modelo, '')+' '+ IsNull(convert(varchar, Ditem.IndiceRefracao), '')+' '+ IsNull(Ditem.Cor, ''))"
+											+" ELSE(IsNull(Ditem.DescricaoItem, '')+' '+ IsNull(convert(varchar, Ditem.IndiceRefracao), ''))"
+										+" END)"
+									+" ELSE('')"
+								+" END) as LODDescricao"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOD') THEN(IsNull(Ditem.CodigoItem, '')) ELSE('') END) as LODPropria"
+								+" ,MAX(CASE"
+									+" WHEN(IsNull(Ditem.TipoItem, '') = 'LOE')"
+									+" THEN(CASE"
+											+" WHEN(IsNull(Ditem.DescricaoItem, '') = '')"
+											+" THEN(IsNull(Ditem.Marca, '')+' '+ IsNull(Ditem.Modelo, '')+' '+ IsNull(convert(varchar, Ditem.IndiceRefracao), '')+' '+ IsNull(Ditem.Cor, ''))"
+											+" ELSE(IsNull(Ditem.DescricaoItem, '')+' '+ IsNull(convert(varchar, Ditem.IndiceRefracao), ''))"
+										+" END)"
+									+" ELSE('')"
+								+" END) as LOEDescricao"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOE') THEN(IsNull(Ditem.CodigoItem, '')) ELSE('') END) as LOEPropria"
+								+" ,MAX(CASE"
+									+" WHEN(Ditem.TipoItem = 'TLOD')"
+									+" THEN(IsNull(Ditem.DescricaoItem, ''))"
+									+" ELSE('')"
+								+" END) as TLODDescricao"
+								+" ,MAX(CASE"
+									+" WHEN(Ditem.TipoItem = 'TLOE')"
+									+" THEN(IsNull(Ditem.DescricaoItem, ''))"
+									+" ELSE('')"
+								+" END) as TLOEDescricao"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOD') THEN(IsNull(Ditem.Material, '')) ELSE('') END) as LODMaterial"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOE') THEN(IsNull(Ditem.Material, '')) ELSE('') END) as LOEMaterial"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOD') THEN(IsNull(It.LenteTipo, '')) ELSE('') END) as LODTipo"
+								+" ,MAX(CASE WHEN(IsNull(Ditem.TipoItem, '') = 'LOE') THEN(IsNull(It.LenteTipo, '')) ELSE('') END) as LOETipo"
+								+" ,MAX(IsNull(Di.Operacao, '')) as TipoOperacao"
+								+" ,MAX(IsNull(Medico.Nome, '')) as Medico"
+								+" ,MAX((IsNull(MedicoE.Logradouro+' ', ''))+ (IsNull(MedicoE.NuMero+', ', ''))+ (IsNull(MedicoE.Condominio+' ', ''))+ (IsNull(MedicoE.Bairro+' ', ''))+ (IsNull(MedicoE.Municipio+'-', ''))+ (IsNull(MedicoE.UF+' ', ''))+ (IsNull('Comp.'+MedicoE.CompleMento, ''))) MedicoEndereco"
+								+" ,MAX(IsNull(Medico.NumeroDocumentoMunicipal, '')) as CRM"
+								+" ,MAX(IsNull(PCli.CodigoContato, '')) as CodigoPaciente"
+								+" ,MAX(IsNull(PCli.Nome, '')) as NomePaciente"
+								+" ,MAX(IsNull(PCli.NumeroDocumentoNacional, '')) as CPFPaciente"
+								+" ,MAX(IsNull(PCli.DataAbertura, '')) as DataNscPaciente"
+								+" ,MAX((IsNull(PEnd.Logradouro, ''))+' '+ (IsNull(PEnd.Numero, ''))+', '+ (IsNull(PEnd.Bairro, ''))+' - '+ (IsNull(PEnd.Municipio, ''))+'-'+(IsNull(PEnd.UF, '')) +' '+(IsNull(PEnd.Cep, ''))) as EnderecoPaciente"
+								+" ,MAX(IsNull(PTel.Telefone, '')) as TelefonePaciente"
+							+" FROM Documento as DFat"
+								+" JOIN Documento as Dv ON(Dv.CodigoFatura = DFat.CodigoDocumento)"
+								+" JOIN Documento as Di ON(Di.CodigoDocumentoAdicional = Dv.CodigoDocumento)"
+								+" JOIN Documento as De ON((De.DocumentoCodigo = Dv.CodigoDocumento) AND(De.CodigoDocumentoAdicional = Di.CodigoDocumento))"
+								+" JOIN DocumentoItem as Ditem ON(Ditem.CodigoDocumento = Di.CodigoDocumento)"
+								+" JOIN Documento as Dp ON(Dp.CodigoDocumento = Ditem.CodigoDocumentoAdicional)"
+								+" JOIN Item as It ON(Ditem.CodigoItem = It.CodigoItem)"
+								+" JOIN DocumentoItem as DitemLDL ON(DitemLDL.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN DocumentoItem as DitemLDM ON(DitemLDM.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN DocumentoItem as DitemLDP ON(DitemLDP.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN DocumentoItem as DitemLEL ON(DitemLEL.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN DocumentoItem as DitemLEM ON(DitemLEM.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN DocumentoItem as DitemLEP ON(DitemLEP.CodigoDocumento = Dp.CodigoDocumento)"
+								+" JOIN (SELECT CodigoContato, CodigoDocumento FROM DocumentoContato GROUP BY CodigoContato, CodigoDocumento) as Dc ON(Dc.CodigoDocumento = Dp.CodigoDocumento)"
+								+" LEFT JOIN Contato as Medico ON(Medico.CodigoContato = Dc.CodigoContato)"
+								+" LEFT JOIN ContatoEndereco as MedicoE ON(MedicoE.CodigoContato = Dc.CodigoContato)"
+								+" LEFT JOIN Contato as PCli ON(PCli.CodigoContato = Di.CodigoContato)"
+								+" LEFT JOIN ContatoEndereco as PEnd ON(PEnd.CodigoContato = PCli.CodigoContato)"
+								+" LEFT JOIN ContatoTelefone as PTel ON(PTel.CodigoContato = PCli.CodigoContato)"
+							+" WHERE"
+								+" ( (Convert(Date, Dfat.DataHoraEmissao, 103) >= '"+data_de+"') AND (Convert(Date, Dfat.DataHoraEmissao, 103) <= '"+data_ate+"') )"
+								+" AND(Dfat.Tipo = 'Fatura') AND(Dfat.Operacao = 'Faturamento') AND(Dfat.Status = 'Finalizada' OR Dfat.Status = 'Aberta')"
+								+" AND(Dv.Tipo = 'Venda')"
+								+" AND(Dv.CodigoContato = "+dadosCliente.Records[cli].CodigoCliente+")"
+								+" AND(De.Tipo = 'Envelope')"
+								+" AND(Di.Tipo = 'Item Venda')"
+								+" AND(Dp.Tipo = 'Prescrição')"
+								+" AND(MedicoE.Grupo = 'Principal')"
+								+" AND(DitemLDL.TipoItem = 'Prescrição') AND(DitemLDL.Operacao = 'Olho Direito') AND(DitemLDL.Status = 'Longe')"
+								+" AND(DitemLDM.TipoItem = 'Prescrição') AND(DitemLDM.Operacao = 'Olho Direito') AND(DitemLDM.Status = 'Medio')"
+								+" AND(DitemLDP.TipoItem = 'Prescrição') AND(DitemLDP.Operacao = 'Olho Direito') AND(DitemLDP.Status = 'Perto')"
+								+" AND(DitemLEL.TipoItem = 'Prescrição') AND(DitemLEL.Operacao = 'Olho Esquerdo') AND(DitemLEL.Status = 'Longe')"
+								+" AND(DitemLEM.TipoItem = 'Prescrição') AND(DitemLEM.Operacao = 'Olho Esquerdo') AND(DitemLEM.Status = 'Medio')"
+								+" AND(DitemLEP.TipoItem = 'Prescrição') AND(DitemLEP.Operacao = 'Olho Esquerdo') AND(DitemLEP.Status = 'Perto')"
+							+" GROUP BY"
+								+" Dv.DataHoraEmissao"
+								+" ,Dp.DataHoraEmissao"
+								+" ,DitemLDL.Eixo"
+								+" ,DitemLDL.Cilindrico"
+								+" ,DitemLDL.Adicao"
+								+" ,DitemLDL.Esferico"
+								+" ,DitemLDL.Prisma"
+								+" ,DitemLDL.DI"
+								+" ,DitemLDL.DIOD"
+								+" ,DitemLDL.DIOE"
+								+" ,DitemLDL.Base"
+								+" ,DitemLDM.Eixo"
+								+" ,DitemLDM.Cilindrico"
+								+" ,DitemLDM.Adicao"
+								+" ,DitemLDM.Esferico"
+								+" ,DitemLDM.Prisma"
+								+" ,DitemLDM.DI"
+								+" ,DitemLDM.DIOD"
+								+" ,DitemLDM.DIOE"
+								+" ,DitemLDM.Base"
+								+" ,DitemLDP.Eixo"
+								+" ,DitemLDP.Cilindrico"
+								+" ,DitemLDP.Adicao"
+								+" ,DitemLDP.Esferico"
+								+" ,DitemLDP.Prisma"
+								+" ,DitemLDP.DI"
+								+" ,DitemLDP.DIOD"
+								+" ,DitemLDP.DIOE"
+								+" ,DitemLDP.Base"
+								+" ,DitemLEL.Eixo"
+								+" ,DitemLEL.Cilindrico"
+								+" ,DitemLEL.Adicao"
+								+" ,DitemLEL.Esferico"
+								+" ,DitemLEL.Prisma"
+								+" ,DitemLEL.Base"
+								+" ,DitemLEM.Eixo"
+								+" ,DitemLEM.Cilindrico"
+								+" ,DitemLEM.Adicao"
+								+" ,DitemLEM.Esferico"
+								+" ,DitemLEM.Prisma"
+								+" ,DitemLEM.Base"
+								+" ,DitemLEP.Eixo"
+								+" ,DitemLEP.Cilindrico"
+								+" ,DitemLEP.Adicao"
+								+" ,DitemLEP.Esferico"
+								+" ,DitemLEP.Prisma"
+								+" ,DitemLEP.Base"
+						,false ,url ,banco ,usuario);
+
+						//Array get Dados da Prescricao
+						acumulaEnvelope.push(dadosPrescricao)
+					}
+				}
+				
+
+
+				//Monta & Preenche -> Template de Estrutura//
+
+				tempEstrutura=[]; //Create array Estrutura
+				tempCliente=[]; //Create array Cliente
+
+				for(cont=0; cont < dadosCliente.RecordsAffected; cont++)
+				{	
+					//Get template html Cliente
+					var tempCliente = $("#tempCliente").html();
+
+					//Replace dados em template Cliente
+					tempCliente = tempCliente
+						.replace("[CodigoCliente]", dadosCliente.Records[cont].CodigoCliente)
+						.replace("[NomeCliente]", dadosCliente.Records[cont].NomeCliente)
+						.replace("[EnderecoCliente]", dadosCliente.Records[cont].EnderecoCliente)
+						.replace("[TelefoneCliente]", dadosCliente.Records[cont].TelefoneCliente);
+
+					//Monta estrutura da Prescrição/Produtos
+					tempEnvelope=[]; //Create array Envelope
+					for(cont2 = 0; cont2 < acumulaEnvelope[cont].RecordsAffected; cont2++)
+					{
+						//Get template html Prescricao (Envelope)
+						var tempPresc = $("#tempPresc").html();
+
+						//Verifica se existe venda de lentes (se sim imprime venda, se não oculta venda)
+						if((acumulaEnvelope[cont].Records[cont2].LODPropria == '0') && (acumulaEnvelope[cont].Records[cont2].LOEPropria == '0'))
+						{
+							break;
+						}
+						else
+						{
+							//Se cliente e paciente forem iguais retira bloco paciente
+							if(dadosCliente.Records[cont].CodigoCliente != acumulaEnvelope[cont].Records[cont2].CodigoPaciente) {
+								var blocoPaciente ="<h5><span class='b'>Paciente:</span> <span>"+acumulaEnvelope[cont].Records[cont2].CodigoPaciente+"</span> - <span>"+acumulaEnvelope[cont].Records[cont2].NomePaciente+"</span></h5>";
+									blocoPaciente +="<h5><span class='b'>Endereço:</span> <span>"+acumulaEnvelope[cont].Records[cont2].EnderecoPaciente+"</span></h5>";
+									blocoPaciente +="<h5><span class='b'>Telefone:</span> <span>"+acumulaEnvelope[cont].Records[cont2].TelefonePaciente+"</span></h5>";
+
+								tempPresc = tempPresc
+									.replace("[ID_DadosPaciente]", blocoPaciente);
+							}
+							else {
+								tempPresc = tempPresc.replace("[ID_DadosPaciente]", '');
+							}
+
+							//Replace dados em template Prescricao
+							tempPresc = tempPresc
+								//Dados Data
+									.replace("[DataVenda]", acumulaEnvelope[cont].Records[cont2].DataVenda)
+									.replace("[DataPrescricao]", acumulaEnvelope[cont].Records[cont2].DataPrescricao)
+
+								//Olho Direito
+								//Longe
+									.replace("[ODLEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoODLonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoODLonge).toFixed(2)) ) )
+									.replace("[ODLCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoODLonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoODLonge).toFixed(2)) ) )
+									.replace("[ODLEix]", (acumulaEnvelope[cont].Records[cont2].EixoODLonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoODLonge).toFixed(0)) ) )
+									.replace("[ODLPri]", (acumulaEnvelope[cont].Records[cont2].PrismaODLonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaODLonge).toFixed(2)) ) )
+									.replace("[ODLBas]", (acumulaEnvelope[cont].Records[cont2].BaseODLonge == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseODLonge))
+									.replace("[ODLDNP]", (acumulaEnvelope[cont].Records[cont2].DIODLonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIODLonge).toFixed(2)) ) )
+								//Medio
+									.replace("[ODMAdi]", (acumulaEnvelope[cont].Records[cont2].AdicaoODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].AdicaoODMedio).toFixed(2)) ) )
+									.replace("[ODMEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoODMedio).toFixed(2)) ) )
+									.replace("[ODMCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoODMedio).toFixed(2)) ) )
+									.replace("[ODMEix]", (acumulaEnvelope[cont].Records[cont2].EixoODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoODMedio).toFixed(0)) ) )
+									.replace("[ODMPri]", (acumulaEnvelope[cont].Records[cont2].PrismaODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaODMedio).toFixed(2)) ) )
+									.replace("[ODMBas]", (acumulaEnvelope[cont].Records[cont2].BaseODMedio == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseODMedio))
+									.replace("[ODMDNP]", (acumulaEnvelope[cont].Records[cont2].DIODMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIODMedio).toFixed(2)) ) )
+								//Perto
+									.replace("[ODPAdi]", (acumulaEnvelope[cont].Records[cont2].AdicaoODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].AdicaoODPerto).toFixed(2)) ) )
+									.replace("[ODPEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoODPerto).toFixed(2)) ) )
+									.replace("[ODPCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoODPerto).toFixed(2)) ) )
+									.replace("[ODPEix]", (acumulaEnvelope[cont].Records[cont2].EixoODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoODPerto).toFixed(0)) ) )
+									.replace("[ODPPri]", (acumulaEnvelope[cont].Records[cont2].PrismaODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaODPerto).toFixed(2)) ) )
+									.replace("[ODPBas]", (acumulaEnvelope[cont].Records[cont2].BaseODPerto == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseODPerto))
+									.replace("[ODPDNP]", (acumulaEnvelope[cont].Records[cont2].DIODPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIODPerto).toFixed(2)) ) )
+
+								//Olho Esquerdo
+								//Longe
+									.replace("[OELEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoOELonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoOELonge).toFixed(2)) ) )
+									.replace("[OELCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoOELonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoOELonge).toFixed(2)) ) )
+									.replace("[OELEix]", (acumulaEnvelope[cont].Records[cont2].EixoOELonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoOELonge).toFixed(0)) ) )
+									.replace("[OELPri]", (acumulaEnvelope[cont].Records[cont2].PrismaOELonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaOELonge).toFixed(2)) ) )
+									.replace("[OELBas]", (acumulaEnvelope[cont].Records[cont2].BaseOELonge == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseOELonge))
+									.replace("[OELDNP]", (acumulaEnvelope[cont].Records[cont2].DIOELonge == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIOELonge).toFixed(2)) ) )
+								//Medio
+									.replace("[OEMAdi]", (acumulaEnvelope[cont].Records[cont2].AdicaoOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].AdicaoOEMedio).toFixed(2)) ) )
+									.replace("[OEMEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoOEMedio).toFixed(2)) ) )
+									.replace("[OEMCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoOEMedio).toFixed(2)) ) )
+									.replace("[OEMEix]", (acumulaEnvelope[cont].Records[cont2].EixoOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoOEMedio).toFixed(0)) ) )
+									.replace("[OEMPri]", (acumulaEnvelope[cont].Records[cont2].PrismaOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaOEMedio).toFixed(2)) ) )
+									.replace("[OEMBas]", (acumulaEnvelope[cont].Records[cont2].BaseOEMedio == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseOEMedio))
+									.replace("[OEMDNP]", (acumulaEnvelope[cont].Records[cont2].DIOEMedio == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIOEMedio).toFixed(2)) ) )
+								//Perto
+									.replace("[OEPAdi]", (acumulaEnvelope[cont].Records[cont2].AdicaoOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].AdicaoOEPerto).toFixed(2)) ) )
+									.replace("[OEPEsf]", (acumulaEnvelope[cont].Records[cont2].EsfericoOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EsfericoOEPerto).toFixed(2)) ) )
+									.replace("[OEPCil]", (acumulaEnvelope[cont].Records[cont2].CilindricoOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].CilindricoOEPerto).toFixed(2)) ) )
+									.replace("[OEPEix]", (acumulaEnvelope[cont].Records[cont2].EixoOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].EixoOEPerto).toFixed(0)) ) )
+									.replace("[OEPPri]", (acumulaEnvelope[cont].Records[cont2].PrismaOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].PrismaOEPerto).toFixed(2)) ) )
+									.replace("[OEPBas]", (acumulaEnvelope[cont].Records[cont2].BaseOEPerto == "" ? "." : acumulaEnvelope[cont].Records[cont2].BaseOEPerto))
+									.replace("[OEPDNP]", (acumulaEnvelope[cont].Records[cont2].DIOEPerto == 0.0000 ? "." : ((acumulaEnvelope[cont].Records[cont2].DIOEPerto).toFixed(2)) ) )
+
+								//Dados LOD
+									.replace("[DescricaoItemLOD]", acumulaEnvelope[cont].Records[cont2].LODDescricao)
+									.replace("[LenteMaterialLOD]", acumulaEnvelope[cont].Records[cont2].LODMaterial)
+									.replace("[LenteTipoLOD]", (acumulaEnvelope[cont].Records[cont2].LODTipo == "null" ? "" : acumulaEnvelope[cont].Records[cont2].LODTipo))
+									.replace("[TratamentoLOD]", acumulaEnvelope[cont].Records[cont2].TLODDescricao)
+
+								//Dados LOE
+									.replace("[DescricaoItemLOE]", acumulaEnvelope[cont].Records[cont2].LOEDescricao)
+									.replace("[LenteMaterialLOE]", acumulaEnvelope[cont].Records[cont2].LOEMaterial)
+									.replace("[LenteTipoLOE]", (acumulaEnvelope[cont].Records[cont2].LOETipo == "null" ? "" : acumulaEnvelope[cont].Records[cont2].LOETipo))
+									.replace("[TratamentoLOE]", acumulaEnvelope[cont].Records[cont2].TLOEDescricao)
+
+								//Dados Armação
+									.replace("[DescricaoItemArmacao]", (acumulaEnvelope[cont].Records[cont2].TipoOperacao == "Lente de Contato Surfaçada" ? "" : (acumulaEnvelope[cont].Records[cont2].ArmacaoPropria == "Sim" ? '' : ("<span class='b'>Armação:</span> <span>"+(acumulaEnvelope[cont].Records[cont2].ArmacaoDescricao)+"</span>")) ))
+									.replace("[ArmacaoMaterial]", acumulaEnvelope[cont].Records[cont2].ArmacaoMaterial)
+									.replace("[ArmacaoTipoMontagem]", acumulaEnvelope[cont].Records[cont2].ArmacaoTipoMontagem)
+									.replace("[ArmacaoPropria]", (acumulaEnvelope[cont].Records[cont2].TipoOperacao == "Lente de Contato Surfaçada" ? "" : ("<span class='float-r'>"+(acumulaEnvelope[cont].Records[cont2].ArmacaoPropria == "Sim" ? ("<span class='b'>Própria:</span>"+acumulaEnvelope[cont].Records[cont2].ArmacaoPropria) : '')+"</span>") ))
+
+								//Dados Médico
+									.replace("[Medico]", acumulaEnvelope[cont].Records[cont2].Medico)
+									.replace("[MedicoEndereco]", acumulaEnvelope[cont].Records[cont2].MedicoEndereco)
+									.replace("[CRM]", acumulaEnvelope[cont].Records[cont2].CRM);
+
+							//Acumula TempPresc de cada Cliente
+							tempEnvelope += tempPresc;
+
+						}//.end if (Lente)
+					}//.end for
+
+					//Se não houver Prescrição/Produto exclui cliente
+					if(tempEnvelope == '')
+					{
+						tempCliente = '';
+					}
+
+					//Organiza estrutura
+					tempEstrutura += tempCliente;
+					tempEstrutura += tempEnvelope;
+
+					//Fecha DIV da tempCliente
+					tempEstrutura += "</div>"
+				}//.end for
+
+				//Printscreen Estrutura
+				$("#LayoutEstrutura").append(tempEstrutura);
+			});
+		</script>
+	</body>
+</html>

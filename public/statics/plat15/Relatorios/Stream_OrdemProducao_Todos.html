@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+	<title>Ordem de Produção</title>
+	<link href="/Content/Plugins/jquery.alerts/Css/jquery.alerts.css" rel="stylesheet" />
+	<style type="text/css">
+		@media all { 
+		.page-break	{ display: none; } 
+		}
+		@media print {
+			.page-break	{ display: block; page-break-before: always; }
+		} 
+	</style>
+	<script src="/Scripts/jquery-2.1.4.min.js"></script>
+	<script src="/Scripts/jquery-migrate-1.2.1.js"></script>
+	<script src="/Content/Plugins/jquery.alerts/Js/jquery.alerts.js"></script>
+	<script src="/Scripts/jquery.cookie.js"></script> 
+	<script src="/Scripts/number_format.js"></script>
+	<script src="/Restricted/Geeks.ERP.Config.js"></script>
+	<script src="/Restricted/Geeks.ERP.Namespaces.js"></script>
+	<script src="/Restricted/Geeks.ERP.Namespaces.def.js"></script>
+	<script src="/Restricted/Geeks.ERP.Core.js"></script>
+	<script src="/Restricted/Geeks.ERP.Report.js"></script>
+	<script> 
+		$(document).ready(function () {
+			var cod = getParameterByName("CodigoDocumento");
+			$("#Stream_OrdemProducao").load("./Stream_OrdemProducao.html?CodigoDocumento="+cod);
+			$("#Stream_OrdemProducao_CertificadoAnalise").load("./Stream_OrdemProducao_CertificadoAnalise.html?CodigoDocumento="+cod);
+			$("#Stream_OrdemProducao_CertificadoAnaliseEnvasado").load("./Stream_OrdemProducao_CertificadoAnaliseEnvasado.html?CodigoDocumento="+cod);
+			$("#Stream_OrdemProducao_Envase").load("./Stream_OrdemProducao_Envase.html?CodigoDocumento="+cod);
+			$("#Stream_OrdemProducao_Etiqueta").load("./Stream_OrdemProducao_Etiqueta.html?CodigoDocumento="+cod);
+			$("#Stream_OrdemProducao_FichaPesagem").load("./Stream_OrdemProducao_FichaPesagem.html?CodigoDocumento="+cod);
+		});
+	</script>
+</head> 
+<body>
+	<div id="Stream_OrdemProducao"></div> 
+	<div class="page-break"></div>
+	<div id="Stream_OrdemProducao_CertificadoAnalise"></div> 
+	<div class="page-break"></div>
+	<div id="Stream_OrdemProducao_CertificadoAnaliseEnvasado"></div> 
+	<div class="page-break"></div> 
+	<div id="Stream_OrdemProducao_Envase"></div> 
+	<div class="page-break"></div>
+	<div id="Stream_OrdemProducao_Etiqueta"></div> 
+	<div class="page-break"></div>
+	<div id="Stream_OrdemProducao_FichaPesagem"></div> 
+</body>
+</html>

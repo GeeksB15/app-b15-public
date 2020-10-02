@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <title>Ordem de Serviço</title>
+        <link rel="stylesheet" type="text/css" href="optidados.framework.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+        <script src="/Scripts/codigobarras.js"></script>
+        <script src="/Plugins/html2canvas.js"></script>
+
+        <style type="text/css" media="print">
+        	@page{
+        		margin:4.5mm;
+        	}
+
+        	.botao-apagar-parte-CLIENTE,
+	        .botao-apagar-parte-LAB,
+			.btRemoverVia,
+			.botao-apagar-parte {
+				display: none;
+			}
+        </style>
+
+        <script id="TempCabecalho" type="TempCabecalho">
+			<!--dados loja-->
+			<div class="row w100 lineb pb04">
+				<div class="col w20 logo mr1">
+					<img style="width: 100%; height: 100%;" src="optsoul-exemplo.png"/>
+				</div>
+
+				<div class="col w56">
+					<h5 class="row w100 lineb mb02">[NomeEmpresa]</h5>
+					<h5 class="row w100">[TelefoneEmpresa]</h5>
+					<h5 class="row w100">[EnderecoEmpresa]</h5>
+					<h5 class="row w100">[EmailEmpresa]</h5>
+					<h5 class="row w100">[SiteEmpresa]</h5>
+					<!--<p>Atendente: <span class="vendedor"></span></p>-->
+				</div>
+
+				<div class="col w22 txt-ac">
+					<h5 class="lineb">Ordem de Serviço</h5>
+					<h5 class="CodigoBarrasVenda[NumeroVenda]"></h5>
+					<h5 class="mt02 w100 NumeroVenda[NumeroVenda]"></h5>
+				</div>
+			</div>
+
+			<!--dados cliente-->
+			<div class="row w100 mt05">
+				<h5 class="col w65 txt-hidden"><span>[CodigoCliente]</span> <span>[NomeCliente]</span></h5>
+				<h5 class="col w35 txt-hidden"><span>[CPF]</span> <span>[RG]</span></h5>
+				<h5 class="col w65 txt-hidden"><span>[TelefoneCliente]</span></h5>
+				<h5 class="col w35 txt-hidden"><span>[EmailCliente]</span></h5>
+				<h5 class="row w100"><span>[EnderecoCliente]</span></h5>
+			</div>
+        </script>
+
+        <script id="TempItemOrdem" type="TempItemOrdem">
+			<!--dados ordem-->
+			<div class="row w98-5 mt1 mb05 linel lineb liner pl05 pb05 pr05" style="page-break-inside: avoid !important;">
+				<div class="row w77">
+					<div class="row w100">
+						<h4>Serviço: <span class="b">[DescItem]</span></h4>
+					</div>
+
+					<div class="row w100 pb05 mt02">
+						<h5>Tipo: <span class="b Tipo">[TipoItem]</span></h5>
+						<h5>Marca: <span class="b Marca">[MarcaItem]</span></h5>
+						<h5>Material: <span class="b Material">[MaterialItem]</span></h5>
+						<h5>Estado: <span class="b Estado">[EstadoiTEM]</span></h5>
+					</div>
+				</div>
+
+				<div class="col w23">
+					<div class="row w100 txt-ac">
+						<h5 class="CodigoBarrasOS[NumeroOS]"></h5>
+						<h5 class="mt03 w100 NumeroOS[NumeroOS]"></h5>
+					</div>
+					<div class="row w100">
+						<h5 class="txt-ar">[DataImpresso]</h5>
+						<h5 class="txt-ar">[DataEmissao]</h5>
+						<h5 class="txt-ar">[DataPrevisto]</h5>
+						<h5 class="txt-ar">[DataGarantia]</h5>
+					</div>
+				</div>
+
+				<div class="row w98-5 linel lineb liner mt05 pf05">
+					<h5 class="b pt03 lineb">Problema:</h5>
+					<h5 class="pl20 pt03">[DescProblema]</h5>
+				</div>
+
+				<div class="row w98-5 linel lineb liner mt1 pf05">
+					<h5 class="b pt03 lineb">Solução:</h5>
+					<h5 class="pl20 pt03">[DescSolucao]</h5>
+				</div>
+
+				<div class="row w100 pb04 mt05">
+					<div class="row w100">
+						<h4 class="row w50 lineb-dashed float-r">Valor: <span class="float-r b">[SubTotalItem]</span></h4>
+					</div>
+
+					<div class="row w100">
+						<h4 class="row w50 lineb-dashed float-r">Desconto: <span class="float-r b">[DescontoItem]</span></h4>
+					</div>
+
+					<div class="row w100">
+						<h4 class="row w50 lineb-dashed float-r">Total: <span class="float-r b">[TotalItem]</span></h4>
+					</div>
+				</div>
+			</div>
+        </script>
+
+        <script id="TempTotalOrdem" type="TempTotalOrdem">
+			<div class="row w100 pb04 mt2">
+				<div class="row w100">
+					<h4 class="row w50 lineb float-r b">Total Ordens de Serviço</h4>
+				</div>
+
+				<div class="row w100">
+					<h4 class="row w50 lineb float-r">Valor: <span class="float-r b">[SubTotal]</span></h4>
+				</div>
+
+				<div class="row w100">
+					<h4 class="row w50 lineb float-r">Desconto: <span class="float-r b">[Desconto]</span></h4>
+				</div>
+
+				<div class="row w100">
+					<h4 class="row w50 lineb float-r">Total: <span class="float-r b">[Total]</span></h4>
+				</div>
+			</div>
+        </script>
+	</head>
+
+	<body>
+		<div class="container">
+			<!--cabeçalho-->
+			<div class="printCabecalho"></div>
+
+			<!--Ordens-->
+			<div class="printItemOrdem"></div>
+
+			<!--Totalizador Ordens-->
+			<div class="printTotalOrdens"></div>
+
+			<!--Termos de Serviço-->
+			<div class="row w100 txt-ac mt25">
+				<h4 class="w51 lineb b" style="margin: 0 auto;">Termos de Serviço</h4>
+				<h5 class="w50" style="margin: 0 auto;">Declaro estar de acordo com o estado do(s) produto(s) acima descrito(s) no momento de entrega deste documento, assim como, os serviços e valores aplicados posteriormente.</h5>
+				<p class="float-r linet w35 txt-ac pt3 mt45">Assinatura</p>
+			</div>
+		</div><!--.end container-->
+
+		<script>
+			$(document).ready(function(){
+				//Connect DB
+                var banco = getParameterByName("BancoDeDados");
+                var usuario = getParameterByName("CodigoUsuario");
+                var url = decodeURIComponent(getParameterByName("URLServidor"));
+
+                //Get Codigo Venda
+                var CodigoVenda = getParameterByName("CodigoVenda");
+
+
+                //Dados Ordem de Serviço
+				var dadosOrdem = GeeksSQL(
+					" SELECT"
+						+" IsNull(Dv.CodigoDocumento, '') CodigoDocumento"
+						+" ,IsNull(Dv.Numero, '') NumeroVenda"
+						+" ,IsNull(Cemp.Apelido, '') NomeEmpresa"
+						+" ,IsNull(Cemp.Email, '') EmailEmpresa"
+						+" ,IsNull(Cemp.Site, '') SiteEmpresa"
+						+" ,IsNull(Cemp.Imagem, 'Não informado') Imagem"
+						+" ,IsNull(STUFF(("
+							+" SELECT ',  '+Ctemp.Telefone"
+							+" FROM ContatoTelefone Ctemp"
+							+" WHERE"
+								+" Ctemp.CodigoContato = Cemp.CodigoContato"
+						+" FOR XML PATH('')), 1, 2, ''), '') TelefoneEmpresa"
+						+" ,(IsNull(Ceemp.Logradouro+' ', ''))+ (IsNull(Ceemp.Numero+', ', ''))+ (IsNull(Ceemp.Bairro+' ', ''))+ (IsNull(Ceemp.Municipio+'-', ''))+(IsNull(Ceemp.UF+' ', ''))+ (IsNull(Ceemp.Cep, '')) as EnderecoEmpresa"
+						+" ,IsNull(Ccli.CodigoContato, '') CodigoCliente"
+						+" ,IsNull(Ccli.Nome, '') NomeCliente"
+						+" ,IsNull(Ccli.NumeroDocumentoNacional, '') CPF"
+						+" ,IsNull(Ccli.NumeroDocumentoEstadual, '') RG"
+						+" ,IsNull(Ccli.Email, '') EmailCliente"
+						+" ,IsNull(STUFF(("
+							+" SELECT ',  '+Ctcli.Telefone"
+							+" FROM ContatoTelefone Ctcli"
+							+" WHERE"
+								+" Ctcli.CodigoContato = Ccli.CodigoContato"
+						+" FOR XML PATH('')), 1, 2, ''), '') TelefoneCliente"
+						+" ,(IsNull(Cecli.Logradouro+' ', ''))+ (IsNull(Cecli.Numero+', ', ''))+ (IsNull(Cecli.Bairro+'', ''))+ (IsNull(Cecli.Municipio+'-', ''))+(IsNull(Cecli.UF+' ', ''))+ (IsNull(Cecli.Cep, '')) as EnderecoCliente"
+					+" FROM Documento Dv"
+						+" LEFT JOIN DocumentoItem Ditem ON(Ditem.CodigoDocumento = Dv.CodigoDocumento)"
+						+" LEFT JOIN Documento Dos ON(Dos.CodigoDocumento = Ditem.CodigoDocumentoAdicional)"
+						+" LEFT JOIN Contato Cemp ON(Cemp.CodigoContato = Dv.CodigoEmpresa)"
+						+" LEFT JOIN ContatoEndereco Ceemp ON(Ceemp.CodigoContato = Cemp.CodigoContato) AND (Ceemp.Grupo = 'Principal')"
+						+" LEFT JOIN Contato Ccli ON(Ccli.CodigoContato = Dv.CodigoContato)"
+						+" LEFT JOIN ContatoEndereco Cecli ON(Cecli.CodigoContato = Ccli.CodigoContato) AND (Cecli.Grupo = 'Principal')"
+					+" WHERE"
+						+" Dv.Tipo = 'Venda'"
+						+" AND Dos.Tipo = 'Ordem de Serviço'"
+						+" AND Dv.CodigoDocumento ="+CodigoVenda
+					+" GROUP BY"
+						+" Dv.CodigoDocumento, Dv.Numero, Cemp.Apelido, Cemp.Email, Cemp.Site, Cemp.Imagem, Cemp.CodigoContato, Ceemp.Logradouro, Ceemp.Numero, Ceemp.Bairro, Ceemp.Municipio, Ceemp.UF, Ceemp.Cep, Ccli.CodigoContato, Ccli.Nome, Ccli.NumeroDocumentoNacional, Ccli.NumeroDocumentoEstadual, Ccli.Email, Cecli.Logradouro, Cecli.Numero, Cecli.Bairro, Cecli.Municipio, Cecli.UF, Cecli.Cep"
+				, false, url, banco, usuario);
+
+
+				$(dadosOrdem.Records).each(function(index, rowOrd) {
+					
+					//Template Cabecalho
+					var Cabecalho = $("#TempCabecalho").html();
+					
+					Cabecalho = Cabecalho
+						.replaceAll("[NumeroVenda]", (rowOrd.NumeroVenda != '' && rowOrd.NumeroVenda != null && rowOrd.NumeroVenda != "null" ? rowOrd.NumeroVenda : "") )
+						.replaceAll("[NomeEmpresa]", (rowOrd.NomeEmpresa != '' && rowOrd.NomeEmpresa != null && rowOrd.NomeEmpresa != "null" ? rowOrd.NomeEmpresa : "") )
+						.replaceAll("[TelefoneEmpresa]", (rowOrd.TelefoneEmpresa != '' && rowOrd.TelefoneEmpresa != null && rowOrd.TelefoneEmpresa != "null" ? rowOrd.TelefoneEmpresa : "") )
+						.replaceAll("[EnderecoEmpresa]", (rowOrd.EnderecoEmpresa != '' && rowOrd.EnderecoEmpresa != null && rowOrd.EnderecoEmpresa != "null" ? rowOrd.EnderecoEmpresa : "") )
+						.replaceAll("[EmailEmpresa]", (rowOrd.EmailEmpresa != '' && rowOrd.EmailEmpresa != null && rowOrd.EmailEmpresa != "null" ? rowOrd.EmailEmpresa : "") )
+						.replaceAll("[SiteEmpresa]", (rowOrd.SiteEmpresa != '' && rowOrd.SiteEmpresa != null && rowOrd.SiteEmpresa != "null" ? rowOrd.SiteEmpresa : "") )
+						.replaceAll("[CodigoCliente]", (rowOrd.CodigoCliente != '' && rowOrd.CodigoCliente != null && rowOrd.CodigoCliente != "null" ? rowOrd.CodigoCliente : "") )
+						.replaceAll("[NomeCliente]", (rowOrd.NomeCliente != '' && rowOrd.NomeCliente != null && rowOrd.NomeCliente != "null" ? rowOrd.NomeCliente : "") )
+						.replaceAll("[CPF]", (rowOrd.CPF != '' ? ('CPF: '+rowOrd.CPF) : "") )
+						.replaceAll("[RG]", (rowOrd.RG != '' ? ('/ RG: '+rowOrd.RG) : "") )
+						.replaceAll("[TelefoneCliente]", (rowOrd.TelefoneCliente != '' && rowOrd.TelefoneCliente != null && rowOrd.TelefoneCliente != "null" ? rowOrd.TelefoneCliente : "") )
+						.replaceAll("[EmailCliente]", (rowOrd.EmailCliente != '' && rowOrd.EmailCliente != null && rowOrd.EmailCliente != "null" ? rowOrd.EmailCliente : "") )
+						.replaceAll("[EnderecoCliente]", (rowOrd.EnderecoCliente != '' && rowOrd.EnderecoCliente != null && rowOrd.EnderecoCliente != "null" ? rowOrd.EnderecoCliente : "") )
+					;
+
+					//Print Cabecalho
+					$(".printCabecalho").append(Cabecalho);
+
+
+					//Dados Itens
+					var dadosItens = GeeksSQL(
+						" SELECT"
+							+" IsNull(Dos.Numero, '') NumeroOS"
+							+" ,IsNull(Dos.Descricao, '') Problema"
+							+" ,IsNull(Dos.Observacao, '') Solucao"
+							+" ,IsNull(Dos.Status, '') StatusOS"
+							+" ,IsNull(Ditem.CodigoItem, '') CodigoItem"
+							+" ,IsNull(Ditem.DescricaoItem, '') Descricao"
+							+" ,IsNull(Ditem.Quantidade, 0) Quantidade"
+							+" ,IsNull(Ditem.ValorItem, 0) Valor"
+							+" ,IsNull(Ditem.DescontoItem, 0) Desconto"
+							+" ,IsNull(Ditem.Total, 0) Total"
+							+" ,IsNULL(Ditem.Modelo, '') Tipo"
+							+" ,IsNull(Ditem.Marca, '') Marca"
+							+" ,IsNull(Ditem.Material, '') Material"
+							+" ,IsNull(Ditem.Genero, '') Estado"
+							+" ,IsNull(Convert(varchar(10), GetDate(), 103), '') DataHoraImpresso"
+							+" ,IsNull(Convert(varchar(10), Dos.DataHoraEmissao, 103), '') DataHoraEmissao"
+							+" ,IsNull(Convert(varchar(10), Dos.DataHoraPrevisto, 103), '') DataHoraPrevisto"
+							+" ,IsNull(Convert(varchar(10), Ditem.DataGarantiaFim, 103), '') DataHoraGarantia"
+						+" FROM Documento Dos"
+							+" LEFT JOIN DocumentoItem Ditem ON(Ditem.CodigoDocumentoAdicional = Dos.CodigoDOcumento)"
+						+" WHERE"
+							+" Dos.Tipo = 'Ordem de Serviço'"
+							+" AND Ditem.CodigoDOcumento ="+rowOrd.CodigoDocumento
+					,false ,url ,banco ,usuario);
+
+					//Var Totalizadores
+					var
+						SubTotal = 0
+						Desconto = 0
+						Total = 0
+					;
+
+					$(dadosItens.Records).each(function(index, rowIts) {
+						//Template Ordem
+						var ItemOrdem = $("#TempItemOrdem").html();
+						
+						ItemOrdem = ItemOrdem
+							.replaceAll("[NumeroOS]", (rowIts.NumeroOS != '' ? rowIts.NumeroOS : "<span class='Opacity'>.</span>") )
+							.replaceAll("[DescItem]", (rowIts.Descricao != '' ? rowIts.Descricao : "<span class='Opacity'>.</span>") )
+							.replaceAll("[TipoItem]", (rowIts.Tipo != '' ? rowIts.Tipo : "<span class='Opacity'>.</span>") )
+							.replaceAll("[MarcaItem]", (rowIts.Marca != '' ? rowIts.Marca : "<span class='Opacity'>.</span>") )
+							.replaceAll("[MaterialItem]", (rowIts.Material != '' ? rowIts.Material : "<span class='Opacity'>.</span>") )
+							.replaceAll("[EstadoiTEM]", (rowIts.Estado != '' ? rowIts.Estado : "<span class='Opacity'>.</span>") )
+							.replaceAll("[DescProblema]", (rowIts.Problema != '' ? rowIts.Problema : "<span class='Opacity'>.</span>") )
+							.replaceAll("[DescSolucao]", (rowIts.Solucao != '' ? rowIts.Solucao : "<span class='Opacity'>.</span>") )
+							.replaceAll("[DataImpresso]", (rowIts.DataHoraImpresso != '' ? 'Impresso <span class="b">'+rowIts.DataHoraImpresso+' </span>' : "") )
+							.replaceAll("[DataEmissao]", (rowIts.DataHoraEmissao != '' ? 'Emissão <span class="b">'+rowIts.DataHoraEmissao+' </span>' : "") )
+							.replaceAll("[DataPrevisto]", (rowIts.DataHoraPrevisto != '' ? 'Entrega Prevista <span class="b">'+rowIts.DataHoraPrevisto+' </span>' : "") )
+							.replaceAll("[DataGarantia]", (rowIts.DataHoraGarantia != '' ? 'Garantia <span class="b">'+rowIts.DataHoraGarantia+' </span>' : "") )
+							.replaceAll("[SubTotalItem]", (rowIts.Valor != 0 ? (rowIts.Valor.toFixed(2).replace('.',',')) : "<span class='Opacity'>.</span>") )
+							.replaceAll("[DescontoItem]", (rowIts.Desconto != 0 ? (rowIts.Desconto.toFixed(2).replace('.',',')) : "<span class='Opacity'>.</span>") )
+							.replaceAll("[TotalItem]", (rowIts.Total != 0 ? (rowIts.Total.toFixed(2).replace('.',',')) : "<span class='Opacity'>.</span>") )
+						;
+
+						//Print Ordem
+						$(".printItemOrdem").append(ItemOrdem);
+
+						//Totalizador
+						SubTotal += rowIts.Valor;
+						Desconto += rowIts.Desconto;
+						Total += rowIts.Total;
+
+						//Codigo Barras Ordem Serviço
+						var numero = String(rowIts.NumeroOS);
+						var zeros = 13 - Number(numero.length);
+
+						for (var i = 0; i < zeros; i++)
+							numero = '0' + numero;
+
+						$(".CodigoBarrasOS"+rowIts.NumeroOS).each(function() {
+							$( this ).css("white-space", "nowrap");
+							$( this ).css("background-color", "#fff");
+							$( this ).html(fbarcode(numero,20));
+						});
+						$(".NumeroOS"+rowIts.NumeroOS).each(function() {
+							$( this ).html('Nº: '+rowIts.NumeroOS);
+						});
+					});//RowIts
+
+
+					//Totalizadores (Somente se existir mais de uma OS)
+					if (dadosItens.RecordsAffected > 1) {
+						//Template Totalizadores
+						var TotalOrdem = $("#TempTotalOrdem").html();
+
+						TotalOrdem = TotalOrdem
+							.replaceAll("[SubTotal]", SubTotal.toFixed(2).replace('.',','))
+							.replaceAll("[Desconto]", Desconto.toFixed(2).replace('.',','))
+							.replaceAll("[Total]", Total.toFixed(2).replace('.',','))
+						;
+
+						//Print Totalizadores
+						$(".printTotalOrdens").append(TotalOrdem);
+					}
+
+
+					//Codigo Barras Ordem Serviço
+					var numero = String(rowOrd.NumeroVenda);
+					var zeros = 13 - Number(numero.length);
+
+					for (var i = 0; i < zeros; i++)
+						numero = '0' + numero;
+
+					$(".CodigoBarrasVenda"+rowOrd.NumeroVenda).each(function() {
+						$( this ).css("white-space", "nowrap");
+						$( this ).css("background-color", "#fff");
+						$( this ).html(fbarcode(numero,20));
+					});
+					$(".NumeroVenda"+rowOrd.NumeroVenda).each(function() {
+						$( this ).html('Nº: '+rowOrd.NumeroVenda);
+					});
+				});//RowOrd
+				
+				//Logo empresa
+				if (dadosOrdem.Records[0].Imagem != "Não informado"){
+					$(".logo").each(function() {
+						$( this ).html('<img class="img-responsive" src="' + dadosOrdem.Records[0].Imagem.split("#")[0] + '" />');
+					});
+				}
+
+			});
+		</script>
+	</body>
+</html>

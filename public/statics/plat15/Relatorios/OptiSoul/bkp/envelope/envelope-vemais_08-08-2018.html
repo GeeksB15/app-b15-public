@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Envelope</title>
+        <link rel="stylesheet" type="text/css" href="optidados.framework.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+        <script src="/Scripts/codigobarras.js"></script>
+        <script src="/Plugins/html2canvas.js"></script>
+
+        <style type="text/css">
+	    	h1, h2, h3, h4, h5, h6, p, span { padding: 0; margin: 0; font-weight: normal; overflow: hidden; }
+
+			h1 { font-size: 19px; }
+
+			h2 { font-size: 18px; }
+
+			h3 { font-size: 17px; }
+
+			h4 { font-size: 16px; }
+
+			h5 { font-size: 15px; }
+
+			h6 { font-size: 13px; }
+
+			p { font-size: 12px; }
+
+			.envelope-spece { margin-bottom: 90px; position: relative; float: left; }
+        </style>
+
+        <style type="text/css" media="print">
+            @page {
+            	margin-top: 0.45cm;
+            	margin-right: 0.45cm;
+            	margin-bottom: 0.45cm;
+            	margin-left: 0.45cm;
+            }
+
+            .envelope-spece { margin-bottom: 0; }
+        </style>
+
+		<!--Tratamento-->
+		<script id="TempTratamento" type="TempTratamento">
+			<li class="w76"> <p>&#8618; [DescricaoTratamento] </p> </li>
+			<li class="w07 txt-ac"> <p class="QtdTratamento"> [QtdTratamento] </p> </li>
+			<li class="w17 txt-ar"> <p class="ValorTratamento"> [ValorTratamento] </p> </li>
+		</script>
+
+		<!--Tratamento Via Laboratório-->
+		<script id="TempTratamentoLAB" type="TempTratamentoLAB">
+			<li class="w95"> <p>&#8618; [DescricaoTratamento] </p> </li>
+			<li class="w05 txt-ac"> <p class="QtdTratamento"> [QtdTratamento] </p> </li>
+		</script>
+
+		<!--Template Envelope-->
+		<script id="TempEnvelope" type="TempEnvelope">
+			<div class="envelope-spece" style="page-break-inside: avoid !important;">
+
+                <!--Logo Loja-->
+				<div class="col w62 logo pl20" style="height: auto;">
+					<img width="170" src="optsoul-exemplo.png"/>
+				</div>
+
+				<!--CodigoBarras-->
+				<div class="col w35 txt-ac pt15">
+					<h4 class="CodBarras[###CodigoEnvelope###]">CODIGO DE BARRAS</h4>
+					<h3 class="CodEnvelope[###CodigoEnvelope###]">CODIGO E NUMERO DE BARRAS</h3>
+				</div>
+
+
+				<!--Content Estrutura-->
+				<div class="row w90" style="margin-left: 5%; margin-right: 5%;">
+
+					<!--Dados Cliente-->
+					<div class="row w100 mt03">
+						<p class="col w06">Nome:</p> <p class="col w94 lineb b"> <span> [NomeCliente] </span> &nbsp; </p>
+						<!--<p> [EnderecoCliente] </p>-->
+						<p class="col w06 mt04">Fone:</p> <p class="col w94 lineb mt04"> <span>[TelefoneCliente]</span> &nbsp; </p>
+						<!--<p> Vendedor: <span>[Vendedor]</span></p>-->
+					</div>
+
+					<!--Data Fatura/Previsao-->
+					<div class="row w100 mt02">
+						<p class="col w30">Data entrada: <span>[DataEmissaoVenda]</span></p>
+						<p class="col w70">Data entrega: <span>[DataPrevEntrega]</span></p>
+					</div>
+
+					<!--OD/OE-->
+					<div class="row w100 mt1">
+						<div class="col w05"> <p>&nbsp;</p> </div>
+						<div class="col w46-6 float-l txt-ac"> <h4>Olho Direito</h4> </div>
+						<div class="col w46-6 float-r txt-ac"> <h4>Olho Esquerdo</h4> </div>
+					</div>
+
+					<!--Longe/Medio/Perto-->
+					<div class="col w05 mt05 float-l">
+						<ul class="list-row">
+							<li> <p>&nbsp;</p> </li>
+							<li> <p class="txt-al linhaDireitoLonge"> Longe </p> </li>
+							<li> <p class="txt-al linhaDireitoMedio"> Medio </p> </li>
+							<li> <p class="txt-al linhaDireitoPerto"> Perto </p> </li>
+						</ul>
+					</div>
+
+					<!--olho direito-->
+					<div class="col w46-6 linel lineb liner mt05 float-l">
+						<div class="col w87-8">
+					        <ul class="list-col txt-ac">
+					            <li class="w14-2 lineb"> <p> Adc. </p> </li>
+					            <li class="w14-2 lineb"> <p> Esf. </p> </li>
+					            <li class="w14-2 lineb"> <p> Cil. </p> </li>
+					            <li class="w14-2 lineb"> <p> Eixo </p> </li>
+					            <li class="w14-2 lineb"> <p> Pris. </p> </li>
+					            <li class="w14-2 lineb"> <p> Base </p> </li>
+					            <li class="w14-2 lineb"> <p> DNP  </p> </li>
+					        </ul>
+
+					        <ul class="list-col txt-ac linhaDireitoLonge">
+					            <li class="w14-2"> <p>&nbsp;</p> </li>
+					            <li class="w14-2"> <p>[ODLEsf]</p> </li>
+					            <li class="w14-2"> <p>[ODLCil]</p> </li>
+					            <li class="w14-2"> <p>[ODLEix]</p> </li>
+					            <li class="w14-2"> <p>[ODLPri]</p> </li>
+					            <li class="w14-2"> <p>[ODLBas]</p> </li>
+					            <li class="w14-2"> <p>[ODLDNP]</p> </li>
+					        </ul>
+
+					        <ul class="list-col txt-ac linhaDireitoMedio">
+					            <li class="w14-2"> <p>[ODMAdi]</p> </li>
+					            <li class="w14-2"> <p>[ODMEsf]</p> </li>
+					            <li class="w14-2"> <p>[ODMCil]</p> </li>
+					            <li class="w14-2"> <p>[ODMEix]</p> </li>
+					            <li class="w14-2"> <p>[ODMPri]</p> </li>
+					            <li class="w14-2"> <p>[ODMBas]</p> </li>
+					            <li class="w14-2"> <p>[ODMDNP]</p> </li>
+					        </ul>
+
+					        <ul class="list-col txt-ac linhaDireitoPerto">
+					            <li class="w14-2"> <p>[ODPAdi]</p> </li>
+					            <li class="w14-2"> <p>[ODPEsf]</p> </li>
+					            <li class="w14-2"> <p>[ODPCil]</p> </li>
+					            <li class="w14-2"> <p>[ODPEix]</p> </li>
+					            <li class="w14-2"> <p>[ODPPri]</p> </li>
+					            <li class="w14-2"> <p>[ODPBas]</p> </li>
+					            <li class="w14-2"> <p>[ODPDNP]</p> </li>
+					        </ul>
+				        </div>
+
+				        <div class="col w11 txt-ac linel lineb liner">
+				        	<p class="lineb"> Alt.</p>
+				        	<p>[AltMontagemLOD]</p>
+				        </div>
+					</div><!--.end olho direito-->
+
+					<!--olho esquerdo-->
+					<div class="col w46-6 linel lineb liner mt05 float-r">
+						<div class="row w87-8">
+					        <ul class="list-col txt-ac">
+					            <li class="w14-2 lineb"> <p> Adc. </p> </li>
+					            <li class="w14-2 lineb"> <p> Esf. </p> </li>
+					            <li class="w14-2 lineb"> <p> Cil. </p> </li>
+					            <li class="w14-2 lineb"> <p> Eixo </p> </li>
+					            <li class="w14-2 lineb"> <p> Pris. </p> </li>
+					            <li class="w14-2 lineb"> <p> Base </p> </li>
+					            <li class="w14-2 lineb"> <p> DNP  </p> </li>
+					        </ul>
+
+					        <ul class="list-col txt-ac linhaEsquerdoLonge">
+					            <li class="w14-2"> <p>&nbsp;</p> </li>
+					            <li class="w14-2"> <p>[OELEsf]</p> </li>
+					            <li class="w14-2"> <p>[OELCil]</p> </li>
+					            <li class="w14-2"> <p>[OELEix]</p> </li>
+					            <li class="w14-2"> <p>[OELPri]</p> </li>
+					            <li class="w14-2"> <p>[OELBas]</p> </li>
+					            <li class="w14-2"> <p>[OELDNP]</p> </li>
+					        </ul>
+
+					    	<ul class="list-col txt-ac linhaEsquerdoMedio">
+					            <li class="w14-2"> <p>[OEMAdi]</p> </li>
+					            <li class="w14-2"> <p>[OEMEsf]</p> </li>
+					            <li class="w14-2"> <p>[OEMCil]</p> </li>
+					            <li class="w14-2"> <p>[OEMEix]</p> </li>
+					            <li class="w14-2"> <p>[OEMPri]</p> </li>
+					            <li class="w14-2"> <p>[OEMBas]</p> </li>
+					            <li class="w14-2"> <p>[OEMDNP]</p> </li>
+					        </ul>
+
+					        <ul class="list-col txt-ac linhaEsquerdoPerto">
+					            <li class="w14-2"> <p>[OEPAdi]</p> </li>
+					            <li class="w14-2"> <p>[OEPEsf]</p> </li>
+					            <li class="w14-2"> <p>[OEPCil]</p> </li>
+					            <li class="w14-2"> <p>[OEPEix]</p> </li>
+					            <li class="w14-2"> <p>[OEPPri]</p> </li>
+					            <li class="w14-2"> <p>[OEPBas]</p> </li>
+					            <li class="w14-2"> <p>[OEPDNP]</p> </li>
+					        </ul>
+					    </div>
+
+				        <div class="col w11 txt-ac linel lineb liner">
+				        	<p class="lineb"> Alt.</p>
+				        	<p>[AltMontagemLOE]</p>
+				        </div>
+					</div><!--.end olho esquerdo-->
+
+					<!--Tipo Oculos-->						
+					<p class="row w100 b mt02">[TipoOculos]</p>
+					<p class="TipoLente row w100 b mt02"></p>
+
+				</div><!--.end Content Estrutura-->
+				<p class="row w100 lineb mt05 txt-ar" style="font-size: 8px;">Dobrar</p>
+
+
+				<!--Content Estrutura-->
+				<div class="row w90" style="margin-left: 5%; margin-right: 5%;">
+
+					<h6 class="row w100 mt05 mb05 txt-ac">Descrição (Mão de obra ou Produto)</h6>
+
+					<!--descicao coluna produtos-->
+					<ul class="list-col lineb">
+						<li class="w07"> <p> Codigo </p> </li>
+						<li class="w46"> <p> Descrição </p> </li>
+						<li class="w20"> <p> Marca </p> </li>
+						<li class="w11"> <p> Material </p> </li>
+						<li class="w11"> <p> Cor </p> </li>
+						<li class="w05 txt-ac"> <p> Qtd </p> </li>
+					</ul>
+
+					<!--armação-->
+					<ul class="list-col LinhaArmacao" style="margin-top: 3px;">
+						<li class="w07"> <p class="w100 txt-hidden DescArmacao"> [CodigoArmacao] </p> </li>
+						<li class="w46"> <p class="w100 txt-hidden DescArmacao"> [DescArmacao] </p> </li>
+						<li class="w20"> <p class="w100 txt-hidden MarcaArmacao"> [MarcaArmacao] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden QtdArmacao"> [MaterialArmacao] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden QtdArmacao"> [CorArmacao] </p> </li>
+						<li class="w05 txt-ac"> <p class="w100 txt-hidden QtdArmacao"> [QtdArmacao] </p> </li>
+					</ul>
+
+					<!--lente OD-->
+					<ul class="list-col LinhaLOD" style="margin-top: 3px;">
+						<li class="w07"> <p class="w100 txt-hidden CodigoLOD"> [CodigoLOD] </p> </li>
+						<li class="w46"> <p class="w100 txt-hidden DescLOD"> [DescLOD] </p> </li>
+						<li class="w20"> <p class="w100 txt-hidden MarcaLOD"> [MarcaLOD] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden MaterialLOD"> [MaterialLOD] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden CorLOD"> [CorLOD] </p> </li>
+						<li class="w05 txt-ac"> <p class="w100 txt-hidden QtdLOD"> [QtdLOD] </p> </li>
+					</ul>
+
+					<!--tratamento OD-->
+					<ul class="list-col LinhaTLOD" style="margin-top: 3px;">
+						<div class="w95 float-r TLOD_LAB"></div>
+					</ul>
+
+					<!--lente OE-->
+					<ul class="list-col LinhaLOE" style="margin-top: 3px;">
+						<li class="w07"> <p class="w100 txt-hidden CodigoLOE"> [CodigoLOE] </p> </li>
+						<li class="w46"> <p class="w100 txt-hidden DescLOE"> [DescLOE] </p> </li>
+						<li class="w20"> <p class="w100 txt-hidden MarcaLOE"> [MarcaLOE] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden MaterialLOE"> [MaterialLOE] </p> </li>
+						<li class="w11"> <p class="w100 txt-hidden CorLOE"> [CorLOE] </p> </li>
+						<li class="w05 txt-ac"> <p class="w100 txt-hidden QtdLOE"> [QtdLOE] </p> </li>
+					</ul>
+
+					<!--tratamento OE-->
+					<ul class="list-col LinhaTLOE" style="margin-top: 3px;">
+						<div class="w95 float-r TLOE_LAB"></div>
+					</ul>
+
+					<!--totalizador produtos-->
+					<ul class="list-col linet" style="margin-top: 3px;">
+						<li class="w95"> <p class="b"> Total: </p> </li>
+						<li class="w05 txt-ac"> <p class="w100 txt-hidden b"> [envelopeQtd] </p> </li>
+					</ul>
+
+					<div class="row w100 mt05 mb02">
+						<p class="col w05">Nota:</p> <textarea rows="4" class="col w94 lineb" type="textarea" name="nota"></textarea>
+					</div>
+
+				</div><!--.end Content Estrutura-->
+				<p class="row w100 lineb mt05 txt-ar" style="font-size: 8px;">Dobrar</p>
+
+
+				<!--Content Estrutura-->
+				<div class="row w90" style="margin-left: 5%; margin-right: 5%;">
+
+					<!--observacao-->
+					<div class="row w100 mt1">
+						<p class="col w09">Observação:</p>
+						<p class="col w90-4 lineb">[ObservacaoPrescricao] &nbsp;</p>
+					</div>
+
+					<div class="col w50 mt15">
+						<div class="row w85 linef" style="border-radius: 5px; margin-left: 7.5%; margin-right: 7.5%;">
+							<div class="col w25 txt-ac lineb liner"> <p>P</p> </div>
+							<div class="col w24 txt-ac lineb liner"> <p>DM</p></div>
+							<div class="col w24 txt-ac lineb liner"> <p>H</p> </div>
+							<div class="col w25 txt-ac lineb"> <p>V</p> </div>
+
+							<div class="col w25 txt-ac lineb liner"> <p> [PonteArmacao] </p> </div>
+							<div class="col w24 txt-ac lineb liner"> <p> [DiagonalArmacao] </p> </div>
+							<div class="col w24 txt-ac lineb liner"> <p> [TamanoArmacao] </p> </div>
+							<div class="col w25 txt-ac lineb"> <p> [AlturaArmacao] </p> </div>
+
+							<div class="row w98"> <p>&nbsp;</p> </div>
+						</div>
+
+						<div class="row w94 linef mt1" style="border-radius: 5px; margin-left: 3%; margin-right: 3%;">
+							<div class="col w15-5 txt-ac lineb liner"> <p>Cupom</p> </div>
+							<div class="col w19-5 txt-ac lineb liner"> <p>Laboratório</p> </div>
+							<div class="col w19-1 txt-ac lineb liner"> <p>Atendente</p> </div>
+							<div class="col w19-1 txt-ac lineb liner"> <p>Nº Pedido</p> </div>
+							<div class="col w24 txt-ac lineb"> <p>Data</p> </div>
+
+							<div class="col w15-5 liner"> <p>&nbsp;</p> </div>
+							<div class="col w19-5 liner"> <p>&nbsp;</p> </div>
+							<div class="col w19-1 liner"> <p>&nbsp;</p> </div>
+							<div class="col w19-1 liner"> <p>&nbsp;</p> </div>
+							<div class="col w24"> <p>&nbsp;</p> </div>
+						</div>
+					</div>
+
+					<div class="col w50 mt15">
+						<!--valor total armação-->
+						<ul class="list-col LinhaTotalArmacao" style="margin-top: 3px;">
+							<li class="w34"> <p>Valor Total Armação</p> </li>
+							<li class="w66 txt-ar lineb"> <p> [ValorArmacao] </p> </li>
+						</ul>
+
+						<!--valor total lentes-->
+						<ul class="list-col LinhaTotalLentes" style="margin-top: 3px;">
+							<li class="w34"> <p>Valor Total Lentes</p> </li>
+							<li class="w66 txt-ar lineb"> <p> [ValorTotalLentes] </p> </li>
+						</ul>
+
+						<!--valor total tratamento-->
+						<ul class="list-col LinhaTotalTratamentos" style="margin-top: 3px;">
+							<li class="w34"> <p>Valor Total Tratamentos</p> </li>
+							<li class="w66 txt-ar lineb"> <p> [ValorTotalTramento] </p> </li>
+						</ul>
+
+						<!--totalizador-->
+						<ul class="list-col linet" style="margin-top: 6px;">
+							<li class="w34"> <p class="b"> Valor Total: </p> </li>
+							<li class="w66 txt-ar"> <p class="b"> [envelopeTotal] </p> </li>
+						</ul>
+					</div>
+
+					<div class="row w100 mt15">
+						<h6>Aceite do Cliente</h6>
+						<p class="col w07 mt01">Entrada</p> <p class="col w93 mt01 lineb">&nbsp;</p>
+						<p class="col w07 mt04">Retirada</p> <p class="col w93 mt04 lineb">&nbsp;</p>
+					</div>
+
+				</div><!--.end Content Estrutura-->
+				<p class="row w100 lineb mt05 mb1 txt-ar" style="font-size: 8px;">Dobrar</p>
+
+
+				<!--Logo Loja-->
+				<div class="col w23 logo pl10" style="height: auto;">
+					<img width="170" src="optsoul-exemplo.png"/>
+				</div>
+
+				<!--Termos-->
+				<div class="col w40 pt10">
+					<p>* Os serviços não retirados em até 15 dias após o prazo serão considerados devedores e sujeitos a registro no SPC.</p>
+					<p class="pt03">* Objetos não retirados 3 meses após o prazo de entrega serão considerados abandonados pelo proprietário do mesmo.</p>
+				</div>
+
+				<!--CodigoBarras-->
+				<div class="col w35 txt-ac pt15">
+					<h4 class="CodBarras[###CodigoEnvelope###]">CODIGO DE BARRAS</h4>
+					<h3 class="CodEnvelope[###CodigoEnvelope###]">CODIGO E NUMERO DE BARRAS</h3>
+				</div>
+
+				<!--via cliente-->
+				<div class="row w90" style="margin-left: 5%; margin-right: 5%;">
+
+					<!--Datas-->
+					<div class="row w100 mt05">
+						<p class="col w100">Previsão: <span> [DataPrevEntrega] </span> </p>
+					</div>
+
+					<!--produtos-->
+					<div class="row w100 mt05">
+						<!--descicao coluna produtos-->
+						<ul class="list-col lineb">
+							<li class="w57"> <p> Descrição </p> </li>
+							<li class="w20"> <p> Marca </p> </li>
+							<li class="w07 txt-ac"> <p> Qtd </p> </li>
+							<li class="w16 txt-ac"> <p> Preço (R$) </p> </li>
+						</ul>
+
+						<!--armação-->
+						<ul class="list-col LinhaArmacao" style="margin-top: 3px;">
+							<li class="w57"> <p class="w100 txt-hidden DescArmacao"> [DescArmacao] </p> </li>
+							<li class="w20"> <p class="w100 txt-hidden MarcaArmacao"> [MarcaArmacao] </p> </li>
+							<li class="w07 txt-ac"> <p class="w100 txt-hidden QtdArmacao"> [QtdArmacao] </p> </li>
+							<li class="w16 txt-ar"> <p class="w100 txt-hidden ValorArmacao"> [ValorArmacao] </p> </li>
+						</ul>
+
+						<!--lente OD-->
+						<ul class="list-col LinhaLOD" style="margin-top: 3px;">
+							<li class="w57"> <p class="w100 txt-hidden DescLOD"> [DescLOD] </p> </li>
+							<li class="w20"> <p class="w100 txt-hidden MarcaLOD"> [MarcaLOD] </p> </li>
+							<li class="w07 txt-ac"> <p class="w100 txt-hidden QtdLOD"> [QtdLOD] </p> </li>
+							<li class="w16 txt-ar"> <p class="w100 txt-hidden ValorLOD"> [ValorLOD] </p> </li>
+						</ul>
+
+						<!--tratamento OD-->
+						<ul class="list-col LinhaTLOD" style="margin-top: 3px;">
+							<div class="w95 float-r TLOD"></div>
+						</ul>
+
+						<!--lente OE-->
+						<ul class="list-col LinhaLOE" style="margin-top: 3px;">
+							<li class="w57"> <p class="w100 txt-hidden DescLOE"> [DescLOE] </p> </li>
+							<li class="w20"> <p class="w100 txt-hidden MarcaLOE"> [MarcaLOE] </p> </li>
+							<li class="w07 txt-ac"> <p class="w100 txt-hidden QtdLOE"> [QtdLOE] </p> </li>
+							<li class="w16 txt-ar"> <p class="w100 txt-hidden ValorLOE"> [ValorLOE] </p> </li>
+						</ul>
+
+						<!--tratamento OE-->
+						<ul class="list-col LinhaTLOE" style="margin-top: 3px;">
+							<div class="w95 float-r TLOE"></div>
+						</ul>
+
+						<!--totalizador produtos-->
+						<ul class="list-col linet" style="margin-top: 3px;">
+							<li class="w77"> <p class="w100 txt-hidden b"> Total: </p> </li>
+							<li class="w07 txt-ac"> <p class="w100 txt-hidden b"> [envelopeQtd] </p> </li>
+							<li class="w16 txt-ar"> <p class="w100 txt-hidden b"> [envelopeTotal] </p> </li>
+						</ul>
+					</div><!--.end produtos-->
+
+					<div class="row w100 mt1 txt-ac">
+						<p>R. Tijucas, 55 - Centro - Itajaí -SC. CEP: 88301-360.  Fone (47) 3349-6097 / (47) 9790-6097 (Whatsapp)</p>
+					</div>
+
+				</div><!--.end via cliente-->
+
+			</div>
+		</script>
+
+
+		<!--Itens Avulsos-->
+		<script id="TempItensAvulsos" type="TempItensAvulsos">
+			<div class="envelope-spece" style="page-break-inside: avoid !important;">
+				<!--via cliente-->
+				<div class="row w100 pt09">
+
+	                <!--dados loja-->
+					<div class="col w22 logo pr03 pb03" style="height: auto;">
+						<img class="img-responsive" src="optsoul-exemplo.png"/>
+					</div>
+
+					<div class="col w54">
+						<p class="lineb"> [NomeEmpresa] </p>
+						<p> [EnderecoEmpresa] </p>
+						<p> [TelefoneEmpresa] </p>
+						<p> [EmailEmpresa] </p>
+						<p> [SiteEmpresa] </p>
+						<p> Vendedor: <span>[Vendedor]</span> </p>
+					</div>
+
+					<div class="col w23 txt-ac">
+						<p class="lineb w100">&nbsp;</p>
+						<p> Impresso: <span> [ImpressoEm] </span> </p>
+						<h4 class="CodBarras[###CodigoVenda###]"></h4>
+						<p class="CodVenda[###CodigoVenda###]"></p>
+					</div>
+
+					<!--Content Estrutura-->
+					<div class="row w90" style="margin-left: 5%; margin-right: 5%;">
+		                <!--dados cliente-->
+						<div class="col w78 mt05 linet">
+							<p> <span> [CodigoCliente] </span> <span> [NomeCliente] </span> </p>
+							<p> [EnderecoCliente] </p>
+							<p> [TelefoneCliente] </p>
+						</div>
+
+						<div class="col w22 mt05 linet">
+							<p>Venda: <span> [DataEmissaoVenda] </span> </p>
+						</div>
+
+						<!--produtos-->
+						<div class="row w100 mt1">
+							<!--descicao coluna produtos-->
+							<ul class="list-col lineb">
+								<li class="w57"> <p> Descrição </p> </li>
+								<li class="w20"> <p> Marca </p> </li>
+								<li class="w07 txt-ac"> <p> Qtd </p> </li>
+								<li class="w16 txt-ac"> <p> Preço (R$) </p> </li>
+							</ul>
+
+							<!--Itens-->
+							<ul class="list-col LinhaArmacao" style="margin-top: 3px;">
+								<div class="LinhaItemAvulso"></div>
+							</ul>
+
+							<!--Totalizador-->
+							<ul class="list-col linet" style="margin-top: 3px;">
+								<li class="w77"> <p class="w100 txt-hidden b"> Total: </p> </li>
+								<li class="w07 txt-ac"> <p class="w100 txt-hidden b">&nbsp; [QtdTotalItens] </p> </li>
+								<li class="w16 txt-ar"> <p class="w100 txt-hidden b">&nbsp; [ValorTotalItens] </p> </li>
+							</ul>
+						</div><!--.end produtos-->
+					</div><!--.end Content Estrutura-->
+
+				</div><!--.end via cliente-->
+			</div>
+		</script>
+
+		<!--Linhas Itens Avulsos-->
+		<script id="tempLinhasItensAvulsos" type="tempLinhasItensAvulsos">
+			<li class="w57"> <p class="w100 txt-hidden DescArmacao"><span class="opacity">.</span> [DescItem] </p> </li>
+			<li class="w20"> <p class="w100 txt-hidden MarcaArmacao"><span class="opacity">.</span> [MarcaItem] </p> </li>
+			<li class="w07 txt-ac"> <p class="w100 txt-hidden QtdArmacao"><span class="opacity">.</span> [QtdItem] </p> </li>
+			<li class="w16 txt-ar"> <p class="w100 txt-hidden ValorArmacao"><span class="opacity">.</span> [ValorItem] </p> </li>
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<!--Print Content Envelopes-->
+			<div class="PrintTemplate"></div>
+
+			<!--Print Content Itens Avulsos-->
+			<div class="PrintTemplateAvs"></div>
+		</div>
+
+		<script>
+			$(document).ready(function(){
+
+				//Connect DB
+				var banco = getParameterByName("BancoDeDados");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+
+				//Get URL
+				var CodigoVenda = getParameterByName("CodigoVenda");
+
+				//Count Envelope
+				var dadosEnvelopes = GeeksSQL(
+					" SELECT"
+						+" IsNull(Denv.CodigoDocumento, '') CodigoEnvelope"
+						+" ,IsNull(Denv.CodigoDocumentoAdicional, '') CodigoDocumentoAdicional"
+						+" ,IsNull(Convert(varchar(10), Denv.DataHoraPrevisto, 103), '') Previsto"
+						+" ,IsNull(Convert(varchar(10), Denv.DataHoraPrevisto, 103)+' '+Convert(varchar(10), Denv.DataHoraPrevisto, 108), '') DataHoraPrevisto"
+						+" ,IsNull(Denv.Observacao, '') Observacao"
+						+" ,IsNull(Dv.CodigoDocumento, '') CodigoVenda"
+						+" ,Convert(Varchar, Dv.Numero)+'-'+Convert(Varchar, Denv.Numero) NumeroEnvelope"
+						+" ,IsNull(Dv.CodigoContato, '') CodigoContato"
+						+" ,IsNull(Dv.CodigoEmpresa, '') CodigoEmpresa"
+					+" FROM Documento Denv"
+						+" LEFT JOIN Documento Dv ON(Dv.CodigoDocumento = Denv.DocumentoCodigo)"
+					+" WHERE"
+						+" Denv.Tipo = 'Envelope'"
+						+" AND Dv.Tipo = 'Venda'"
+						+" AND Dv.CodigoDocumento = "+CodigoVenda
+				, false, url, banco, usuario);
+
+				$(dadosEnvelopes.Records).each(function(index, rowEnv) {
+
+					//Temp Layout's
+					var Envelope = $("#TempEnvelope").html();
+
+					//Temp (Dados Envelope)
+					Envelope = Envelope
+						.replaceAll("[DataPrevEntrega]", rowEnv.DataHoraPrevisto)
+						.replaceAll("[ObservacaoPrescricao]", rowEnv.Observacao)
+						.replaceAll("[###CodigoEnvelope###]", rowEnv.CodigoEnvelope)
+						.replaceAll("[NumeroEnvelope]", rowEnv.NumeroEnvelope)
+					;
+
+
+					//Dados da Loja
+					var dadosEmissor = GeeksSQL(
+						" SELECT"
+							+" TOP 1 IsNull(Ce.CodigoContatoEndereco, '') as Ordem"
+							+" ,IsNull(C.Nome, '') as RazaoSocialEmpresa"
+							+" ,IsNull(C.Apelido, '') as NomeEmpresa"
+							+" ,IsNull(C.[Site], '') as SiteEmpresa"
+							+" ,IsNull(C.Email, '') as EmailEmpresa"
+							+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')+ IsNull('  '+Ce.Municipio, '')+ IsNull('/'+Ce.UF, '')+ IsNull(' - '+Ce.Cep, '')) as EnderecoEmpresa"
+							+" ,IsNull(STUFF(("
+								+" SELECT ',  '+Ct.Telefone"
+								+" FROM ContatoTelefone Ct"
+								+" WHERE"
+									+" Ct.CodigoContato = C.CodigoContato"
+							+" FOR XML PATH('')), 1, 2, ''), '') AS TelefoneEmpresa"
+							+" ,IsNull(C.Imagem, 'Não informado') as Imagem"
+						+" FROM Contato C"
+							+" LEFT JOIN ContatoEndereco CE ON(CE.CodigoContato = C.CodigoContato)"
+						+" WHERE C.CodigoContato ="+rowEnv.CodigoEmpresa
+						+" ORDER BY 1 Desc"
+					, false, url, banco, usuario);
+
+					//Temp (Dados Empresa)
+					Envelope = Envelope
+						.replaceAll("[NomeEmpresa]", dadosEmissor.Records[0].NomeEmpresa)
+						.replaceAll("[EnderecoEmpresa]", dadosEmissor.Records[0].EnderecoEmpresa)
+						.replaceAll("[TelefoneEmpresa]", dadosEmissor.Records[0].TelefoneEmpresa)
+						.replaceAll("[EmailEmpresa]", dadosEmissor.Records[0].EmailEmpresa)
+						.replaceAll("[SiteEmpresa]", dadosEmissor.Records[0].SiteEmpresa)
+					;
+
+
+					//Dados do Cliente
+					var dadosCliente = GeeksSQL(
+						" SELECT"
+							+" TOP 1 IsNull(Ce.CodigoContatoEndereco, '') as Ordem"
+							+" ,IsNull(C.CodigoContato, '') as CodigoCliente"
+							+" ,IsNull(C.Nome, '') as NomeCliente"
+							+" ,IsNull(C.NumeroDocumentoNacional, '') as CPFCliente"
+							+" ,IsNull(C.NumeroDocumentoEstadual, '') as RGCliente"
+							+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')+ IsNull('  '+Ce.Municipio, '')+ IsNull('/'+Ce.UF, '')+ IsNull(' - '+Ce.Cep, '')) as EnderecoCliente"
+							+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')) as LogradouroCliente"
+							+" ,IsNull(Ce.Municipio, '') as CidadeCliente"
+							+" ,IsNull(Ce.UF, '') as UFCliente"
+							+" ,STUFF(("
+								+" SELECT ',  '+ Ct.Telefone"
+								+" FROM ContatoTelefone Ct"
+								+" WHERE"
+									+" Ct.CodigoContato = C.CodigoContato"
+							+" FOR XML PATH('')), 1, 2, '') AS TelefoneCliente"
+						+" FROM Contato C"
+							+" LEFT JOIN ContatoEndereco Ce ON(Ce.CodigoContato = C.CodigoContato)"
+						+" WHERE C.CodigoContato ="+rowEnv.CodigoContato
+						+" ORDER BY 1 Desc"
+					, false, url, banco, usuario);
+
+					//Temp (Dados Cliente)
+					Envelope = Envelope
+						.replaceAll("[CodigoCliente]", dadosCliente.Records[0].CodigoCliente)
+						.replaceAll("[NomeCliente]", dadosCliente.Records[0].NomeCliente)
+						.replaceAll("[CPFCliente]", dadosCliente.Records[0].CPFCliente)
+						.replaceAll("[RGCliente]", dadosCliente.Records[0].RGCliente)
+						.replaceAll("[EnderecoCliente]", dadosCliente.Records[0].EnderecoCliente)
+						.replaceAll("[LogradouroCliente]", dadosCliente.Records[0].LogradouroCliente)
+						.replaceAll("[CidadeCliente]", dadosCliente.Records[0].CidadeCliente)
+						.replaceAll("[UFCliente]", dadosCliente.Records[0].UFCliente)
+						.replaceAll("[TelefoneCliente]", dadosCliente.Records[0].TelefoneCliente)
+					;
+
+
+					//Dados do Paciente
+					var dadosPacienteMedico = GeeksSQL(
+						" SELECT"
+						    +" Distinct Dp.DescricaoContato Paciente,"
+						    +" IsNull((Select Nome from Contato where CodigoContato = DC.CodigoContato),'Não informado') Medico"
+						+" FROM Documento Dp"
+						    +" LEFT JOIN DocumentoContato DC ON((Dp.CodigoDocumento = Dc.CodigoDocumento) AND (Dc.Descricao = 'Medico'))"
+						+" WHERE"
+						    +" Dp.Tipo = 'Prescrição'"
+						    +" AND Dp.CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento ="+rowEnv.CodigoDocumentoAdicional+")"
+					, false, url, banco, usuario);
+
+					//Temp (Daods Paciente e Médico)
+					Envelope = Envelope
+						.replaceAll("[NomePaciente]", dadosPacienteMedico.Records[0].Paciente)
+						.replaceAll("[NomeMedico]", dadosPacienteMedico.Records[0].Medico)
+					;
+
+
+					//Dados da Venda (Documento Tipo=Venda)
+					var dadosVenda = GeeksSQL(
+						" SELECT"
+						    +" IsNull(Convert(varchar(10), D.DataHoraEmissao, 103), '') as Emissao,"
+						    +" IsNull(Convert(varchar(10), D.DataHoraEmissao, 103) + ' ' + Convert(varchar(10), D.DataHoraEmissao, 108), '') as DataHoraEmissao,"
+						    +" IsNull(Convert(varchar(10), D.DataHoraFinalizado, 103), '') as Finalizado,"
+						    +" IsNull(Convert(varchar(10), D.DataHoraFinalizado, 103) + ' ' + Convert(varchar(10), D.DataHoraFinalizado, 108), '') as DataHoraFinalizado,"
+						    +" IsNull(Convert(varchar(10), current_timestamp, 103), '') as ImpressoEm,"
+						    +" IsNull(Convert(varchar(10), current_timestamp, 103) + ' ' + Convert(varchar(10), current_timestamp, 108), '') as DataHoraImpressoEm,"
+						    +" IsNull(D.Numero, '') as NumeroVenda,"
+						    +" IsNull(D.TotalDocumento, '') as TotalDocumento,"
+						    +" IsNull(D.TotalDesconto, '') as TotalDesconto,"
+						    +" IsNull(D.Observacao, '') as ObsVenda,"
+						    +" IsNull(C.Nome, '') as Vendedor"
+						+" FROM Documento D"
+						    +" LEFT JOIN Contato C ON(D.CodigoContatoVendedor = C.CodigoContato)"
+						+" WHERE"
+							+" D.Tipo = 'Venda'"
+							+" AND D.CodigoDocumento ="+rowEnv.CodigoVenda
+					, false, url, banco, usuario);
+
+					//Temp (Dados Venda)
+					Envelope = Envelope
+						.replaceAll("[ImpressoEm]", dadosVenda.Records[0].DataHoraImpressoEm)
+						.replaceAll("[DataEmissaoVenda]", dadosVenda.Records[0].Emissao)
+						.replaceAll("[Vendedor]", dadosVenda.Records[0].Vendedor)
+					;
+
+
+					//Documento 'Item Venda'
+					var itemVenda = GeeksSQL(
+						" SELECT"
+							+" IsNull(Convert(varchar(10), DataHoraEmissao, 103) + '' + Convert(varchar(10), DataHoraEmissao, 108), '') Emissao"
+							+" ,IsNull(Convert(varchar(10), DataHoraFinalizado, 103) + ' ' + Convert(varchar(10), DataHoraFinalizado, 108), '') Finalizado"
+							+" ,IsNull(Convert(varchar(10), current_timestamp, 103) + ' ' + Convert(varchar(10), current_timestamp, 108), '') Agora"
+							+" ,*"
+						+" FROM Documento"
+						+" WHERE"
+							+" Tipo = 'Item Venda'"
+							+" AND CodigoDocumento ="+rowEnv.CodigoDocumentoAdicional
+					, false, url, banco, usuario);
+
+
+					//DocumentoItem 'Itens'
+					var itens = GeeksSQL(
+						" SELECT *"
+						+" FROM DocumentoItem"
+						+" WHERE CodigoDocumento ="+rowEnv.CodigoDocumentoAdicional
+					, false, url, banco, usuario);
+
+					//Variaveis
+						//Armação
+						var varlorArmacao = 0;
+
+						//Lente
+						var lodAlterada;
+						var loeAlterada;
+						var lodCodigo;
+						var loeCodigo;
+						var mesmaLente = false;
+						var valorLentes = 0;
+							
+						//Tratamento
+						var codigoTLOD = 0;
+						var codigoTLOE = 0;
+						var valorTLOD = 0;
+						var valorTLOE = 0;
+
+						//Totalizador Envelope
+						var envelopeQtd = 0;
+						var envelopeTotal = 0;
+
+						//Prescricao
+						var lodEsferico;
+						var loeEsferico;
+						var lodCilindrico;
+						var loeCilindrico;
+						var lodEixo;
+						var loeEixo;
+						var lodAdicao;
+						var loeAdicao;
+
+
+					$(itens.Records).each(function(index, rowItens){
+
+						if (rowItens.TipoItem == "Armação") {
+							varlorArmacao += rowItens.Total;
+							envelopeTotal += rowItens.Total;
+
+							Envelope = Envelope
+								.replaceAll("[CodigoArmacao]", (rowItens.CodigoItem != null && rowItens.CodigoItem != "null" && rowItens.CodigoItem != "" ? rowItens.CodigoItem : "&nbsp;"))
+								.replaceAll("[DescArmacao]", (rowItens.DescricaoItem == "" ? "Armação Própria" : rowItens.DescricaoItem))
+								.replaceAll("[MarcaArmacao]", (rowItens.Marca && rowItens.Marca != null && rowItens.Marca != "null" ? rowItens.Marca : "&nbsp;"))
+								.replaceAll("[MaterialArmacao]", (rowItens.ArmacaoMaterial != null && rowItens.ArmacaoMaterial != "null" && rowItens.ArmacaoMaterial != '' ? rowItens.ArmacaoMaterial : "&nbsp;"))
+								.replaceAll("[CorArmacao]", (rowItens.AmarcaoCor != null && rowItens.AmarcaoCor != "null" && rowItens.AmarcaoCor != '' ? rowItens.AmarcaoCor : "&nbsp;"))
+								.replaceAll("[QtdArmacao]", rowItens.Quantidade)
+								.replaceAll("[ValorArmacao]", (rowItens.Total != null && rowItens.Total != "null" ? (rowItens.Total.toFixed(2).replace('.', ',')) : "&nbsp;"))
+								.replaceAll("[TamanoArmacao]", (rowItens.Tamanho != null && rowItens.Tamanho != "null" && rowItens.Tamanho != 0.00 ? rowItens.Tamanho : "&nbsp;"))
+								.replaceAll("[PonteArmacao]", (rowItens.Ponte != null && rowItens.Ponte != "null" && rowItens.Ponte != 0.00 ? rowItens.Ponte.toFixed(2) : "&nbsp;"))
+								.replaceAll("[DiagonalArmacao]", (rowItens.Diagonal != null && rowItens.Diagonal != "null" && rowItens.Diagonal != 0.00 ? rowItens.Diagonal.toFixed(2) : "&nbsp;"))
+								.replaceAll("[AlturaArmacao]", (rowItens.Altura != null && rowItens.Altura != "null" && rowItens.Altura != 0.00 ? rowItens.Altura.toFixed(2) : "&nbsp;"))
+							;
+						}
+
+						else if (rowItens.TipoItem == "LOD") {
+							//Verifica se a presc foi alterada
+							if (rowItens.PrescricaoAlterada == 1) {
+								lodAlterada = true;
+								lodEsferico = rowItens.Esferico;
+								lodCilindrico = rowItens.Cilindrico;
+								lodEixo = rowItens.Eixo;
+								lodAdicao = rowItens.Adicao;
+							}
+							else {
+								lodAlterada = false;
+							}
+
+							//Verifica se as lentes são iguais
+							lodCodigo = rowItens.CodigoItem;
+							valorLentes += rowItens.Total;
+							envelopeTotal += rowItens.Total;
+
+							if (loeCodigo && rowItens.CodigoItem == loeCodigo) {
+								mesmaLente = true;
+							}
+
+							Envelope = Envelope
+								.replaceAll("[CodigoLOD]", (rowItens.CodigoItem != null && rowItens.CodigoItem != "null" && rowItens.CodigoItem != "" ? rowItens.CodigoItem : "&nbsp;"))
+								.replaceAll("[DescLOD]", (rowItens.DescricaoItem == "" ? "Própria" : rowItens.DescricaoItem))
+								.replaceAll("[MarcaLOD]", (rowItens.Marca && rowItens.Marca != null && rowItens.Marca != "null" ? rowItens.Marca : "&nbsp;"))
+								.replaceAll("[MaterialLOD]", (rowItens.Material != null && rowItens.Material != "null" && rowItens.Material != '' ? rowItens.Material : "&nbsp;"))
+								.replaceAll("[CorLOD]", (rowItens.Cor != null && rowItens.Cor != "null" && rowItens.Cor != '' ? rowItens.Cor : "&nbsp;"))
+								.replaceAll("[QtdLOD]", rowItens.Quantidade)
+								.replaceAll("[ValorLOD]", rowItens.Total.toFixed(2).replace('.', ','))
+							;
+						}
+
+						else if (rowItens.TipoItem == "LOE") {
+							//Verifica se a presc foi alterada
+							if (rowItens.PrescricaoAlterada == 1) {
+								loeAlterada = true;
+								loeEsferico = rowItens.Esferico;
+								loeCilindrico = rowItens.Cilindrico;
+								loeEixo = rowItens.Eixo;
+								loeAdicao = rowItens.Adicao;
+							}
+							else {
+								loeAlterada = false;
+							}
+
+							//Verifica se as lentes são iguais
+							loeCodigo = rowItens.CodigoItem;
+							valorLentes += rowItens.Total;
+							envelopeTotal += rowItens.Total;
+
+							if (lodCodigo && rowItens.CodigoItem == lodCodigo) {
+								mesmaLente = true;
+							}
+
+							Envelope = Envelope
+								.replaceAll("[CodigoLOE]", (rowItens.CodigoItem != null && rowItens.CodigoItem != "null" && rowItens.CodigoItem != "" ? rowItens.CodigoItem : "&nbsp;"))
+								.replaceAll("[DescLOE]", (rowItens.DescricaoItem == "" ? "Própria" : rowItens.DescricaoItem))
+								.replaceAll("[MarcaLOE]", (rowItens.Marca && rowItens.Marca != null && rowItens.Marca != "null" ? rowItens.Marca : "&nbsp;"))
+								.replaceAll("[MaterialLOE]", (rowItens.Material != null && rowItens.Material != "null" && rowItens.Material != '' ? rowItens.Material : "&nbsp;"))
+								.replaceAll("[CorLOE]", (rowItens.Cor != null && rowItens.Cor != "null" && rowItens.Cor != '' ? rowItens.Cor : "&nbsp;"))
+								.replaceAll("[QtdLOE]", rowItens.Quantidade)
+								.replaceAll("[ValorLOE]", rowItens.Total.toFixed(2).replace('.', ','))
+							;
+						}
+
+						else if (rowItens.TipoItem == "TLOD") {
+							//Preenche Variaveis
+							codigoTLOD += rowItens.CodigoItem;
+							valorTLOD += (rowItens.ValorItem-rowItens.DescontoItem);
+							envelopeTotal += (rowItens.ValorItem-rowItens.DescontoItem);
+
+							//Tratamento para Via Loja e Cliente
+							var tratamento = $("#TempTratamento").html();
+							tratamento = tratamento
+								.replace("[DescricaoTratamento]", rowItens.DescricaoItem)
+								.replace("[QtdTratamento]", "1")
+								.replace("[ValorTratamento]", (rowItens.ValorItem-rowItens.DescontoItem).toFixed(2).replace('.', ','))
+							;
+
+							Envelope = $("<div></div>").append(Envelope);
+							Envelope.find(".TLOD").each(function() {
+								$( this ).append(tratamento);
+							});
+							Envelope = Envelope.html();
+
+							tratamento = '';
+
+							//Tratamento Para Via Laboratório
+							var tratamentoLAB = $("#TempTratamentoLAB").html();
+							tratamentoLAB = tratamentoLAB
+								.replace("[DescricaoTratamento]", rowItens.DescricaoItem)
+								.replace("[QtdTratamento]", "1")
+							;
+
+							Envelope = $("<div></div>").append(Envelope);
+							Envelope.find(".TLOD_LAB").each(function() {
+								$( this ).append(tratamentoLAB);
+							});
+							Envelope = Envelope.html();
+
+							tratamentoLAB = '';
+						}
+
+						else if (rowItens.TipoItem == "TLOE") {
+							//Preenche Variaveis
+							codigoTLOE += rowItens.CodigoItem;
+							valorTLOE += (rowItens.ValorItem-rowItens.DescontoItem);
+							envelopeTotal += (rowItens.ValorItem-rowItens.DescontoItem);
+
+							//Tratamento para Via Loja e Cliente
+							var tratamento = $("#TempTratamento").html();
+							tratamento = tratamento
+								.replace("[DescricaoTratamento]", rowItens.DescricaoItem)
+								.replace("[QtdTratamento]", "1")
+								.replace("[ValorTratamento]", (rowItens.ValorItem-rowItens.DescontoItem).toFixed(2).replace('.', ','))
+							;
+
+							Envelope = $("<div></div>").append(Envelope);
+							Envelope.find(".TLOE").each(function() {
+								$( this ).append(tratamento);
+							});
+							Envelope = Envelope.html();
+
+							tratamento = '';
+
+							//Tratamento Para Via Laboratório
+							var tratamentoLAB = $("#TempTratamentoLAB").html();
+							tratamentoLAB = tratamentoLAB
+								.replace("[DescricaoTratamento]", rowItens.DescricaoItem)
+								.replace("[QtdTratamento]", "1")
+							;
+
+							Envelope = $("<div></div>").append(Envelope);
+							Envelope.find(".TLOE_LAB").each(function() {
+								$( this ).append(tratamentoLAB);
+							});
+							Envelope = Envelope.html();
+
+							tratamentoLAB = '';
+						}
+
+						//Totalizadores do Envelope
+						envelopeQtd += rowItens.Quantidade;
+
+					});//Row Itens
+
+					//Totalizador Envelope
+					Envelope = Envelope
+						.replaceAll("[envelopeQtd]", envelopeQtd)
+						.replaceAll("[envelopeTotal]", envelopeTotal.toFixed(2).replace('.',','))
+						.replaceAll("[ValorTotalLentes]", valorLentes.toFixed(2).replace('.',','))
+						.replaceAll("[ValorTotalTramento]", (valorTLOD + valorTLOE).toFixed(2).replace('.',','))
+					;
+
+					//Limpa Linha Totalizadores por Produto
+					Envelope = $("<div></div>").append(Envelope);
+					if(varlorArmacao <= 0) {
+						Envelope.find(".LinhaTotalArmacao").each(function() {
+							$( this ).css("display", "none");
+						});
+					} 
+					if(valorLentes <= 0) {
+						Envelope.find(".LinhaTotalLentes").each(function() {
+							$( this ).css("display", "none");
+						});
+					}
+					if((valorTLOD + valorTLOE) <= 0) {
+						Envelope.find(".LinhaTotalTratamentos").each(function() {
+							$( this ).css("display", "none");
+						});
+					}
+
+
+					//Mesma Lente
+					if (mesmaLente && codigoTLOD == codigoTLOE && valorTLOD == valorTLOE) {
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".LinhaLOE").each(function() {
+							$( this ).css("display", "none");
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".TLOE").each(function() {
+							$( this ).css("display", "none");
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".TLOE_LAB").each(function() {
+							$( this ).css("display", "none");
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".QtdLOD").each(function() {
+							$( this ).html("2");
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".ValorLOD").each(function() {
+							$( this ).html(valorLentes.toFixed(2).replace('.', ','));
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".QtdTratamento").each(function() {
+							$( this ).html("2");
+						});
+
+						Envelope = $("<div></div>").append(Envelope);
+						Envelope.find(".ValorTratamento").each(function() {
+							$( this ).html((Number($( this ).html().replace(',', '.'))*2).toFixed(2).replace('.', ','));
+						});
+						Envelope = Envelope.html();
+					}
+
+
+					//Prescrição
+					var OdLonge = GeeksSQL("Select Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Longe'", false, url, banco, usuario).Records[0];
+
+					var OdMedio = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Medio'", false, url, banco, usuario).Records[0];
+
+					var OdPerto = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Perto'", false, url, banco, usuario).Records[0];
+
+					var OeLonge = GeeksSQL("Select Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Longe'", false, url, banco, usuario).Records[0];
+
+					var OeMedio = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Medio'", false, url, banco, usuario).Records[0];
+
+					var OePerto = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, IsNull(Prisma, 0) Prisma, Base from DocumentoItem where CodigoDocumento = (Select Top 1 CodigoDocumentoAdicional from DocumentoItem where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ ") and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Perto'", false, url, banco, usuario).Records[0];
+
+					//Longe
+					Envelope = Envelope
+						.replaceAll("[OELEsf]",(loeAlterada ? loeEsferico : Number(OeLonge.Esferico)).toFixed(2).replace(".", ","))
+						.replaceAll("[OELCil]",(loeAlterada ? loeCilindrico : Number(OeLonge.Cilindrico)).toFixed(2).replace(".", ","))
+						.replaceAll("[OELEix]",(loeAlterada ? loeEixo : OeLonge.Eixo))
+						.replaceAll("[OELPri]",OeLonge.Prisma)
+						.replaceAll("[OELBas]",OeLonge.Base)
+						.replaceAll("[OELDNP]",Number(OdLonge.DIOE).toFixed(2).replace(".", ","))
+					;
+
+					Envelope = Envelope
+						.replaceAll("[ODLEsf]",(lodAlterada ? lodEsferico : Number(OdLonge.Esferico)).toFixed(2).replace(".", ","))
+						.replaceAll("[ODLCil]",(lodAlterada ? lodCilindrico : Number(OdLonge.Cilindrico)).toFixed(2).replace(".", ","))
+						.replaceAll("[ODLEix]",(lodAlterada ? lodEixo : OdLonge.Eixo))
+						.replaceAll("[ODLPri]",OdLonge.Prisma)
+						.replaceAll("[ODLBas]",OdLonge.Base)
+						.replaceAll("[ODLDNP]",Number(OdLonge.DIOD).toFixed(2).replace(".", ","))
+					;
+
+					//Médio
+					Envelope = Envelope
+						.replaceAll("[OEMAdi]",(loeAlterada ? loeAdicao : Number(OeMedio.Adicao)).toFixed(2).replace(".", ","))
+						.replaceAll("[OEMEsf]",(loeAlterada ? loeAdicao + loeEsferico : Number(OeMedio.Esferico)).toFixed(2).replace(".", ","))
+						.replaceAll("[OEMCil]",Number(OeMedio.Cilindrico).toFixed(2).replace(".", ","))
+						.replaceAll("[OEMEix]",OeMedio.Eixo)
+						.replaceAll("[OEMPri]",OeMedio.Prisma)
+						.replaceAll("[OEMBas]",OeMedio.Base)
+						.replaceAll("[OEMDNP]",Number(OdMedio.DIOE).toFixed(2).replace(".", ","))
+					;
+					
+					Envelope = Envelope
+						.replaceAll("[ODMAdi]",(lodAlterada ? lodAdicao : Number(OdMedio.Adicao)).toFixed(2).replace(".", ","))
+						.replaceAll("[ODMEsf]",(lodAlterada ? lodAdicao + lodEsferico : Number(OdMedio.Esferico)).toFixed(2).replace(".", ","))
+						.replaceAll("[ODMCil]",Number(OdMedio.Cilindrico).toFixed(2).replace(".", ","))
+						.replaceAll("[ODMEix]",OdMedio.Eixo)
+						.replaceAll("[ODMPri]",OdMedio.Prisma)
+						.replaceAll("[ODMBas]",OdMedio.Base)
+						.replaceAll("[ODMDNP]",Number(OdMedio.DIOD).toFixed(2).replace(".", ","))
+					;
+
+					//Perto
+					Envelope = Envelope
+						.replaceAll("[OEPAdi]",Number(OePerto.Adicao).toFixed(2).replace(".", ","))
+						.replaceAll("[OEPEsf]",Number(OePerto.Esferico).toFixed(2).replace(".", ","))
+						.replaceAll("[OEPCil]",Number(OePerto.Cilindrico).toFixed(2).replace(".", ","))
+						.replaceAll("[OEPEix]",OePerto.Eixo)
+						.replaceAll("[OEPPri]",OePerto.Prisma)
+						.replaceAll("[OEPBas]",OePerto.Base)
+						.replaceAll("[OEPDNP]",Number(OdPerto.DIOE).toFixed(2).replace(".", ","))
+					;
+					
+					Envelope = Envelope
+						.replaceAll("[ODPAdi]",Number(OdPerto.Adicao).toFixed(2).replace(".", ","))
+						.replaceAll("[ODPEsf]",Number(OdPerto.Esferico).toFixed(2).replace(".", ","))
+						.replaceAll("[ODPCil]",Number(OdPerto.Cilindrico).toFixed(2).replace(".", ","))
+						.replaceAll("[ODPEix]",OdPerto.Eixo)
+						.replaceAll("[ODPPri]",OdPerto.Prisma)
+						.replaceAll("[ODPBas]",OdPerto.Base)
+						.replaceAll("[ODPDNP]",Number(OdPerto.DIOD).toFixed(2).replace(".", ","))
+					;
+
+					//ALtura da Montagem
+					if (itemVenda.Records[0].Operacao != 'Lente de Contato Surfaçada') {
+						
+						var AlturaMontagem = GeeksSQL("Select IsNull(AlturaMontagemOD, 0) as AlturaMontagemOD, IsNull(AlturaMontagemOE, 0) as AlturaMontagemOE from DocumentoItem  where CodigoDocumento = " +rowEnv.CodigoDocumentoAdicional+ " and TipoItem='Armação'", false, url, banco, usuario).Records[0];
+
+						Envelope = Envelope
+							.replaceAll("[AltMontagemLOD]", AlturaMontagem.AlturaMontagemOD.toFixed(2))
+							.replaceAll("[AltMontagemLOE]", AlturaMontagem.AlturaMontagemOE.toFixed(2))
+						;
+					} else {
+						Envelope = Envelope
+							.replaceAll("[AltMontagemLOD]", '&nbsp;')
+							.replaceAll("[AltMontagemLOE]", '&nbsp;')
+							.replaceAll("[DescArmacao]", '')
+							.replaceAll("[MarcaArmacao]", '')
+							.replaceAll("[QtdArmacao]", '')
+							.replaceAll("[ValorArmacao]", '')
+							.replaceAll("[TipoOculos]", '')
+							.replaceAll("[CodigoArmacao]", '')
+							.replaceAll("[MaterialArmacao]", '')
+							.replaceAll("[CorArmacao]", '')
+							.replaceAll("[TamanoArmacao]", '')
+							.replaceAll("[PonteArmacao]", '')
+							.replaceAll("[DiagonalArmacao]", '')
+							.replaceAll("[AlturaArmacao]", '')
+						;
+					}
+
+
+					//Óculos Receituario ou LDC Surfaçada
+					if (itemVenda.Records[0].Operacao == 'Lente de Contato Surfaçada') {
+						//Select Tipo LDC
+						var tipoOculos = GeeksSQL(
+							" SELECT"
+								+" IsNull(LenteTipo, '') as Oculos"
+							+" FROM DocumentoItem"
+							+" WHERE (TipoItem = 'LOD' OR TipoItem = 'LOE') AND CodigoDocumento ="+rowEnv.CodigoDocumentoAdicional
+						, false, url, banco, usuario);
+					}
+					else {
+						//Select Tipo Óculos
+						var tipoOculos = GeeksSQL(
+							" SELECT"
+								+" IsNull(TipoOculos, '') TipoOculos"
+								+" ,IsNull(Oculos, '') Oculos"
+							+" FROM DocumentoItem"
+							+" WHERE TipoItem = 'Armação' and CodigoDocumento ="+rowEnv.CodigoDocumentoAdicional
+						, false, url, banco, usuario);
+
+						Envelope = Envelope
+							.replaceAll("[TipoOculos]", 'Tipo Óculos: '+tipoOculos.Records[0].TipoOculos)
+						;
+					}
+
+					//Limpa linha presc. por Tipo Óculos ou Tipo LDC
+					Envelope = $("<div></div>").append(Envelope);
+					switch (tipoOculos.Records[0].Oculos) {
+						case "MonofocalLonge":
+							Envelope.find(".linhaDireitoPerto").remove();
+							Envelope.find(".linhaDireitoMedio").remove();
+							Envelope.find(".linhaEsquerdoPerto").remove();
+							Envelope.find(".linhaEsquerdoMedio").remove();
+							Envelope.find(".TipoLente").html("Tipo Lente: Monofocal (Longe)");  
+						break;
+
+						case "MonofocalPerto":
+							Envelope.find(".linhaDireitoLonge").remove();
+							Envelope.find(".linhaDireitoMedio").remove();
+							Envelope.find(".linhaEsquerdoLonge").remove();
+							Envelope.find(".linhaEsquerdoMedio").remove();
+							Envelope.find(".TipoLente").html("Tipo Lente: Monofocal (Perto)");
+						break;
+
+						case "Bifocal":
+							Envelope.find(".linhaDireitoMedio").remove();
+							Envelope.find(".linhaEsquerdoMedio").remove();
+							Envelope.find(".TipoLente").html("Tipo Lente: Bifocal (Longe e Perto)"); 
+						break;
+
+						case "Multifocal":
+							Envelope.find(".TipoLente").html("Tipo Lente: Multifocal");
+
+							if (
+									((OdMedio.Adicao == 0) || (OdMedio.Adicao == null) || (OdMedio.Adicao == "null"))
+									&& ((OdMedio.Esferico == 0) || (OdMedio.Esferico == null) || (OdMedio.Esferico == "null"))
+									&& ((OdMedio.Cilindrico == 0) || (OdMedio.Cilindrico == null) || (OdMedio.Cilindrico == "null"))
+								)
+							{
+								Envelope.find(".linhaDireitoMedio").remove();
+							}
+
+							if (
+									((OeMedio.Adicao == 0) || (OeMedio.Adicao == null) || (OeMedio.Adicao == "null"))
+									&& ((OeMedio.Esferico == 0) || (OeMedio.Esferico == null) || (OeMedio.Esferico == "null"))
+									&& ((OeMedio.Cilindrico == 0) || (OeMedio.Cilindrico == null) || (OeMedio.Cilindrico == "null"))
+								)
+							{
+								Envelope.find(".linhaEsquerdoMedio").remove();
+							}
+						break;
+
+						case "Intermediario":
+							Envelope.find(".linhaDireitoLonge").remove();
+							Envelope.find(".linhaEsquerdoLonge").remove();
+							Envelope.find(".TipoLente").html("Tipo Lente: Intermediário (Médio e Perto)");
+						break;
+					}
+
+
+					//Print Template
+					$(".PrintTemplate").append(Envelope);
+
+
+					//Gera e Insere Código de Barras (Base Cod. Envelope)
+					var numero = String(rowEnv.CodigoEnvelope);
+					var zeros = 13 - Number(numero.length);
+
+					for (var i = 0; i < zeros; i++)
+						numero = '0' + numero;
+
+					$(".CodBarras"+rowEnv.CodigoEnvelope).each(function() {
+						$( this ).css("white-space", "nowrap");
+						$( this ).css("background-color", "#fff");
+						$( this ).html(fbarcode(numero,20));
+					});
+					$(".CodEnvelope"+rowEnv.CodigoEnvelope).each(function() {
+						$( this ).html('Cód.: '+rowEnv.CodigoEnvelope+'  / Nº: '+rowEnv.NumeroEnvelope);
+					});
+
+					//Logo do Impresso
+					if (dadosEmissor.Records[0].Imagem != "Não informado") {
+						$(".logo").each(function() {
+							$( this ).html('<img width="170" src="' + dadosEmissor.Records[0].Imagem.split("#")[0] + '" />');
+						});
+					}
+
+				});//Row Envelopes
+
+
+				//Itens Avulsos e Outros Itens
+				if (CodigoVenda != null && CodigoVenda != "null" && CodigoVenda != '') {
+
+					//Dados da Venda Itens Avulsos (Documento Tipo=Venda)
+					var dadosVendaAvs = GeeksSQL(
+						" SELECT"
+							+" IsNull(Convert(varchar(10), Dv.DataHoraEmissao, 103), '') as Emissao,"
+							+" IsNull(Convert(varchar(10), Dv.DataHoraEmissao, 103) + ' ' + Convert(varchar(10), Dv.DataHoraEmissao, 108), '') as DataHoraEmissao,"
+							+" IsNull(Convert(varchar(10), Dv.DataHoraFinalizado, 103), '') as Finalizado,"
+							+" IsNull(Convert(varchar(10), Dv.DataHoraFinalizado, 103) + ' ' + Convert(varchar(10), Dv.DataHoraFinalizado, 108), '') as DataHoraFinalizado,"
+							+" IsNull(Convert(varchar(10), current_timestamp, 103), '') as ImpressoEm,"
+							+" IsNull(Convert(varchar(10), current_timestamp, 103) + ' ' + Convert(varchar(10), current_timestamp, 108), '') as DataHoraImpressoEm,"
+							+" IsNull(Dv.CodigoDOcumento, '') as CodigoVenda,"
+							+" IsNull(Dv.Numero, '') as NumeroVenda,"
+							+" IsNull(Dv.Observacao, '') as ObservacaoVenda,"
+							+" IsNull(C.Nome, '') as Vendedor,"
+							+" IsNull(Dv.CodigoContato, '') as CodigoCliente,"
+							+" IsNull(Dv.CodigoEmpresa, '') as CodigoEmpresa"
+						+" FROM Documento Dv"
+							+" LEFT JOIN Contato C ON(Dv.CodigoContatoVendedor = C.CodigoContato)"
+						+" WHERE"
+							+" Dv.Tipo = 'Venda'"
+							+" AND Dv.CodigoDocumento ="+CodigoVenda
+					, false, url, banco, usuario);
+
+					$(dadosVendaAvs.Records).each(function(index, rowVenAvs) {
+
+						//Get Template
+						var ItensAvulsos = $("#TempItensAvulsos").html();
+
+						//Dados Venda (Itens Avulsos)
+						ItensAvulsos = ItensAvulsos
+							.replaceAll("[ImpressoEm]", rowVenAvs.DataHoraImpressoEm)
+							.replaceAll("[DataEmissaoVenda]", rowVenAvs.Emissao)
+							.replaceAll("[Vendedor]", rowVenAvs.Vendedor)
+							.replaceAll("[###CodigoVenda###]", rowVenAvs.CodigoVenda)
+						;
+
+
+						//Dados da Loja
+						var dadosEmissorAvs = GeeksSQL(
+							" SELECT"
+								+" TOP 1 IsNull(Ce.CodigoContatoEndereco, '') as Ordem"
+								+" ,IsNull(C.Nome, '') as RazaoSocialEmpresa"
+								+" ,IsNull(C.Apelido, '') as NomeEmpresa"
+								+" ,IsNull(C.[Site], '') as SiteEmpresa"
+								+" ,IsNull(C.Email, '') as EmailEmpresa"
+								+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')+ IsNull('  '+Ce.Municipio, '')+ IsNull('/'+Ce.UF, '')+ IsNull(' - '+Ce.Cep, '')) as EnderecoEmpresa"
+								+" ,IsNull(STUFF(("
+									+" SELECT ',  '+Ct.Telefone"
+									+" FROM ContatoTelefone Ct"
+									+" WHERE"
+										+" Ct.CodigoContato = C.CodigoContato"
+								+" FOR XML PATH('')), 1, 2, ''), '') AS TelefoneEmpresa"
+								+" ,IsNull(C.Imagem, 'Não informado') as Imagem"
+							+" FROM Contato C"
+								+" LEFT JOIN ContatoEndereco CE ON(CE.CodigoContato = C.CodigoContato)"
+							+" WHERE C.CodigoContato ="+rowVenAvs.CodigoEmpresa
+							+" ORDER BY 1 Desc"
+						, false, url, banco, usuario);
+
+						//Temp (Dados Empresa)
+						ItensAvulsos = ItensAvulsos
+							.replaceAll("[NomeEmpresa]", dadosEmissorAvs.Records[0].NomeEmpresa)
+							.replaceAll("[EnderecoEmpresa]", dadosEmissorAvs.Records[0].EnderecoEmpresa)
+							.replaceAll("[TelefoneEmpresa]", dadosEmissorAvs.Records[0].TelefoneEmpresa)
+							.replaceAll("[EmailEmpresa]", dadosEmissorAvs.Records[0].EmailEmpresa)
+							.replaceAll("[SiteEmpresa]", dadosEmissorAvs.Records[0].SiteEmpresa)
+						;
+
+
+						//Dados do Cliente
+						var dadosClienteAvs = GeeksSQL(
+							" SELECT"
+								+" TOP 1 IsNull(Ce.CodigoContatoEndereco, '') as Ordem"
+								+" ,IsNull(C.CodigoContato, '') as CodigoCliente"
+								+" ,IsNull(C.Nome, '') as NomeCliente"
+								+" ,IsNull(C.NumeroDocumentoNacional, '') as CPFCliente"
+								+" ,IsNull(C.NumeroDocumentoEstadual, '') as RGCliente"
+								+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')+ IsNull('  '+Ce.Municipio, '')+ IsNull('/'+Ce.UF, '')+ IsNull(' - '+Ce.Cep, '')) as EnderecoCliente"
+								+" ,(IsNull(Ce.Logradouro, '')+ IsNull(', '+Ce.Numero, 'S/N ')+ IsNull(' - '+Ce.Bairro, '')) as LogradouroCliente"
+								+" ,IsNull(Ce.Municipio, '') as CidadeCliente"
+								+" ,IsNull(Ce.UF, '') as UFCliente"
+								+" ,STUFF(("
+									+" SELECT ',  '+ Ct.Telefone"
+									+" FROM ContatoTelefone Ct"
+									+" WHERE"
+										+" Ct.CodigoContato = C.CodigoContato"
+								+" FOR XML PATH('')), 1, 2, '') AS TelefoneCliente"
+							+" FROM Contato C"
+								+" LEFT JOIN ContatoEndereco Ce ON(Ce.CodigoContato = C.CodigoContato)"
+							+" WHERE C.CodigoContato ="+rowVenAvs.CodigoCliente
+							+" ORDER BY 1 Desc"
+						, false, url, banco, usuario);
+
+						//Temp (Dados Cliente)
+						ItensAvulsos = ItensAvulsos
+							.replaceAll("[CodigoCliente]", dadosClienteAvs.Records[0].CodigoCliente)
+							.replaceAll("[NomeCliente]", dadosClienteAvs.Records[0].NomeCliente)
+							.replaceAll("[EnderecoCliente]", dadosClienteAvs.Records[0].EnderecoCliente)
+							.replaceAll("[TelefoneCliente]", dadosClienteAvs.Records[0].TelefoneCliente)
+						;
+
+
+						//Var Totalizadores
+						var QtdTotalItens = 0;
+						var ValorTotalItens = 0;
+
+
+						//Itens Avulsos (Itens que Comtem Documento Tipo=Item e DocumentoItem)
+						var AvulsosItens = GeeksSQL(
+							" SELECT"
+								+" IsNull(CodigoItem, '') CodigoItem,"
+								+" IsNull(Ditem.DescricaoItem, '') DescricaoItem,"
+								+" IsNull(Ditem.Marca, '') Marca,"
+								+" IsNull(Ditem.Quantidade, 0) Quantidade,"
+								+" IsNull(Ditem.SubTotal, 0.00) SubTotal,"
+								+" IsNull(Ditem.DescontoItem, 0.00) Desconto,"
+								+" IsNull(Ditem.Total, 0.00) Total"
+							+" FROM DocumentoItem as Ditem"
+							    +" LEFT JOIN Documento Di ON(Di.CodigoDocumento = Ditem.CodigoDocumento)"
+							    +" LEFT JOIN Documento De ON(De.CodigoDocumentoAdicional = Di.CodigoDocumento) AND (De.Tipo='Envelope')"
+							+" WHERE"
+							    +" De.CodigoDocumentoAdicional IS NULL"
+							    +" AND Di.Tipo='Item Venda'"
+							    +" AND Di.CodigoDocumentoAdicional ="+rowVenAvs.CodigoVenda
+						,false ,url ,banco ,usuario);
+
+						$(AvulsosItens.Records).each(function(index, rowAvsIt){
+							//Totalizador Itnes
+							QtdTotalItens += rowAvsIt.Quantidade;
+							ValorTotalItens += rowAvsIt.Total;
+
+							//Get Template
+							var LinhasItensAvulsos = $("#tempLinhasItensAvulsos").html();
+
+							LinhasItensAvulsos = LinhasItensAvulsos
+								.replaceAll("[DescItem]", (rowAvsIt.DescricaoItem != '' ? rowAvsIt.DescricaoItem : "&nbsp;") )
+								.replaceAll("[MarcaItem]", (rowAvsIt.Marca != '' ? rowAvsIt.Marca : "&nbsp;") )
+								.replaceAll("[QtdItem]", (rowAvsIt.Quantidade != '' ? rowAvsIt.Quantidade : "&nbsp;") )
+								.replaceAll("[ValorItem]", rowAvsIt.Total.toFixed(2).replace('.',','))
+							;
+
+							ItensAvulsos = $("<div></div>").append(ItensAvulsos);
+							ItensAvulsos.find(".LinhaItemAvulso").each(function() {
+								$( this ).append(LinhasItensAvulsos);
+							});
+							ItensAvulsos = ItensAvulsos.html();
+
+							LinhasItensAvulsos = '';
+						});//Row Itens Avulsos
+
+
+						//Outros Itens (Itens lançados diretamente na DocumentoItem)
+						var OutItens = GeeksSQL(
+							" SELECT"
+								+" IsNull(CodigoItem, '') CodigoItem,"
+								+" IsNull(Ditem.DescricaoItem, '') DescricaoItem,"
+								+" IsNull(Ditem.Marca, '') Marca,"
+								+" IsNull(Ditem.Quantidade, 0) Quantidade,"
+								+" IsNull(Ditem.SubTotal, 0.00) SubTotal,"
+								+" IsNull(Ditem.DescontoItem, 0.00) Desconto,"
+								+" IsNull(Ditem.Total, 0.00) Total"
+							+" FROM DocumentoItem as Ditem"
+							+" WHERE"
+							    +" (Ditem.CodigoDocumento ="+rowVenAvs.CodigoVenda+")"
+						,false ,url ,banco ,usuario);
+
+						$(OutItens.Records).each(function(index, rowOutIt) {
+							//Totalizador Itnes
+							QtdTotalItens += rowOutIt.Quantidade;
+							ValorTotalItens += rowOutIt.Total;
+
+							//Get Template
+							var LinhasItensAvulsos = $("#tempLinhasItensAvulsos").html();
+
+							LinhasItensAvulsos = LinhasItensAvulsos
+								.replaceAll("[DescItem]", (rowOutIt.DescricaoItem != '' ? rowOutIt.DescricaoItem : "&nbsp;") )
+								.replaceAll("[MarcaItem]", (rowOutIt.Marca != '' ? rowOutIt.Marca : "&nbsp;") )
+								.replaceAll("[QtdItem]", (rowOutIt.Quantidade != '' ? rowOutIt.Quantidade : "&nbsp;") )
+								.replaceAll("[ValorItem]", rowOutIt.Total.toFixed(2).replace('.',','))
+							;
+
+							ItensAvulsos = $("<div></div>").append(ItensAvulsos);
+							ItensAvulsos.find(".LinhaItemAvulso").each(function() {
+								$( this ).append(LinhasItensAvulsos);
+							});
+							ItensAvulsos = ItensAvulsos.html();
+
+							LinhasItensAvulsos = '';
+						});//Row Outros Itens
+
+
+						//Totalizadores Itens
+						ItensAvulsos = ItensAvulsos
+							.replaceAll("[QtdTotalItens]", QtdTotalItens)
+							.replaceAll("[ValorTotalItens]", ValorTotalItens.toFixed(2).replace('.',','))
+						;
+
+						//Verifica se existem itens avulsos
+						if (QtdTotalItens > 0) {
+							//Print Template
+							$(".PrintTemplateAvs").append(ItensAvulsos);
+						}
+
+
+						//Gera e Insere Código de Barras (Base Cod. Envelope)
+						var numero = String(rowVenAvs.CodigoVenda);
+						var zeros = 13 - Number(numero.length);
+
+						for (var i = 0; i < zeros; i++)
+							numero = '0' + numero;
+
+						$(".CodBarras"+rowVenAvs.CodigoVenda).each(function() {
+							$( this ).css("white-space", "nowrap");
+							$( this ).css("background-color", "#fff");
+							$( this ).html(fbarcode(numero,20));
+						});
+						$(".CodVenda"+rowVenAvs.CodigoVenda).each(function() {
+							$( this ).html('Cód.: '+rowVenAvs.CodigoVenda+'  / Nº: '+rowVenAvs.NumeroVenda);
+						});
+
+						//Logo do Impresso
+						if (dadosEmissorAvs.Records[0].Imagem != "Não informado") {
+							$(".logo").each(function() {
+								$( this ).html('<img width="170" src="' + dadosEmissorAvs.Records[0].Imagem.split("#")[0] + '"/>');
+							});
+						}
+
+					});//row Venda Itens Avulsos
+				}//if
+
+			});
+		</script>
+	</body>
+</html>

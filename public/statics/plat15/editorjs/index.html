@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!-- 
+    Geeks B15 Plataforma Mobile
+-->
+<html>
+<head>
+    <title>B15_JS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+    <style>
+  
+    .FrmBarraSuperior {
+        margin-top: 0;
+        list-style: none;
+        cursor: pointer; 
+    }
+    .FrmBarraSuperior li {
+        display: inline-block;
+        border: 1px solid #aaa;
+        margin-left: 2px;
+        padding-right: 5px;
+        padding-left: 5px;
+        padding-top: 10px;
+        height: 30px;
+        background: -webkit-linear-gradient(top, #f8f8f8 0%,#e8e8e8 100%); 
+    }
+        .FrmBarraSuperior li:hover { background-color: #FFCF8B; }
+
+        dl {display:nome}
+
+        .CodeMirror {
+            font-family: Arial, monospace;
+            font-size: 16px;
+        }
+        
+    </style>
+
+
+    <link href="CodeMirror/lib/codemirror.css" rel="stylesheet" />
+    <link href="CodeMirror/theme/abcdef.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/fold/foldgutter.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/dialog/dialog.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/hint/show-hint.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/lint/lint.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/search/matchesonscrollbar.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/display/fullscreen.css" rel="stylesheet" />
+    <link href="CodeMirror/addon/tern/tern.css" rel="stylesheet" />
+
+    <script src="jquery.min.js"></script>
+
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <script src="CodeMirror/addon/comment/comment.js"></script>
+    <script src="CodeMirror/addon/comment/continuecomment.js"></script>
+    <script src="CodeMirror/addon/dialog/dialog.js"></script>
+    
+    <script src="CodeMirror/addon/edit/matchbrackets.js"></script>
+
+    <script src="CodeMirror/addon/fold/foldcode.js"></script>
+    <script src="CodeMirror/addon/fold/foldgutter.js"></script>
+    <script src="CodeMirror/addon/fold/brace-fold.js"></script>
+    <script src="CodeMirror/addon/fold/xml-fold.js"></script>
+    <script src="CodeMirror/addon/fold/markdown-fold.js"></script>
+    <script src="CodeMirror/addon/fold/comment-fold.js"></script>  
+    <script src="CodeMirror/addon/fold/indent-fold.js"></script>
+    <script src="CodeMirror/addon/dialog/jumpToLine.js"></script>
+
+    <script src="CodeMirror/addon/search/search.js"></script>
+    <script src="CodeMirror/addon/search/searchcursor.js"></script>
+    <script src="CodeMirror/addon/search/matchesonscrollbar.js"></script>
+    
+    <script src="CodeMirror/mode/javascript/javascript.js"></script>
+    <script src="CodeMirror/mode/xml/xml.js"></script>
+    <script src="CodeMirror/mode/markdown/markdown.js"></script>
+    
+    <script src="CodeMirror/addon/hint/show-hint.js"></script>
+    <script src="CodeMirror/addon/hint/javascript-hint.js"></script>
+    <script src="CodeMirror/addon/display/fullscreen.js"></script>   
+    <script src="CodeMirror/addon/edit/closetag.js"></script>   
+</head>
+<body>
+    <ul class="FrmBarraSuperior">
+      <li class="btnAbrir">Abrir Ctrl-A</li>
+      <li class="btnSalvar">Salvar Ctrl-S</li>
+      <li> CodigoObjeto: <input type="text" id="CodigoObjeto"> NomeObjeto: <input type="text" id="NomeObjeto"> Tipo: <select id="Tabela"><option value="Objeto">Objeto</option><option value="Grid">Grid</option></select></li>
+      <li>F11 ou ESC fullScreen</li>
+      <li class="btnDicas">Dicas</li>
+    </ul>
+
+    <textarea id="code" name="code"></textarea>
+
+    <dl style="display: none;">
+      <dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+      <dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+      <dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+      <dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+      <dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+      <dt>Alt-F</dt><dd>Persistent search (dialog doesn't autoclose,
+      enter to find next, Shift-Enter to find previous)</dd>
+      <dt>Alt-G</dt><dd>Jump to line</dd>
+	  <dt>Alt-0 a 9</dt><dd>AgrupaPorNivel</dd>
+	  <dt>Ctrl-Q</dt><dd>Agrupa</dd>
+	  <dt>Ctrl-0</dt><dd>Desagrupar</dd>
+    </dl>
+
+ <script>
+
+    textArea =  document.getElementById("code")
+
+    function foldByLevel(cm, level) {
+        foldByNodeOrder(cm, 0);
+        // initialize vars
+        var cursor = cm.getCursor();
+        cursor.ch = 0;
+        cursor.line = 0;
+        var range = cm.getViewport();
+        foldByLevelRec(cm, cursor, range, level);
+    };
+
+    function foldByLevelRec(cm, cursor, range, level) {
+        if (level > 0) {
+            var searcher = cm.getSearchCursor("<", cursor, false);
+            while (searcher.findNext() && searcher.pos.from.line < range.to) {
+                // unfold the tag
+                cm.foldCode(searcher.pos.from, null, "unfold");
+                // move the cursor into the tag
+                cursor = searcher.pos.from;
+                cursor.ch = searcher.pos.from.ch + 1;
+                // find the closing tag
+                var match = CodeMirror.findMatchingTag(cm, cursor, range);
+                if (match) {
+                    if (match.close) {
+                        // create the inner-range and jump the searcher after the ending tag
+                        var innerrange = { from: range.from, to: range.to };
+                        innerrange.from = cursor.line + 1;
+                        innerrange.to = match.close.to.line;
+                        // the recursive call
+                        foldByLevelRec(cm, cursor, innerrange, level - 1);
+                    }
+                    // move to the next element in the same tag of this function scope
+                    var nextcursor = { line: cursor.line, to: cursor.ch };
+                    if (match.close) {
+                        nextcursor.line = match.close.to.line;
+                    }
+                    nextcursor.ch = 0;
+                    nextcursor.line = nextcursor.line + 1;
+                    searcher = cm.getSearchCursor("<", nextcursor, false);
+                }
+            }
+        }
+    }
+
+    function foldByNodeOrder(cm, node) {
+        // 0 - fold all
+        unfoldAll(cm);
+        node++;
+        for (var l = cm.firstLine() ; l <= cm.lastLine() ; ++l)
+            if (node == 0)
+                cm.foldCode({ line: l, ch: 0 }, null, "fold");
+            else node--;
+    }
+
+    function unfoldAll(cm) {
+        for (var i = 0; i < cm.lineCount() ; i++) {
+            cm.foldCode({ line: i, ch: 0 }, null, "unfold");
+        }
+    }
+
+    function salvar(){
+        codeEditor.save();
+        var CodigoObjeto = $("#CodigoObjeto").val()
+        var FonteJS = $("#code").val().replace(/\\r/g, "\r").replace(/\\n/g, "\n").replace(/[']/g, "''").replace(/'/g, "$--$").replace(/"/g, "-#-#-");
+
+        if ($("#Tabela").val() == "Grid") {
+        	var ret = ExternalSQL("Update Grid Set CodigoPersonalizado = '" + FonteJS  + "' where CodigoGrid=0" + CodigoObjeto);	
+		} else {        	
+        	var ret = ExternalSQL("Update Objeto Set CodigoPersonalizado = '" + FonteJS  + "' where CodigoObjeto=0" + CodigoObjeto);
+		}        	
+        var FonteJS = $("#code").val()
+        alert('Salvo com sucesso!')
+    }
+
+    function abrir(){
+        var CodigoObjeto = $("#CodigoObjeto").val()
+        var r = confirm("Deseja abrir "  + CodigoObjeto + " ?" );
+        if (r == true) {
+
+            if ($("#Tabela").val() == "Grid") {
+				var ret = ExternalSQL("Select * from Grid where CodigoGrid=0" + CodigoObjeto );
+				$("#NomeObjeto").val(ret.Records[0].Descricao)
+            } else {
+            	var ret = ExternalSQL("Select * from Objeto where CodigoObjeto=0" + CodigoObjeto );
+            	$("#NomeObjeto").val(ret.Records[0].NomeObjeto)
+			}
+
+            var CodigoPersonalizado = ret.Records[0].CodigoPersonalizado
+            
+            if (CodigoPersonalizado==null) CodigoPersonalizado=""
+            codeEditor.setValue(CodigoPersonalizado);
+            document.title = "".concat(CodigoObjeto," ",$("#NomeObjeto").val())
+            //agrupar()
+        }
+    }
+
+    var codeEditor = CodeMirror.fromTextArea(textArea, {
+        lineNumbers: true,
+        extraKeys: {
+            "Ctrl-A": function (cm) { abrir() },
+            "Ctrl-S": function (cm) { salvar() },
+            "Ctrl-Q": function (cm) { cm.foldCode(cm.getCursor()); },
+            "Ctrl-0": function (cm) { unfoldAll(cm); },
+            "Alt-0": function (cm) { foldByLevel(cm, 0); },
+            "Alt-1": function (cm) { foldByLevel(cm, 1); },
+            "Alt-2": function (cm) { foldByLevel(cm, 2); },
+            "Alt-3": function (cm) { foldByLevel(cm, 3); },
+            "Alt-4": function (cm) { foldByLevel(cm, 4); },
+            "Alt-5": function (cm) { foldByLevel(cm, 5); },
+            "Alt-6": function (cm) { foldByLevel(cm, 6); },
+            "Alt-7": function (cm) { foldByLevel(cm, 7); },
+            "Alt-8": function (cm) { foldByLevel(cm, 8); },
+            "Alt-9": function (cm) { foldByLevel(cm, 9); },
+            "F11": function (cm) { cm.setOption("fullScreen", !cm.getOption("fullScreen")); },
+            "Esc": function (cm) { if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false); }
+        },
+        mode: { name: "javascript", globalVars: true , json: true},
+        styleActiveLine: true,
+        matchBrackets: true,
+        theme: "abcdef",
+        gutters: ["CodeMirror-lint-markers", "CodeMirror-foldgutter"],
+        foldGutter: true,
+        lint: true,
+        indentUnit: 4,
+        indentWithTabs: true,
+        autofocus: true
+    });
+    var height = (screen.height - 200) 
+    codeEditor.setSize("100%",height)
+
+
+    ExternalSQL = function (xSql){
+        var url = "http://srv8.b15.com.br:81/15A/Core/ExecuteSQL";
+        var requestDatabase = "GeeksPlat15a";
+        var result = null;
+        var data = xSql;
+        data = data.replace(/'/g, "$--$").replace(/"/g, "-#-#-");
+        
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                database: requestDatabase,
+                sentence: data
+            },
+            dataType: "json",
+            async: false,
+            success: function(response) {
+                var errors = $.grep(response, function(value) {
+                    return value.HasError == true;
+                });
+                if (errors.length > 0) {
+                    ShowError(errors[0]);
+                    return;
+                }
+                result = response;
+            },
+            error: function(e) {
+                ShowError(e.responseText);
+                return;
+            }
+        });
+        return result;
+    };
+
+    var agrupar = function(){
+        codeEditor.operation(function() { 
+           for (var l = codeEditor.firstLine(); l <= codeEditor.lastLine(); ++l) 
+             codeEditor.foldCode({line: l, ch: 0}, null, "fold"); 
+        });
+    }
+
+    var expandir = function() {
+        for (var i = 0; i < codeEditor.lineCount() ; i++) {
+            codeEditor.foldCode({ line: i, ch: 0 }, null, "unfold");
+        }
+    }
+
+
+    $(document).ready(function () {
+
+        $(".btnAgrupar").click(function () {
+           agrupar()
+        })    
+   
+        $(".btnAbrir").click(function () {
+            abrir()
+        })
+
+        $(".btnSalvar").click(function () {
+            //salvar()
+        })
+
+        $(".btnDicas").click(function () {
+        	debugger
+            if ($("dl").css("display")=="none") {
+				$("dl").show()	
+            } else
+			$("dl").hide()
+
+        })
+
+    });
+       
+    </script>
+
+</body>
+</html>

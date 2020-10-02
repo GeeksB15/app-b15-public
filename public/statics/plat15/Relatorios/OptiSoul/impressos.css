@@ -1,0 +1,396 @@
+/*conf padrão*/
+    @font-face
+    {
+        font-family: "Lato";
+        src: url(/font/Lato-Medium.ttf);
+    }
+
+    body { font-family: Lato, sans-serif; }
+
+    table, tr, td { padding: 0px; margin: 0px; }
+
+    h1, h2, h3, h4, h5, h6 { padding: 0px; margin: 0px; font-weight: normal; overflow: hidden; }
+
+    h1 { font-size: 16px; }
+
+    h2 { font-size: 15px; }
+
+    h3 { font-size: 14px; }
+
+    h4 { font-size: 13px; }
+
+    h5 { font-size: 12px; }
+
+    h6 { font-size: 10px; }
+
+    p { font-size: 9px; padding: 0px; margin: 0px; overflow: hidden; }
+
+    span { font-size: 9px; font-weight: bold; overflow: hidden; }
+
+    /*Imagens responsivas ao impresso*/
+    .img-responsive { display: block; max-width: 100%; height: auto; }
+
+    /*container*/
+    .container { width: 21cm; height: 29.7cm; color: rgb(25,25,25); margin: 0; padding: 0; }
+
+
+    /*Maior que o campo*/
+    .hidden { overflow: hidden; }
+
+
+    /*bold*/
+    .bold-600 { font-weight: 600; }
+    .bold-700 { font-weight: 700; }
+    .bold-800 { font-weight: 800; }
+    .bold-900 { font-weight: 900; }
+
+    tr.bold-600 td h1 { font-weight: 600; }
+    tr.bold-700 td h1 { font-weight: 700; }
+    tr.bold-800 td h1 { font-weight: 800; }
+    tr.bold-900 td h1 { font-weight: 900; }
+
+    tr.bold-600 td h2 { font-weight: 600; }
+    tr.bold-700 td h2 { font-weight: 700; }
+    tr.bold-800 td h2 { font-weight: 800; }
+    tr.bold-900 td h2 { font-weight: 900; }
+
+    tr.bold-600 td h3 { font-weight: 600; }
+    tr.bold-700 td h3 { font-weight: 700; }
+    tr.bold-800 td h3 { font-weight: 800; }
+    tr.bold-900 td h3 { font-weight: 900; }
+
+    tr.bold-600 td h4 { font-weight: 600; }
+    tr.bold-700 td h4 { font-weight: 700; }
+    tr.bold-800 td h4 { font-weight: 800; }
+    tr.bold-900 td h4 { font-weight: 900; }
+
+    tr.bold-600 td h5 { font-weight: 600; }
+    tr.bold-700 td h5 { font-weight: 700; }
+    tr.bold-800 td h5 { font-weight: 800; }
+    tr.bold-900 td h5 { font-weight: 900; }
+
+    tr.bold-600 td h6 { font-weight: 600; }
+    tr.bold-700 td h6 { font-weight: 700; }
+    tr.bold-800 td h6 { font-weight: 800; }
+    tr.bold-900 td h6 { font-weight: 900; }
+
+
+    /*flutuar*/
+    .float-left { float: left; }
+    .float-right { float: right; }
+
+
+    /*alinhamento de testo*/
+    .text-align-left { text-align: left; }
+    .text-align-center { text-align: center; }
+    .text-align-right { text-align: right; }
+
+
+    /*divisão de conteudo*/
+    .linha-divisoria
+    {
+        padding-bottom: 1px;
+        border-bottom: 1px solid rgb(210,210,210);
+    }
+
+
+    /*titulo do relatório*/
+    .titulo-relatorio
+    {
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-bottom: 4px;
+        background-color: rgb(225,225,225);
+        text-align: center;
+    }
+
+
+    /*titulo da seção (ex: via cliente)*/
+    .titulo-sessao
+    {
+        text-align: center;
+        background-color: rgb(225,225,225);
+        padding-top: 4px;
+        padding-bottom: 0;
+        margin: 0;
+    }
+
+
+    /*config tabela*/
+    .content-table
+    {
+        width: 100%;
+    }
+        .sub-content-table { width: 100%; }
+
+
+    /*bordas*/
+    .box-full { border: 1px solid rgb(210,210,210); }
+    .box-top { border-top: 1px solid rgb(210,210,210); }
+    .box-bottom { border-bottom: 1px solid rgb(210,210,210); }
+    .box-left { border-left: 1px solid rgb(210,210,210); }
+    .box-right { border-right: 1px solid rgb(210,210,210); }
+
+    .box-full-dashed { border: 1px dashed rgb(100,100,100); }
+    .box-top-dashed { border-top: 1px dashed rgb(100,100,100); }
+    .box-bottom-dashed { border-bottom: 1px dashed rgb(100,100,100); }
+    .box-left-dashed { border-left: 1px dashed rgb(100,100,100); }
+    .box-right-dashed { border-right: 1px dashed rgb(100,100,100); }
+
+    .box-full-dotted { border: 1px dotted rgb(100,100,100); }
+    .box-top-dotted { border-top: 1px dotted rgb(100,100,100); }
+    .box-bottom-dotted { border-bottom: 1px dotted rgb(100,100,100); }
+    .box-left-dotted { border-left: 1px dotted rgb(100,100,100); }
+    .box-right-dotted { border-right: 1px dotted rgb(100,100,100); }
+
+    td.dashed-top h6 { border-top:  1px dashed rgb(120,120,120); }
+    td.dashed-bottom h6 { border-bottom:  1px dashed rgb(120,120,120); }
+    td.dashed-left h6 { border-left:  1px dashed rgb(120,120,120); }
+    td.dashed-right h6 { border-right:  1px dashed rgb(120,120,120); }
+
+
+    /*paddings*/
+    .pfull-01 { padding: 1px;  }
+    .pfull-02 { padding: 2px;  }
+    .pfull-03 { padding: 3px;  }
+    .pfull-04 { padding: 4px;  }
+    .pfull-05 { padding: 5px;  }
+    .pfull-06 { padding: 6px;  }
+    .pfull-07 { padding: 7px;  }
+    .pfull-08 { padding: 8px;  }
+    .pfull-09 { padding: 9px;  }
+    .pfull-10 { padding: 10px; }
+    .pfull-15 { padding: 15px; }
+    .pfull-20 { padding: 20px; }
+
+    .ptop-01 { padding-top: 1px;  }
+    .ptop-02 { padding-top: 2px;  }
+    .ptop-03 { padding-top: 3px;  }
+    .ptop-04 { padding-top: 4px;  }
+    .ptop-05 { padding-top: 5px;  }
+    .ptop-06 { padding-top: 6px;  }
+    .ptop-07 { padding-top: 7px;  }
+    .ptop-08 { padding-top: 8px;  }
+    .ptop-09 { padding-top: 9px;  }
+    .ptop-10 { padding-top: 10px; }
+    .ptop-15 { padding-top: 15px; }
+    .ptop-20 { padding-top: 20px; }
+
+    .pbottom-01 { padding-bottom: 1px;  }
+    .pbottom-02 { padding-bottom: 2px;  }
+    .pbottom-03 { padding-bottom: 3px;  }
+    .pbottom-04 { padding-bottom: 4px;  }
+    .pbottom-05 { padding-bottom: 5px;  }
+    .pbottom-06 { padding-bottom: 6px;  }
+    .pbottom-07 { padding-bottom: 7px;  }
+    .pbottom-08 { padding-bottom: 8px;  }
+    .pbottom-09 { padding-bottom: 9px;  }
+    .pbottom-10 { padding-bottom: 10px; }
+    .pbottom-15 { padding-bottom: 15px; }
+    .pbottom-20 { padding-bottom: 20px; }
+
+    .pleft-01 { padding-left: 1px;  }
+    .pleft-02 { padding-left: 2px;  }
+    .pleft-03 { padding-left: 3px;  }
+    .pleft-04 { padding-left: 4px;  }
+    .pleft-05 { padding-left: 5px;  }
+    .pleft-06 { padding-left: 6px;  }
+    .pleft-07 { padding-left: 7px;  }
+    .pleft-08 { padding-left: 8px;  }
+    .pleft-09 { padding-left: 9px;  }
+    .pleft-10 { padding-left: 10px; }
+    .pleft-15 { padding-left: 15px; }
+    .pleft-20 { padding-left: 20px; }
+
+    .pright-01 { padding-right: 1px;  }
+    .pright-02 { padding-right: 2px;  }
+    .pright-03 { padding-right: 3px;  }
+    .pright-04 { padding-right: 4px;  }
+    .pright-05 { padding-right: 5px;  }
+    .pright-06 { padding-right: 6px;  }
+    .pright-07 { padding-right: 7px;  }
+    .pright-08 { padding-right: 8px;  }
+    .pright-09 { padding-right: 9px;  }
+    .pright-10 { padding-right: 10px; }
+    .pright-15 { padding-right: 15px; }
+    .pright-20 { padding-right: 20px; }
+
+
+    /*margins*/
+    .mleft-top { margin-top: auto; }
+    .mleft-bottom { margin-bottom: auto; }
+    .mleft-auto { margin-left: auto; }
+    .mright-auto { margin-right: auto; }
+
+    .mfull-01 { margin: 1px ;}
+    .mfull-02 { margin: 2px ;}
+    .mfull-03 { margin: 3px ;}
+    .mfull-04 { margin: 4px ;}
+    .mfull-05 { margin: 5px ;}
+    .mfull-1  { margin: 10px;}
+    .mfull-15 { margin: 15px;}
+    .mfull-2  { margin: 20px;}
+    .mfull-25 { margin: 25px;}
+    .mfull-3  { margin: 30px;}
+    .mfull-35 { margin: 35px;}
+    .mfull-4  { margin: 40px;}
+    .mfull-45  { margin: 45px;}
+
+    .mtop-01 { margin-top: 1px ; }
+    .mtop-02 { margin-top: 2px ; }
+    .mtop-03 { margin-top: 3px ; }
+    .mtop-04 { margin-top: 4px ; }
+    .mtop-05 { margin-top: 5px ; }
+    .mtop-1  { margin-top: 10px; }
+    .mtop-15 { margin-top: 15px; }
+    .mtop-2  { margin-top: 20px; }
+    .mtop-25 { margin-top: 25px; }
+    .mtop-3  { margin-top: 30px; }
+    .mtop-35 { margin-top: 35px; }
+    .mtop-4  { margin-top: 40px; }
+    .mtop-45  { margin-top: 45px; }
+
+    .mbootom-01 { margin-bottom: 1px ; }
+    .mbootom-02 { margin-bottom: 2px ; }
+    .mbootom-03 { margin-bottom: 3px ; }
+    .mbootom-04 { margin-bottom: 4px ; }
+    .mbootom-05 { margin-bottom: 5px ; }
+    .mbootom-1  { margin-bottom: 10px; }
+    .mbootom-15 { margin-bottom: 15px; }
+    .mbootom-2  { margin-bottom: 20px; }
+    .mbootom-25 { margin-bottom: 25px; }
+    .mbootom-3  { margin-bottom: 30px; }
+    .mbootom-35 { margin-bottom: 35px; }
+    .mbootom-4  { margin-bottom: 40px; }
+    .mbootom-45  { margin-bottom: 45px; }
+
+    .mleft-01 { margin-left: 1px ; }
+    .mleft-02 { margin-left: 2px ; }
+    .mleft-03 { margin-left: 3px ; }
+    .mleft-04 { margin-left: 4px ; }
+    .mleft-05 { margin-left: 5px ; }
+    .mleft-1  { margin-left: 10px; }
+    .mleft-15 { margin-left: 15px; }
+    .mleft-2  { margin-left: 20px; }
+    .mleft-25 { margin-left: 25px; }
+    .mleft-3  { margin-left: 30px; }
+    .mleft-35 { margin-left: 35px; }
+    .mleft-4  { margin-left: 40px; }
+    .mleft-45  { margin-left: 45px; }
+
+    .mright-01 { margin-right: 1px ; }
+    .mright-02 { margin-right: 2px ; }
+    .mright-03 { margin-right: 3px ; }
+    .mright-04 { margin-right: 4px ; }
+    .mright-05 { margin-right: 5px ; }
+    .mright-1  { margin-right: 10px; }
+    .mright-15 { margin-right: 15px; }
+    .mright-2  { margin-right: 20px; }
+    .mright-25 { margin-right: 25px; }
+    .mright-3  { margin-right: 30px; }
+    .mright-35 { margin-right: 35px; }
+    .mright-4  { margin-right: 40px; }
+    .mright-45  { margin-right: 45px; }
+
+
+    /*descrição/conteudo valor*/
+    .desc-valor { width: 80px; text-align: left; }
+        .cont-valor { text-align: right; width: 80px; }
+
+
+    /*descrição/conteudo quantidade*/
+    .desc-qtd { width: 30px; text-align: center; }
+        .cont-qtd { width: 30px; text-align: center; }
+
+
+    /*OS datas venda-previsao-entrega*/
+    .data { width: 100%; text-align: center; }
+
+
+    /*campo assinatura*/
+    .assinatura
+    {
+        width: 450px;
+        float: right;
+        margin-top: 30px;
+        text-align: center;
+        border-top: 1px solid rgb(210,210,210);
+    }
+
+
+    /*header loja*/
+    .logo-loja { width: 170px; height: 75px; }
+
+
+    /*header cliente*/
+    .dados-cliente { padding-left: 6px; padding-right: 2px; }
+
+
+
+
+/**************************CONFIGURAÇÕES ESPECIFICAS**************************/
+
+        /*prescrição*/
+        .prescricao-oe,
+        .prescricao-od
+        {
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-bottom: 1px solid rgb(210,210,210);
+            border-left: 1px solid rgb(210,210,210);
+            border-right: 1px solid rgb(210,210,210);
+        }
+
+        .prescricao-oe-title,
+        .prescricao-od-title
+        {
+            text-align: center;
+            border-bottom: 1px solid rgb(210,210,210);
+            border-left: 1px solid rgb(210,210,210);
+            border-right: 1px solid rgb(210,210,210);
+        }
+
+        .prescricao-title
+        {
+            text-align: center;
+            border-bottom: 1px solid rgb(210,210,210);
+        }
+
+        .prescricao-dist
+        {
+            text-align: left;
+            width: 35px;
+            border-right: 1px solid rgb(210,210,210);
+        }
+
+        .prescricao-dados
+        {
+            text-align: right;
+        }
+
+        /*tipo de óculos*/
+        .prescricao-tipo-oculos
+        {
+            width: 100%;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            padding: 0px;
+            text-align: center;
+        }
+
+
+        /*contrato*/
+        .assinatura-contrato
+        {
+            text-align: center;
+        }
+
+        .assinatura-contrato p
+        {
+            width: 300px;
+            margin-top: 22px;
+            float: right;
+            border-top: 1px solid black;
+        }

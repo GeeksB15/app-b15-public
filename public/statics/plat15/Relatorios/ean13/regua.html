@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-ean13.min.js"></script>
+  </head>
+  <body>
+    <canvas id="pagina" width="2100" height="2700"></canvas>
+        
+    <script type="text/javascript">
+    
+     // debugger
+       
+      canvas = document.getElementById('pagina');
+      ctx = canvas.getContext('2d');     
+
+      var mm = 0.980392157;
+
+
+      for (x = 0; x < 1500; x=x+10) { 
+
+        ctx.beginPath();
+        
+        if (x % 100 ==0)  {
+          ctx.rect(x*mm,0,1,100*mm);
+        } else {
+          ctx.rect(x*mm,0,1,50);
+        }
+        
+
+        ctx.stroke();
+
+      }
+
+
+        for (y = 0; y < 1500; y=y+10) { 
+
+        ctx.beginPath();
+
+        if (y % 100 ==0)  {
+          ctx.rect(0,(200+y)*mm,100*mm,1);
+        } else {
+          ctx.rect(0,(200+y)*mm,50*mm,1);
+        }
+        ctx.stroke();
+
+      }
+
+
+
+    </script>
+
+  </body>
+</html>

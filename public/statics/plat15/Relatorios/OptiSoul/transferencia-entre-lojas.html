@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>Transferência Entre Lojas</title>
+		<link rel="stylesheet" type="text/css" href="impressos.css">
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+		<script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+	</head>
+
+	<body>
+
+	<script type="linha" id="linha">
+		
+		<tr>
+			<td> <h6>[codigoBarras]</h6> </td>
+			<td> <h6>[descricaoItem]</h6> </td>
+			<td class="text-align-center"> <h6>[quantidade]</h6> </td>
+			<td class="text-align-right"> <h6>[valorUn]</h6> </td>
+			<td class="text-align-right"> <h6>[valor]</h6> </td>
+		</tr>
+
+	</script>
+
+		<div class="container">
+			
+			<table class="content-table">
+				<tr>
+					<td class="titulo-relatorio" colspan="2"> <h5 class="bold-700">Transferência Entre Lojas</h5> </td>
+				</tr>
+				<tr>
+					<td class="text-align-right pbottom-08" colspan="2"> <h5>Emitido em: <span id="dataEmissao">-</span></h5> </td>
+				</tr>
+
+				<tr>
+					<td style="width: 50%;"> <h5>Filial de Saida: <span id="saida">-</span></h5> </td>
+					<td style="width: 50%;"> <h5>Nº Documento: <span id="codigoDocumento">-</span></h5> </td>
+				</tr>
+				<tr>
+					<td style="width: 50%;"> <h5>Filial de Entrada: <span id="entrada">-</span></h5> </td>
+					<td style="width: 50%;"> <h5>Data Documento: <span id="dataImpresso">-</span></h5> </td>
+				</tr>
+			</table>
+
+			<table class="content-table">
+				<tr class="bold-700">
+					<td style="width: 3cm;"> <h6>Cód. Barrras</h6> </td>
+					<td> <h6>Descrição</h6> </td>
+					<td style="width: 1.3cm; text-align-center;"> <h6>Qtd.</h6> </td>
+					<td style="width: 2.3cm; "> <h6>Valor Unitário</h6> </td>
+					<td style="width: 2.3cm; "> <h6>Valor Total</h6> </td>
+				</tr>
+				<tr><td class="box-bottom" colspan="5"></td></tr>
+
+				<tbody id="linhas"></tbody>
+
+				<tr><td class="ptop-05 box-bottom" colspan="5"></td></tr>
+				<tr class="bold-700">
+					<td class="text-align-right" colspan="2"> <h6>Quantidade de Peças</h6> </td>
+					<td class="text-align-center">	<h6 id="qtd">-</h6> </td>
+				</tr>
+			</table>
+
+			<table class="content-table">
+				<tr>
+					<td style="width: 50%; padding-top: 1cm;"> <h6 style="width:85%; margin: 0 auto; text-align:center; border-top:1px solid rgb(200,200,200);">Ass. Emitente</h6> </td>
+					<td style="width: 50%; padding-top: 1cm;"> <h6 style="width:85%; margin: 0 auto; text-align:center; border-top:1px solid rgb(200,200,200);">Ass. Destinatário</h6> </td>
+				</tr>
+			</table>
+
+		</div>
+
+
+		<script>
+			
+			$(document).ready(function () {
+
+				var codigoDocumento = getParameterByName("CodigoDocumento");
+			    var banco = getParameterByName("BancoDeDados");
+			    var url = decodeURIComponent(getParameterByName("URLServidor"));
+			    var usuario = getParameterByName("CodigoUsuario");
+
+			    var DadosTransferencia = GeeksSQL("Select CodigoDocumento, DescricaoEmpresa, DescricaoContato, Convert(Varchar(10), DataHoraEmissao, 103) DataDocumento, Convert(Varchar(10), Current_Timestamp, 103) Agora from Documento Where CodigoDocumento = 0" + codigoDocumento, false, url, banco, usuario).Records[0];
+
+			    var DadosItens = GeeksSQL("Select DI.CodigoItem, I.CodigoBarras, I.Descricao, Di.ValorItem, DI.Quantidade, DI.Total from DocumentoItem DI Inner Join Item I on I.CodigoItem = DI.CodigoItem inner join Documento D ON DI.CodigoDocumento = D.CodigoDocumento Where DI.CodigoDocumento = 0" + codigoDocumento, false, url, banco, usuario).Records;
+				
+			    $("#dataEmissao").html(DadosTransferencia.DataDocumento);
+			    $("#saida").html(DadosTransferencia.DescricaoEmpresa);
+			    $("#entrada").html(DadosTransferencia.DescricaoContato);
+			    $("#codigoDocumento").html(DadosTransferencia.CodigoDocumento);
+			    $("#dataImpresso").html(DadosTransferencia.Agora);
+
+			    var qtd = 0;
+
+			    $(DadosItens).each(function (index, row) {
+
+			    	$("#linhas").append(
+			    		$("#linha").html()
+			    			.replace("[codigoBarras]", row.CodigoBarras)
+			    			.replace("[descricaoItem]", row.Descricao)
+			    			.replace("[quantidade]", row.Quantidade.toFixed(0))
+			    			.replace("[valorUn]", row.ValorItem.toFixed(2).replace(".", ","))
+			    			.replace("[valor]", row.Total.toFixed(2).replace(".", ","))
+			    	);
+
+			    	qtd+= row.Quantidade;
+
+			    });
+
+
+			    $("#qtd").html(qtd);
+
+			});
+
+		</script>
+
+	</body>
+</html>

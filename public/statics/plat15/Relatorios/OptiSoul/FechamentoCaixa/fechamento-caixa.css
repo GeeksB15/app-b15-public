@@ -1,0 +1,29 @@
+    .feccax-total
+    {
+        padding: 5px;
+        border-top: 1px solid rgb(170,170,170);
+        background-color: rgb(225, 225, 225);
+    }
+
+
+    .feccax-left-caixa
+    {
+        width: 340px;
+    }
+
+    .faccax-ven-left,
+    .faccax-ven-right
+    {
+        width: 150px;
+    }
+
+
+    .feccax-picote
+    {
+        height: 560px;
+        border-bottom: 2px solid rgb(200,200,200);
+    }
+
+    .container {
+        page-break-inside: avoid !important;
+    }

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+	<head>	
+		<title>Impressão</title>
+
+		<style type="text/css">
+
+			#cabecalho, #quadraElote{
+				width: 100%;
+				font-family: "Segoe UI Symbol", "Ubuntu", "Arial", "sans-serif";
+				text-align: center;
+				font-size: 12pt;
+				color: #53718D;
+			}
+
+			#quadraElote {
+				text-align: center;
+			}
+
+			#primeiraLinha {
+				font-size: 12pt;
+				font-weight: bolder;
+			}
+
+			#imagem {
+				max-width: 100%;
+				max-height: 50%;
+				min-width: 10%;
+				min-height: 5%;
+				display: table;
+				margin: 0 auto;
+			}
+
+			#rodape {
+				min-width: 100%;
+				position: fixed;
+				bottom: 0;
+			}
+
+			#rodape img {
+				max-width: 100%;
+			}
+			
+			#imprimir {
+				text-align: center;
+			} 
+			
+			
+			.column { float: left; width: 50%; }
+
+			/* Clear floats after the columns */
+			.row:after { content: ""; display: table; clear: both; border: 1px; solid: gray; }
+			
+			div.centered      { width: 100%; }
+			div.columns       { width: 600px;  margin: 0 auto;}
+			div.columnsFotos  { width: 600px; min-height: 200px; margin: 0 auto;}
+			div.columns div   { width: 100%; height: 28px; float: left; border: solid; border-width: 0.5px; }
+			div.grey          { background-color: #f9f9f9; }
+			div.grey2         { background-color: #eaeaea; }
+			div.white         { background-color: #fff; width: 290px !important; height: 100px !important; }
+			div.clear         { clear: both; }
+
+			
+			/* DivTable.com */
+			.divTable{
+				display: table;
+				width: 100%;
+			}
+			.divTableRow {
+				display: table-row;
+				
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+			}
+			.divTableCell, .divTableHead {
+				/*border: 1px solid #999999;*/
+				display: table-cell;
+				padding: 3px 10px;
+				 
+			}
+			.divTableHeading {
+				background-color: #EEE;
+				display: table-header-group;
+				font-weight: bold;
+			}
+			.divTableFoot {
+				background-color: #EEE;
+				display: table-footer-group;
+				font-weight: bold;
+			}
+			.divTableBody {
+				display: table-row-group;
+			}
+			
+			
+		</style>
+
+		<style type="text/css" media="print">
+			#imagem2 {
+				max-width: 100%;
+				max-height: 100%;
+				min-width: 100%;
+				min-height: 1000%;
+				display: table;
+				margin: 0 auto;			
+			}
+			
+			#imagem {
+				position: absolute;
+				top:50%;
+				left:50%;
+				transform: translate(-50%,-50%);
+			}
+			
+		
+			#imprimir {
+				display:none;
+			} 
+			
+			
+
+		</style>
+
+		
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+		<script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+		
+		
+		<!--
+		<script src="../Scripts/jquery-2.1.4.js"></script> 
+		<script src="../Scripts/Geeks.ERP.BasicReport.js"></script>
+		-->
+		<script type="text/javascript">
+			function getMoney( str )
+			{
+					return parseInt( str.replace(/[\D]+/g,'') );
+			}
+			function formatReal( int )
+			{
+					var tmp = int+'';
+					tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+					if( tmp.length > 6 )
+							tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+
+					return tmp;
+			}
+			
+			function padLeft(str, length) {
+			  const resto = length - String(str).length;
+			  return '0'.repeat(resto > 0 ? resto : '0') + str;
+			}
+			
+			function imprimirOrcamento(){				
+				//$("#endRodape").show();
+				//$("#logo2").show();
+				$("#endRodape2").show();
+				
+				window.print();
+				
+				//$("#endRodape").hide();
+				//$("#logo2").hide();
+				$("#endRodape2").hide();
+			}
+			
+			$(document).ready(function(){
+				$("#endRodape").hide();
+				$("#logo2").hide();
+				$("#endRodape2").hide();
+				
+				function getParameterByName(name) {
+				    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				        results = regex.exec(location.search);
+				    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+				}
+				
+				var cod = getParameterByName("CodigoDocumento");
+				var banco = getParameterByName("Banco");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+
+				//PROVISÓRIO...
+				//cod = 1078;
+				
+				//debugger;
+				
+				var cidade = GeeksSQL("SELECT CE.Municipio FROM CONTATO C INNER JOIN CONTATOENDERECO CE ON CE.CODIGOCONTATO = C.CODIGOCONTATO WHERE C.CODIGOCONTATO = 2", false, url, banco, usuario);
+				
+				var dia = (new Date()).getDate();
+				var mes = (new Date()).getMonth()+1;
+				var ano = (new Date()).getFullYear();
+				
+				var localData = "Ribeirão Preto, " + padLeft(dia.toString(),2) + " de " +  padLeft(getMonth(mes),2) +" de " + padLeft(ano.toString(),2);
+						
+				if(cidade != null){			
+					if(cidade.Records.length > 0){
+						localData = cidade.Records[0].Municipio + ", " + padLeft(dia.toString(),2) + " de " +  padLeft(getMonth(mes),2) +" de " + padLeft(ano.toString(),2);
+					}
+				}				
+				$("#dataDocumento").html(localData);
+				
+				var strGrid = "";
+				
+				var retItem = GeeksSQL("SELECT DI.DescricaoItem, DI.DataHoraEmissao, DI.DataHoraFinalizado FROM DOCUMENTO D " +
+									" INNER JOIN DOCUMENTOITEM DI ON DI.CODIGODOCUMENTO = D.CODIGODOCUMENTO " +
+									" WHERE D.CODIGODOCUMENTO = " + cod + " ORDER BY DI.TIPOITEM", false, url, banco, usuario);
+				if(retItem != null){			
+					if(retItem.Records.length > 0){
+						$(retItem.Records).each(function(index,row){	
+							
+							var dataHoraInicio = "";
+							var dataHoraFinal = "";
+							
+							if(row.DataHoraEmissao != null){
+								var dhi = (new Date(Number(row.DataHoraEmissao.replaceAll('/','').replace('Date(','').replace(')',''))));
+								dataHoraInicio  = padLeft(dhi.getDate(),2) + "/" + padLeft(dhi.getMonth()+1,2) + "/" + padLeft(dhi.getFullYear(),4) + " " + padLeft(dhi.getHours(),2) + ":" + padLeft(dhi.getMinutes(),2);
+							}
+							if(row.DataHoraFinalizado != null) {
+								var dhf = (new Date(Number(row.DataHoraFinalizado.replaceAll('/','').replace('Date(','').replace(')',''))));
+								dataHoraFinal  = padLeft(dhf.getDate(),2) + "/" + padLeft(dhf.getMonth()+1,2) + "/" + padLeft(dhf.getFullYear(),4) + " " + padLeft(dhf.getHours(),2) + ":" + padLeft(dhf.getMinutes(),2);
+							}							
+													
+							var sala = row.DescricaoItem.toUpperCase() + " | Início: " + dataHoraInicio + " Fim: " + dataHoraFinal
+							strGrid += '<div class="columns"><div class="grey" >'+ sala +'</div></div>'	
+						});
+					}
+				}
+				var retValor = GeeksSQL("SELECT D.TotalDocumento, D.DataHoraEmissao FROM DOCUMENTO D WHERE D.CODIGODOCUMENTO = " + cod, false, url, banco, usuario);
+				if(retValor != null){			
+					if(retValor.Records.length > 0){
+						//debugger;				
+						var dhEmissao = (new Date(Number(retValor.Records[0].DataHoraEmissao.replaceAll('/','').replace('Date(','').replace(')',''))));
+						$("#liValidadeOrcamento").html("Orçamento válido para o mês de " + getMonth(dhEmissao.getMonth()+1) +"/"+padLeft(dhEmissao.getFullYear(),4)+".");
+						
+						var _valor = formatReal(getMoney(retValor.Records[0].TotalDocumento.toString()));
+						var valorTotal = "<strong>Valor com Desconto R$" + formatReal(getMoney(retValor.Records[0].TotalDocumento.toString())) + "</strong>";						
+						strGrid += '<div class="columns"><div class="grey" >'+ valorTotal +'</div></div>'
+					}
+				}
+				$("#gridLocais").html(strGrid + '<div class="clear"></div>');
+			});
+			
+			
+
+		</script>
+		
+	</head>
+
+	<body>
+<center><input type="button" id="imprimir" value="Imprimir" onclick="imprimirOrcamento();"></center>		
+		<div id="cabecalho">
+			<img id="logo" src="LogoGlobalHub.png" alt="logo" width="30%" height="30%"/>
+
+			<br>
+			<div align="right" style="margin-right: 100px;">
+				<span id="dataDocumento">Ribeirão Preto, 00 de janeiro de 2018.</span>
+			</div>
+			<br>
+				<span id="primeiraLinha">1. SALAS/ESTRUTURA (C/ EQUIPAMENTOS INCLUSOS):</span>
+			<br><br>
+			
+
+			<div id= "gridLocais" class="centered" style="text-align: left;">
+				<!--
+				<div class="columns">
+					<div id="localSala" class="grey" >
+						Descrição do Local.
+					</div>
+					<div id="valorDocumento" class="grey">
+						R$ 0,00
+					</div>
+				</div>
+				<div class="clear"></div>
+				-->
+			</div>
+
+			<br>
+			
+			<div>
+				<div class="divTable" style="text-align:center;  border: 0px solid #000;" >
+					<div class="divTableBody">
+						<div class="divTableRow">
+							<div class="divTableCell">
+								<img src="Auditorio01.jpg" alt="logo" style="width: 400px;"/>
+								<br>
+								&nbsp;
+								Auditório								
+							</div>
+							<div class="divTableCell">
+								<img src="Auditorio02.jpg" alt="logo" style="width: 400px;"/>
+								<br>
+								&nbsp;
+								Auditório								
+							</div>
+						</div>
+						<div class="divTableRow">
+							<div class="divTableCell">
+								<img src="Fachada.jpg" alt="logo" style="width: 400px;"/>
+								<br>
+								&nbsp;
+								Fachada								
+							</div>
+							<div class="divTableCell">
+								<img src="HallCoffeeBreak.jpg" alt="logo" style="width: 400px;"/>
+								<br>
+								&nbsp;
+								Hall para coffee break								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- DivTable.com -->
+			
+			
+			<ul style="text-align: left;">
+				<li><strong>Oferecemos como cortesia no Audit&oacute;rio: Tel&atilde;o, projetor, internet wi-fi ou cabeada, flip chart (sf), sistema de som com 1 microfone sem fio, apoio t&eacute;cnico, &aacute;gua e caf&eacute;. </strong></li>
+				<li>Caso seja necess&aacute;rio estender o per&iacute;odo contratado, os minutos excedentes ser&atilde;o computados calculando-se o valor da hora fracionado.</li>
+				<li>Lembrando que a Global Hub est&aacute; localizada na Av. Presidente Vargas, 1527 &ndash; Jd. Am&eacute;rica (ao lado do Extra Hipermercados), pr&oacute;ximo a amplo com&eacute;rcio, bancos, restaurantes, etc.</li>
+				<li><strong>Estacionamento: 01 vaga cortesia (VVR Estacionamentos) em frente a empresa. </strong></li>
+			</ul>
+			
+			<br>
+			
+			
+				<p id="endRodape" style="text-align: center; font-size: 12px; ">
+					<span style="color: #808080;">
+						<strong>
+							Cenerp Centro de Neg&oacute;cios de Ribeir&atilde;o Preto Ltda.<br />
+						</strong>
+						Av. Pres. Vargas, 1527- 14020-227 - Ribeir&atilde;o Preto - SP
+					</span><br />
+					<span style="color: #808080;">Fone: (16) 2138-6700</span><br />
+					<span style="color: #808080;">e-mail: contatol@globalhub.com.br</span>
+				</p>
+				
+				<img id="logo2" src="LogoGlobalHub.png" alt="logo" width="30%" height="30%" />
+	
+		
+			<div style="text-align: left;">
+				<h4 style="height: 10px;">2. ALIMENTOS E BEBIDAS - <strong style="font-size: 13px;">SERVI&Ccedil;O DE COFFEE BREAK (Opcional)</strong></h4> 
+				
+				<p style="height: 10px;"><strong>Op&ccedil;&atilde;o 1:</strong> P&atilde;o de queijo, bolo, suco natural, &aacute;gua e caf&eacute;.</p>
+				<ul>
+					<li style="height: 10px;">Alimentos servidos em travessas de lou&ccedil;a branca, copos de vidros.</li>
+				</ul>
+				<p style="height: 10px;"><strong>Pre&ccedil;o por pessoa: R$ 9,90</strong></p>
+				
+				<p style="height: 5px;">&nbsp;</p>
+				
+				<p style="height: 10px;"><strong>Op&ccedil;&atilde;o 2:</strong> 3 tipos de salgados, p&atilde;o de queijo, bolo, suco natural, &aacute;gua e caf&eacute; .</p>
+				<ul>
+					<li style="height: 10px;">Alimentos servidos em travessas de lou&ccedil;a branca, copos de vidro.</li>
+				</ul>
+				<p style="height: 10px;"><strong>Pre&ccedil;o por pessoa: R$ 12,90</strong></p>
+				
+				<p style="height: 5px;">&nbsp;</p>
+				
+				<p style="height: 10px;"><strong>Op&ccedil;&atilde;o 3:</strong> 5 tipos de salgados, p&atilde;o de queijo, 2 tipos de doce, 2 tipos de suco, &aacute;gua e caf&eacute;.</p>
+				<ul>
+					<li style="height: 10px;">Alimentos servidos em travessas de lou&ccedil;a branca, copos de vidro.</li>
+				</ul>
+				<p style="height: 10px;"><strong>Pre&ccedil;o por pessoa: R$ 15,90</strong></p>
+			</div>
+			<br>
+			<div style="text-align: left;">
+				<h4 style="height: 10px;">3. PARCEIROS PARA HOSPEDAGEM</h4>
+				<ul>
+					<li style="height: 10px;"><strong>Ideali Hotel:</strong> Hospedagem inclui caf&eacute; da manh&atilde;, estacionamento e internet. Confirma&ccedil;&atilde;o de or&ccedil;amento/reservas e faturamento direto com o hotel. Contato: Raquel (16) 3234-0373
+					</li>
+				</ul>
+				<p style="height: 5px;">&nbsp;</p>				
+			</div>		
+
+			<br>
+						
+			<div style="text-align: left;">
+				<h4 style="height: 10px;">4. PARCEIRO PARA ALMOÇO</h4>
+				<ul>
+					<li><strong style="height: 10px;">BAR DO VAL (HÁ 200 METROS DA GLOBAL HUB)</strong>
+					<p>Preço por pessoa R$ 38,90. Inclui: 1 carne ou peixe (filet a parmegiana ou picanha ou salmão) + 3 guarnições + suco (laranja, abacaxi ou limão) + sobremesa (fruta). (faturamento realizado pela Global Hub, incluindo locação e refeições + taxa de serviços)</p>
+					</li>
+				</ul>
+				<p style="height: 5px;">&nbsp;</p>	
+			</div>			
+			
+						
+			<div style="text-align: left;">
+				<h4 style="height: 10px;">5. CONDIÇÕES GERAIS</h4>
+				<ul>
+					<li>50% na reserva; 50% dois dias antes do evento.</li>
+				</ul>	
+				<p style="height: 5px;">&nbsp;</p>					
+			</div>	
+
+			<div style="text-align: left;">
+				<h4 style="height: 0px;">6. CONFIRMAÇÃO / CANCELAMENTO </h4> 
+				<p style="height: 10px;"><strong style="font-size: 13px;">Reservas confirmadas, que vierem a ser canceladas, sofrerão cobranças dos serviços contratados.</strong></p>
+				<ul>
+					<li>Informamos que as tarifas poderão sofrer reajustes, caso ocorram serão cobrados os valores vigentes da época da utilização dos serviços..</li>
+					<li>Não permitimos entrada de itens de Alimentos & Bebidas em nossos eventos.</li>
+					<li>Não estão inclusos nesta proposta: notebook, tablet, acessórios/adaptadores para notebook, Macbook, ipad e/ou celulares.</li>
+					<li id="liValidadeOrcamento">Orçamento válido para o mês de Maio/2018.</li>
+				</ul>
+				
+				
+			</div>	
+			<p style="text-align: left;"><strong style="font-size: 13px;">Colocamo-nos à disposição para maiores esclarecimentos, Salete Flores de Almeida.</strong></p>
+			
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<p id="endRodape2" style="text-align: center; font-size: 12px; ">
+				<span style="color: #808080;">
+					<strong>
+						Cenerp Centro de Neg&oacute;cios de Ribeir&atilde;o Preto Ltda.<br />
+					</strong>
+					Av. Pres. Vargas, 1527- 14020-227 - Ribeir&atilde;o Preto - SP
+				</span><br />
+				<span style="color: #808080;">Fone: (16) 2138-6700</span><br />
+				<span style="color: #808080;">e-mail: contatol@globalhub.com.br</span>
+			</p>
+			
+		</div>
+		
+		
+		</div>
+		
+		
+
+	</body>
+
+</html>

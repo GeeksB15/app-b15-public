@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8"/>
+        <title> Recibo - Venda </title>
+        <link type="text/css" rel="stylesheet" href="/Relatorios/OptiSoul/recibo/impressos.css"/>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+
+            <!--titulo do impresso-->
+            <table class="titulo-relatorio">
+                <tr>
+                    <td>
+                        Recibo
+                    </td>
+                </tr>
+            </table>
+
+
+            <!--dados loja-->
+            <table class="content-table">
+                <tr>
+                    <!--logo da loja-->
+                    <td class="logo-loja" align="center" valign="center">
+                    </td>
+
+                    <!--dados da loja-->
+                    <td class="dados-loja">
+                        <h5 class="ApelidoEmpresa"></h5>
+                        <h5 class="EnderecoEmpresa"></h5>
+                        <h5 class="TelefoneEmpresa"></h5>
+                        <h5 class="EmailEmpresa"></h5>
+                        <h5 class="SiteEmpresa"></h5>
+                    </td>
+
+                    <!--numero do recibo-->
+                    <td class="NumeroFatura">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="linha-divisoria" colspan="3"></td>
+                </tr>
+            </table>
+
+
+            <!--recibo-->
+            <table class="content-table">
+
+                <!--valor recibo-->
+                <tr>
+                    <td class="text-align-right" colspan="2">
+                        <h4 class="mbootom-1">Valor do recibo: <span class="ValorFatura"></span></h4>
+                    </td>
+                </tr>
+
+
+                <!--texto do recibo-->
+                <tr>
+                    <td colspan="2">
+                        <h5> Recebemos de <span class="NomeCliente"></span>, <x class="Sexo"></x>  do <x class="TipoDocumentoCliente"></x> <span class="CPFCliente"></span>, a quantia de <span class="ValorFatura"></span> (<span class="ValorFaturaExtenso"></span>), referente aos detalhes abaixo descritos na <span class="ApelidoEmpresa"></span>:</h5>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="ItensFatura">
+                        <!-- para cada linha, <h5><span>Item</span></h5>-->
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <h5>Liquidada nas seguintes formas de pagamento:</h5>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="FormasPagamentoFatura">
+                        <!-- para cada linha, <h5><span>Item</span></h5>-->
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"> <h5>E para clareza firmo(amos) o presente na cidade de <span class="MunicipioEmpresa"></span> no dia <span class="DataFinalizacaoFatura"></span>.</h5> </td>
+                </tr>
+
+
+                <!--divisor-->
+                <tr> <td class="ptop-15 box-bottom" colspan="2"></td></tr>
+
+                
+                <!--emitente-->
+                <tr>
+                    <td><h5><span>Impresso em <span class="Hoje"></span></span></h5></td>
+                    <td colspan="2"> <h5 class="assinatura">Assinatura</h5></td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <script>
+            
+            $(document).ready(function () {
+
+                var Fatura = getParameterByName("CodigoDocumento");
+
+                var banco = getParameterByName("BancoDeDados");
+                var url = decodeURIComponent(getParameterByName("URLServidor"));
+                var usuario = getParameterByName("CodigoUsuario");
+
+                var DadosFatura = GeeksSQL("Select CodigoDocumento, CodigoEmpresa, Numero, CodigoContato, Convert(varchar(10), DataHoraFinalizado, 103) DataHoraFinalizado, Format(TotalDocumento, 'N2') ValorFatura, Convert(varchar(10), current_timestamp, 103) Hoje from Documento where CodigoDocumento = 0" + Fatura, false, url, banco, usuario);
+
+                var DadosEmpresa = GeeksSQL("Select Nome, Apelido, NumeroDocumentoNacional, Site, Email, Imagem, T.Telefone, (CE.Logradouro + ' ' + CE.Numero + ', '  + CE.Bairro + ' - ' + CE.Municipio + '/' + CE.UF + ' ' + CE.CEP) as Endereco, CE.Municipio from Contato C left join ContatoTelefone T on T.CodigoContato = C.CodigoContato and T.TipoTelefone = 'Principal' left join ContatoEndereco CE on CE.CodigoContato = C.CodigoContato and CE.Grupo = 'Principal' where C.CodigoContato = 0" + DadosFatura.Records[0].CodigoEmpresa, false, url, banco, usuario);
+
+                var DadosCliente = GeeksSQL("Select Nome, Sexo, NumeroDocumentoNacional, TipoDocumentoNacional from Contato where CodigoContato = 0" + DadosFatura.Records[0].CodigoContato, false, url, banco, usuario);
+
+                $(".ApelidoEmpresa").html(DadosEmpresa.Records[0].Apelido);
+                $(".EnderecoEmpresa").html(DadosEmpresa.Records[0].Endereco);
+                $(".TelefoneEmpresa").html(DadosEmpresa.Records[0].Telefone);
+                $(".EmailEmpresa ").html(DadosEmpresa.Records[0].Email);
+                $(".SiteEmpresa").html(DadosEmpresa.Records[0].Site);
+                $(".CNPJEmpresa").html(DadosEmpresa.Records[0].NumeroDocumentoNacional);
+                $(".MunicipioEmpresa").html(DadosEmpresa.Records[0].Municipio);
+
+                if (DadosEmpresa.Records[0].Imagem != null && DadosEmpresa.Records[0].Imagem != "")
+                    $(".logo-loja").html('<img class="ImagemEmpresa" src="' + DadosEmpresa.Records[0].Imagem.split("#")[0] + '" style="height: 75px;" />');
+                else
+                    $(".logo-loja").html('<img class="ImagemEmpresa" src="/Relatorios/OptiSoul/recibo/optsoul-exemplo.png" style="height: 75px;" />');
+
+                $(".NumeroFatura").html("Fatura Nº " + DadosFatura.Records[0].Numero);
+                $(".ValorFatura").html("R$" + DadosFatura.Records[0].ValorFatura);
+                $(".DataFinalizacaoFatura").html(DadosFatura.Records[0].DataHoraFinalizado);
+                $(".ValorFaturaExtenso").html(getExtensive(DadosFatura.Records[0].ValorFatura, true));
+                $(".Hoje").html(DadosFatura.Records[0].Hoje);
+
+                $(".NomeCliente").html(DadosCliente.Records[0].Nome);
+                $(".TipoDocumentoCliente").html(DadosCliente.Records[0].TipoDocumentoNacional);
+                $(".CPFCliente").html(DadosCliente.Records[0].NumeroDocumentoNacional);
+                $(".Sexo").html(DadosCliente.Records[0].Sexo == "Masculino" ? "portador" : "portadora");
+
+                var ItensFatura = GeeksSQL("select 'Venda Nº' + Cast(CodigoDocumento as Varchar) + ': ' + Descricao Descricao from Documento where CodigoDocumentoAdicional in (select CodigoDocumento from Documento where CodigoFatura = 0" + Fatura + ") Union select 'Carnê: ' + Descricao + ' Parcela ' + Parcela Descricao from FinanceiroTitulo where CodigoFatura = 0" + Fatura, false, url, banco, usuario);
+
+                $(ItensFatura.Records).each(function(index, row){
+
+                    $(".ItensFatura").append("<h5><span>&nbsp;&nbsp;&nbsp;&nbsp;" + row.Descricao + "</span></h5>");
+
+                });
+
+                var FormasPagamentoFatura = GeeksSQL("Select FP.Descricao + ': R$ ' + Format(DCP.Valor, 'N2') + ' - Vencimento em ' + Convert(Varchar(10), DCP.DataVencimento, 103) FormaPagamento from DocumentoCondicaoPagamento DCP Inner Join FormaPagamento FP on FP.CodigoFormaPagamento = DCP.CodigoFormaPagamento where DCP.CodigoDocumento = 0" + Fatura, false, url, banco, usuario);
+
+                $(FormasPagamentoFatura.Records).each(function(index, row){
+
+                    $(".FormasPagamentoFatura").append("<h5><span>&nbsp;&nbsp;&nbsp;&nbsp;" + row.FormaPagamento + "</span></h5>");
+
+                });
+
+            });
+
+        </script>
+
+    </body>
+
+</html>

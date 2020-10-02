@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Etiquetas</title>
+	
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+		<script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+		<script src="/Scripts/jquery-ean13.min.js"></script>
+
+		<style type="text/css" media="print">
+
+			@page {
+				margin: 0;
+			}
+
+			.barcode-canvas {
+				width: 100%;
+				height: 100%;
+				page-break-before: always;
+			}
+
+		</style>
+
+		<script>
+			
+			$(document).ready(function () {
+
+				var banco = getParameterByName("Banco");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+				var numeroEtiquetasEmBranco = getParameterByName("EmBranco");
+
+				var CodigoPedido = getParameterByName("CodigoPedido");
+				var CodigoItem = getParameterByName("CodigoItem");
+				var Quantidade = getParameterByName("Quantidade");
+				var TabelaPreco = getParameterByName("TabelaPreco");
+
+				var ImprimeEtiqueta = function (Pagina, Produto, Linha, Coluna) {
+
+					var canvas = document.getElementById('folha' + Pagina);
+					var ctx = canvas.getContext('2d');
+
+					var mm = 1;
+
+					xin = 100 * mm + (335 * mm * Coluna);
+					yin = 120 * mm + (175 * mm * Linha);
+
+					//Padding
+					var x = xin + 17;
+					var y = yin + 10;
+
+					//Tamanho do desenho Cbarras
+					$("#ean").EAN13(Produto.CodigoBarras);
+					ctx.drawImage(ean, x, y, 240 * mm, 90 * mm);
+
+					ctx.beginPath();
+			        ctx.rect(xin, yin + 60, 260, 40);
+					ctx.fillStyle = "white";
+					ctx.fill();
+
+					ctx.font = '14pt "Tahoma"';
+					ctx.fillStyle = "black";
+					ctx.textAlign = "center";
+					ctx.fillText(Produto.CodigoBarras, x + 130, yin + 77 * mm);
+
+					ctx.textAlign = "start";
+					ctx.font = 'bold 14pt "Tahoma"';
+					x += 12 * mm;
+					ctx.fillText(Produto.Nome + (Produto.Nome == ''? '': ' ') + (Produto.Modelo + (Produto.Modelo == ''? '': ' ') + Produto.Tamanho + Produto.Cor), x, y + 85 * mm);
+					
+					ctx.font = '14pt "Tahoma"';
+					y += 102 * mm;
+					ctx.fillText((Produto.CodigoItem == '' ? '' : 'Cód: ') + Produto.CodigoItem, x, y);
+
+					ctx.font = '18pt "Tahoma"';
+					x += 90 * mm;
+					y += 20 * mm;
+					ctx.fillText(Produto.Valor, x, y);					
+				}
+
+				// Posso imprimir etiqueta de um pedido
+				if (CodigoPedido != "")
+					var Etiquetas = GeeksSQL("Select I.CodigoItem, IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras, IsNull(I.Marca, '') Marca, IsNull(I.Modelo, '') Modelo, IsNull(I.Cor, '') Cor, IsNull(I.Tamanho, '') Tamanho, IsNull(I.Descricao, '') Nome, 'R$ ' + Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(I.CodigoItem, 6))") + ", 0), 'N2') Valor, IsNull(DI.Quantidade, 0) Quantidade From Item I Inner Join DocumentoItem DI on DI.CodigoItem = I.CodigoItem and DI.CodigoDocumento = 0" + CodigoPedido, false, url, banco, usuario).Records;
+
+				// Posso imprimir etiqueta de um item, informando a quantidade
+				else if (CodigoItem != "")
+					var Etiquetas = GeeksSQL("Select I.CodigoItem, IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras, IsNull(I.Marca, '') Marca, IsNull(I.Modelo, '') Modelo, IsNull(I.Cor, '') Cor, IsNull(I.Tamanho, '') Tamanho, IsNull(I.Descricao, '') Nome, 'R$ ' + Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(I.CodigoItem, 6))") + ", 0), 'N2') Valor, " + Quantidade + " Quantidade From Item I where I.CodigoItem = " + CodigoItem, false, url, banco, usuario).Records;
+
+				// Ou posso imprimir etiqueta pela tela de etiquetas
+				else
+					var Etiquetas = GeeksSQL("Select E.CodigoItem, IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras, IsNull(I.Marca, '') Marca, IsNull(I.Modelo, '') Modelo, IsNull(I.Cor, '') Cor, IsNull(I.Tamanho, '') Tamanho, IsNull(E.NomeProduto, '') Nome, 'R$ ' + Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(E.CodigoItem, 6))") + ", 0), 'N2') Valor, IsNull(E.QuantidadeEtiquetas, 0) Quantidade From Item I Inner Join Etiqueta E on E.CodigoItem = I.CodigoItem", false, url, banco, usuario).Records;
+				
+				// Cada folha tem 96 etiquetas
+				// Para cada 96 etiquetas, coloca um canvas na tela
+
+				// Tratando as etiquetas em branco
+				var linha = (numeroEtiquetasEmBranco / 6 | 0);
+				var coluna = (numeroEtiquetasEmBranco % 6);
+				var pagina = 0;
+
+				$("#folha").append('<div><canvas id="folha' + pagina + '" class="barcode-canvas" width="2100" height="2960"></canvas></div>')
+
+				for (var i = 0; i < Etiquetas.length; i++) {
+
+					for (var j = 0; j < Etiquetas[i].Quantidade; j++) {
+
+						if (linha == 0 && coluna == 0 && pagina > 0) {
+							$("#folha").append('<div><canvas id="folha' + pagina + '" class="barcode-canvas" width="2100" height="2960"></canvas></div>');
+						}
+
+						ImprimeEtiqueta(pagina, Etiquetas[i], linha, coluna);
+
+						coluna += 1;
+
+						if (coluna == 6) {
+							coluna = 0;
+							linha += 1;
+						}
+
+						if (linha == 16) { 
+							pagina += 1;
+							linha = 0;
+							coluna = 0;
+						}
+
+					}
+
+				}
+
+				$("#ean").remove();
+		
+			});
+
+		</script>
+
+	</head>
+
+	<body>
+
+		<div id="folha" style="margin-top:-5px; margin-left: -10px;">
+		</div>
+		
+		<canvas id="ean"  width="270" height="100"></canvas>
+
+	</body>
+
+</html>

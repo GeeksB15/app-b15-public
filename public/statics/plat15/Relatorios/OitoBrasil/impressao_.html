@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>	
+		<title>Impressão</title>
+
+		<style type="text/css">
+
+			#cabecalho, #quadraElote{
+				width: 100%;
+				font-family: "Segoe UI Symbol", "Ubuntu", "Arial", "sans-serif";
+				text-align: center;
+				font-size: 12pt;
+				color: #53718D;
+			}
+
+			#quadraElote {
+				text-align: center;
+			}
+
+			#primeiraLinha {
+				font-size: 20pt;
+				font-weight: bolder;
+			}
+
+			#imagem {
+				max-width: 100%;
+				max-height: 50%;
+				min-width: 10%;
+				min-height: 5%;
+				display: table;
+				margin: 0 auto;
+			}
+
+			#rodape {
+				min-width: 100%;
+				position: fixed;
+				bottom: 0;
+			}
+
+			#rodape img {
+				max-width: 100%;
+			}
+			
+			#imprimir {
+				text-align: center;
+			} 
+
+		</style>
+
+		<style type="text/css" media="print">
+			#imagem2 {
+				max-width: 100%;
+				max-height: 100%;
+				min-width: 100%;
+				min-height: 1000%;
+				display: table;
+				margin: 0 auto;			
+			}
+			
+			#imagem {
+				position: absolute;
+				top:50%;
+				left:50%;
+				transform: translate(-50%,-50%);
+			}
+			
+		
+			#imprimir {
+				display:none;
+			} 
+
+		</style>
+
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+
+		<script type="text/javascript">
+			
+			$(document).ready(function(){
+
+				function getParameterByName(name) {
+				    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				        results = regex.exec(location.search);
+				    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+				}
+
+				var codigoEmpreendimento = getParameterByName("CodigoEmpreendimento");
+				var quadra = getParameterByName("Quadra");
+				var lote = getParameterByName("Lote");
+				var tipoImagem = getParameterByName("Img");
+
+				var linkWebService = "/Reports/OitoBrasil/img.asp?CodigoEmpreendimento=" + codigoEmpreendimento + "&Quadra=" + quadra + "&Lote=" + lote + "&Img=" + tipoImagem;
+
+				// Atribuindo a imagem ao corpo da página
+				$("#imagem").attr("src", linkWebService);
+
+				// Mudando o texto Quadra - Lote
+				$("#quadraElote").html("Quadra: " + quadra + " - Lote: " + lote);
+				
+				//http://erp.b15.online/Reports/OitoBrasil/img.asp?CodigoEmpreendimento=2&Quadra=Q01&Lote=19&Img=muro
+				debugger
+				var muro = $.ajax({
+					type: "GET",
+					url: "http://erp.b15.online/Reports/OitoBrasil/img.asp?CodigoEmpreendimento=" + codigoEmpreendimento + "&Quadra=" + quadra + "&Lote=" + lote + "&Img=muro",
+					async: false
+				}).responseText;
+				$("#muro").text(muro); 
+		
+			})
+
+		</script>
+
+	</head>
+
+	<body>
+<center><input type="button" id="imprimir" value="Imprimir" onclick="window.print();"></center>		
+		<div id="cabecalho">
+			<br>
+				<span id="primeiraLinha">Confira as medidas e localização do seu lote.</span>
+			<br>
+				<span>ATENÇÃO: antes de construir, confira a demarcação in loco, verifique no memorial descritivo as medidas e localizações, conforme o contrato e matrícula do lote.</span>
+			<br><br>
+				<span id="muro"></span>
+			<br><br>
+				<span id="quadraElote">Quadra: 3 - Lote: 33</span>		
+		</div>
+		<br>
+		<br>
+		<div id="corpo">
+			<img id="imagem"/>
+		</div>
+		
+		<div id="rodape">
+			<center><img src="rodape.png"/></center>
+		</div>
+
+	</body>
+
+</html>

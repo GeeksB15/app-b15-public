@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Convênio</title>
+        <link rel="stylesheet" type="text/css" href="impressos.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+		<script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+		<script src="/Scripts/codigobarras.js"></script>
+		<script src="/Plugins/html2canvas.js"></script>
+		<style type="text/css">
+			.prescricao-dados{
+				text-align: center;
+			}
+		</style>
+    </head>
+
+	<script type="vendaTemplate" id="vendaTemplate">
+		<table class="content-table" id="DadosVenda">
+			<tr>
+				<td class="linha-divisoria" colspan="7"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<h6 style="align: right">Venda: <b>[NumeroVenda]</b></h6>
+				</td>
+				<td colspan="5">
+					<h6 style="align: left">Data: <b>[DataHoraVenda]</b></h6>
+				</td>
+				
+			</tr>
+			<tr>
+				<td width="5%"> <h6> Código </h6> </td>
+				<td width="15%"> <h6> Barras </h6> </td>
+				<td width="20%"> <h6> Marca </h6> </td>
+				<td width="25% "> <h6 nowrap> Descrição </h6> </td>
+				<td width="10%"> <h6 align="right"> Qtd </h6> </td>
+				<td width="10%"> <h6 align="right"> Unitário </h6> </td>
+				<td width="15%"> <h6 align="right"> SubTotal </h6> </td>
+			</tr>
+	</script>
+	
+	<script type = "itemVendaTemplate" id = "itemVendaTemplate">
+			<tr>
+				<td> <h6>[Codigo]</h6> </td>
+				<td> <h6>[Barra]</h6> </td>
+				<td> <h6>[Marca]</h6> </td>
+				<td nowrap> <h6>[Descricao]</h6> </td>
+				<td> <h6 align="right">[Quantidade]</h6> </td>
+				<td> <h6 align="right">[Unitario]</h6> </td>
+				<td> <h6 align="right">[SubTotal]</h6> </td>
+			</tr>	
+	</script>
+
+	<script type="totalTemplate" id="totalTemplate">
+		<table class="content-table" id="Totais">
+			<tr>
+				<td class="linha-divisoria" colspan="7"></td>
+			</tr>
+			<tr>
+				<td width="65%" align="right"> <h6>SubTotal (=)</h6> </td>
+				<td width="10%"> <h6 align="right">[TotalQuantidade]</h6> </td>
+				<td width="10%"> <h6 align="right">  </h6> </td>
+				<td width="15%"> <h6 align="right">[SubTotal]</h6> </td>
+			</tr>
+			<tr>
+				<td width="65%" align="right"> <h6>Outros Recebimentos (-)</h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="15%"> <h6 align="right">[Outros]</h6> </td>
+			</tr>			
+			<tr>
+				<td width="65%" align="right"> <h6>Descontos (-)</h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="15%"> <h6 align="right">[Descontos]</h6> </td>
+			</tr>						
+			<tr>
+				<td width="65%" align="right"> <h6>Total Geral (=)</h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="10%"> <h6 align="right"></h6> </td>
+				<td width="15%"> <h6 align="right"><b>[TotalGeral]</b></h6> </td>
+			</tr>									
+		</table>
+	</script>
+	
+
+	<script type="parcelasTemplate" id="parcelasTemplate">
+		<div>
+		<table class="content-table" id="DadosVenda">
+			<tr>
+				<td colspan="7">&nbsp&nbsp</td>
+			</tr>
+			<tr>
+				<td class="linha-divisoria" colspan="7"></td>
+			</tr>
+			<tr style="valign:center">
+				<td class="titulo-sessao" colspan="7">
+					<h4><b>Parcelas Convênio</b><h4>
+				</td>
+			</tr>			
+			<tr>
+				<td width="10%"> <h6> Parcelas </h6> </td>
+				<td width="15%"> <h6 align="right"> Vencimento </h6> </td>
+				<td width="15%"> <h6 align="right"> Valor  </h6> </td>
+				<td width="15%"> <h6 align="right"> Multa/Juros </h6> </td>
+				<td width="15%"> <h6 align="right"> Desconto </h6> </td>
+				<td width="15%"> <h6 align="right"> Valor Pago </h6> </td>
+				<td width="15%"> <h6 align="right"> Pagamento </h6> </td>
+			</tr>
+	</script>
+	
+	<script type="parcelasLinhasTemplate" id="parcelasLinhasTemplate">
+		<table class="content-table" id="parcelasConvenio">
+			<tr>
+				<td width="10%"> <h6>[Parcela]</h6> </td>
+				<td width="15%"> <h6 align="right">[DataVencimento]</h6> </td>
+				<td width="15%"> <h6 align="right">[Valor]</h6> </td>
+				<td width="15%"> <h6 align="right">[ValorMultaJuros]</h6> </td>
+				<td width="15%"> <h6 align="right">[ValorDesconto]</h6> </td>
+				<td width="15%"> <h6 align="right">[ValorPagamento]</h6> </td>
+				<td width="15%"> <h6 align="right">[DataPagamento]</h6> </td>
+			</tr>
+	</script>	
+	
+	<script type="assinaturaTemplate" id="assinaturaTemplate">
+			<tr>
+				<td colspan="7">&nbsp</td>
+			</tr>
+			<tr>
+				<td class="linha-divisoria" colspan="7"></td>
+			</tr>
+	
+			<tr>
+				<td colspan =7 align="justify" ><h4>Eu, <b>[NomeContatoTitular]</b>, residente em <b>[Endereco]</b>, portador do CPF: <b>[CPF]</b> e RG: <b>[RG]</b>, autorizo o desconto em folha de pagamento do meu salário em parcelas iguais e sucessivas ou, em caso de rescisão do contrato de trabalho, em uma só vez, da despesa acima expressa, realizada por mim e/ou por meu(s) dependente(s).</h4></td>
+			</tr>
+			<tr>
+				<td colspan="7">&nbsp&nbsp</td>
+			</tr>			
+			<tr>
+				<td colspan="7">&nbsp&nbsp</td>
+			</tr>			
+			<tr>
+				<td colspan =5 width="80%"><h4>&nbsp</h4></td>
+				<td colspan =2 width="20%"><h4>______________________________________________</td>
+			</tr>			
+			<tr>
+				<td colspan =5 width="80%"><h4>&nbsp </h4></td>
+				<td colspan =2 width="20%" ><h5 align="center">[NomeContatoTitularAssinatura]</h5></td>
+			</tr>			
+	</script>	
+	
+	<body>
+		<div class="container" id="container">
+			<!--cabeçalho do impresso-->
+            <div class="pbottom-02">
+                <!--dados loja-->
+                <table class="content-table">
+                    <tr>
+                        <!--logo da loja-->
+                        <td class="logo-loja" align="center" valign="center">
+                            <img src="optsoul-exemplo.png"/>
+                        </td>
+
+                        <!--dados da loja-->
+						<td class="dados-loja">
+							<h6> <span id="fantasiaEmissor">Carregando impressão</span> </h6>
+							<h6> <span id="enderecoEmissor">-</span> </h6>
+							<h6> <span id="telefoneEmissor"></span> </h6>
+							<h6> <span id="emailEmissor">-</span> </h6>
+							<h6> <span id="siteEmissor">-</span> </h6>
+						</td>
+
+                        <!--codigo de barras-->
+						<td>
+							<table class="sub-content-table">
+								<tr align="right">
+									<td> <h4> <span id="codFatura">-</span> </h4> </td>
+								</tr>
+								<tr align="right">
+									<td> <span id="codBarras">-</span> </td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					
+                    <tr><td class="linha-divisoria" colspan="3"></td></tr>
+                </table>
+                <!--dados cliente-->
+                <table class="content-table">
+                    <tr>
+                        <!--dados clietne-->
+                        <td class="dados-cliente">
+                            <h6> Empresa: <span id="nomeEmpresa">Nome da empresa</span></h6>
+                            <h6> Titular: <span id="codigoTitular">000000</span> - <span id = "nomeTitular"> Nome Titular </span> </h6>
+                            <h6> Endereco: <span id="enderecoTitular"></span> </h6>
+                            <h6> Telefone: <span id="telefoneTitular">(19) 3893-3333</span> </h6>
+                        </td>
+
+                        <!--data-->
+                        <td class="float-right">
+                            <h6>Impresso: <span id="impresso">08/06/2016 16:30h</span> </h6>
+                            <h6>Faturado: <span id="faturado">09/06/2016</span> </h6>
+                        </td>
+                    </tr>
+					<tr> &nbsp </tr>
+					<tr> &nbsp </tr>
+					
+                </table>
+            </div>
+            <!--.end cabeçalho do impresso-->
+		</div>
+			
+		<script>
+			$(document).ready(function(){
+				//Codigo fatura
+				var codigoDocumento = getParameterByName("CodigoDocumento");
+
+				//Connect DB
+				var banco = getParameterByName("BancoDeDados");
+				var usuario = getParameterByName("CodigoUsuario");				
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var codPrescricao = "";
+				
+				var totalQuantidade = 0.00;
+				
+				$("#codFatura").html("Fatura: " +codigoDocumento);
+
+				//Dados da Loja	
+				debugger;
+				var oculto = getParameterByName("Oculto");
+				var dadosEmissor = GeeksSQL("select C.Nome, C.[Site], C.Email, CT.Telefone, IsNull((CE.Logradouro + ' ' + CE.Numero + ', '  + CE.Bairro + ' - ' + CE.Municipio + '/' + CE.UF + ' ' + CE.CEP), '') as Endereco, IsNull(C.Imagem, 'Não informado') Imagem from Contato C left join ContatoTelefone CT on CT.CodigoContato = C.CodigoContato and CT.TipoTelefone = 'Principal' left join ContatoEndereco CE on CE.CodigoContato = C.CodigoContato and CE.Grupo = 'Principal' where C.CodigoContato = (select CodigoEmpresa from Documento where CodigoDocumento = 0" + codigoDocumento + ")", false, url, banco, usuario);
+
+				//Dados Emissor -print to html
+				$("#fantasiaEmissor").html(dadosEmissor.Records[0].Nome);
+				$("#emailEmissor").html(dadosEmissor.Records[0].Email);
+				$("#enderecoEmissor").html(dadosEmissor.Records[0].Endereco);
+				$("#siteEmissor").html(dadosEmissor.Records[0].Site);
+				$("#telefoneEmissor").html(dadosEmissor.Records[0].Telefone);
+
+				//Codigo de Barras da Fatura
+				var numero = String(codigoDocumento);
+				var zeros = 13 - Number(numero.length);
+
+				for (var i = 0; i < zeros; i++) 
+					numero = '0' + numero;
+
+				$("#codBarras").css("white-space", "nowrap");
+				$("#codBarras").css("background-color", "#fff");
+
+				$("#codBarras").html(fbarcode(numero,20));
+
+				/*
+				var bc = document.getElementById("codBarras");
+				html2canvas(bc, {
+				  onrendered: function(canvas) {
+					var img = canvas.toDataURL("image/jpeg");
+						$("#codBarras").html("");
+						$("#codBarras").append('<img src="' + img + '"></img>');
+					}
+				});
+				*/
+
+				//Dados do Titular
+				var dadosTitular = GeeksSQL("select CEMP.CodigoContato as CodigoContatoEmpresa, CEMP.Nome as NomeContatoEmpresa, CO.CodigoContato as CodigoContatoTitular,  CO.Nome as NomeContatoTitular, " +
+											" CE.Logradouro, ISNULL(CE.Numero,'') as Numero, ISNULL(CE.Complemento,'') as Complemento, ISNULL(CE.Bairro,'') as Bairro, ISNULL(CE.Municipio,'') as Cidade, ISNULL(CE.UF,'') as UF, DO.TelefoneContato, "+
+											" convert(varchar,DO.DataHoraFinalizado,103)+' '+ convert(varchar,DO.DataHoraFinalizado,108) as Faturado, " +
+											" convert(varchar,getdate(),103)+' '+ convert(varchar,getdate(),108) as Impresso, " +
+											" ISNULL(CO.NumeroDocumentoNacional,'Não Informado') as CPF, ISNULL(CO.NumeroDocumentoEstadual,'Não Informado') as RG " +
+											" from documento DO " +
+											" inner join Contato CO on (DO.CodigoContato = CO.CodigoContato) " +
+											" inner join ContatoFilho CF on (CO.COdigoContato = CF.CodigoContato) " +
+											" inner join Contato CEMP on (CEMP.CodigoContato = Cf.CodigoContatoRelacionado ) " +
+											" inner join ContatoEndereco CE on (CO.CodigoContato = CE.CodigoContato) " +
+											" where " +
+											"codigodocumento = 0" + codigoDocumento , false, url, banco, usuario);
+
+				//Dados do Titular -print to html
+				$("#nomeEmpresa").html(dadosTitular.Records[0].NomeContatoEmpresa);
+				$("#codgoTitular").html(dadosTitular.Records[0].CodigoContatoTitular);
+				$("#nomeTitular").html(dadosTitular.Records[0].NomeContatoTitular);
+				$("#enderecoTitular").html(dadosTitular.Records[0].Logradouro+ " "+dadosTitular.Records[0].Numero + " - " + dadosTitular.Records[0].Complemento + " " + dadosTitular.Records[0].Bairro + " " + dadosTitular.Records[0].Cidade + "/" + dadosTitular.Records[0].UF );
+				$("#telefoneTitular").html(dadosTitular.Records[0].TelefoneContato );
+				$("#impresso").html(dadosTitular.Records[0].Impresso);
+				$("#faturado").html(dadosTitular.Records[0].Faturado);
+
+
+				//Dados Venda
+				var dadosVenda = GeeksSQL(" Select CodigoDocumento,convert(varchar,DataHoraFinalizado,103)+' '+convert(varchar,DataHoraFinalizado,108) as DataHoraVenda from Documento d where CodigoFatura =0"+codigoDocumento , false, url, banco, usuario);
+				
+				if (dadosVenda.RecordsAffected > 0) {
+					debugger;
+
+					//Insert html in var
+					var vendaTemplateVazio = $("#vendaTemplate");
+					
+					for (var i = 0; i < dadosVenda.RecordsAffected; i++) {					
+					
+						vendaTemplate = vendaTemplateVazio;
+
+						var dadosItensVenda = GeeksSQL("SELECT "+
+												  "	IT.CodigoItem, "+
+												  "	DP.DataHoraFinalizado as DataHoraVenda, "+
+												  "	DP.DescricaoContato NomeBeneficiario, "+
+												  "	ISNULL(IT.CodigoBarras,'N/A') CodigoBarras, "+
+												  "	IT.Marca, "+
+												"	IT.DescricaoComercial, "+
+												"	DI.Quantidade, "+
+												"	It.ValorVenda, "+
+												"	DI.Total "+
+												" FROM  "+
+												" DOCUMENTO DF "+
+												" join DOCUMENTO DP on (DP.CodigoDocumentoAdicional = DF.COdigoDocumento) and DF.Tipo = 'Venda' "+
+												" join DocumentoItem DI on (DP.CodigoDocumento = DI.CodigoDocumento) "+
+												" join Item IT on (DI.CodigoItem = IT.CodigoItem) "+
+												" WHERE DF.CodigoDocumento =0"+dadosVenda.Records[i].CodigoDocumento , false, url, banco, usuario);
+
+						if (dadosItensVenda.RecordsAffected > 0) {
+
+							vendaTemplateHtml = vendaTemplateVazio.html() ;
+						
+							for (x = 0; x < dadosItensVenda.RecordsAffected; x++) {
+								var itemTemplate = $("#itemVendaTemplate").html();
+								itemTemplate = itemTemplate.replace("[Codigo]", dadosItensVenda.Records[x].CodigoItem);
+								itemTemplate = itemTemplate.replace("[Barra]", dadosItensVenda.Records[x].CodigoBarras);
+								itemTemplate = itemTemplate.replace("[Marca]", dadosItensVenda.Records[x].Marca);
+								itemTemplate = itemTemplate.replace("[Descricao]", dadosItensVenda.Records[x].DescricaoComercial);
+								itemTemplate = itemTemplate.replace("[Quantidade]",dadosItensVenda.Records[x].Quantidade.toFixed(2));
+								itemTemplate = itemTemplate.replace("[Unitario]", dadosItensVenda.Records[x].ValorVenda.toFixed(2));
+								itemTemplate = itemTemplate.replace("[SubTotal]", dadosItensVenda.Records[x].Total.toFixed(2));
+								
+								totalQuantidade += dadosItensVenda.Records[x].Quantidade;
+								
+								vendaTemplateHtml = vendaTemplateHtml + itemTemplate;
+							}
+						}
+
+						//vendaTemplateHtml = vendaTemplateHtml + '</table></div>';
+						//$(container).append(vendaTemplateHtml);
+						//var vendaTemplate = $("#vendaTemplate").html() ;
+						vendaTemplateHtml = vendaTemplateHtml.replace("[NumeroVenda]", dadosVenda.Records[i].CodigoDocumento);							
+						vendaTemplateHtml = vendaTemplateHtml.replace("[DataHoraVenda]", dadosVenda.Records[i].DataHoraVenda);
+						$(container).append(vendaTemplateHtml);
+	
+						vendaTemplateHtml = vendaTemplateVazio.html();	
+					}
+			
+					//Totais, descontos e outras formas de pagamento				
+					var totalGeral = 0.00;
+					var totalTemplate = $("#totalTemplate").html();
+					totalTemplate = totalTemplate.replace("[TotalQuantidade]",totalQuantidade.toFixed(2));
+					
+					//SubTotal
+					var objGeral = GeeksSQL(" Select SUM(Valor) AS Valor from FinanceiroTitulo ft  where documentoCodigo =0"+codigoDocumento , false, url, banco, usuario);
+					totalTemplate = totalTemplate.replace("[SubTotal]",objGeral.Records[0].Valor.toFixed(2));
+					totalGeral = objGeral.Records[0].Valor;
+
+					//Outros
+					var objGeral = GeeksSQL(" Select SUM(Valor) AS Valor from FinanceiroTitulo ft  where FormadePagamento <> 'Convênio' and documentoCodigo =0"+codigoDocumento , false, url, banco, usuario);
+					totalTemplate = totalTemplate.replace("[Outros]",objGeral.Records[0].Valor.toFixed(2));
+					totalGeral -= objGeral.Records[0].Valor;
+					
+					//Descontos
+					var objGeral = GeeksSQL(" Select SUM(ValorDesconto) AS Valor from FinanceiroTitulo ft  where FormadePagamento <> 'Convênio' and documentoCodigo =0"+codigoDocumento , false, url, banco, usuario);
+					totalTemplate = totalTemplate.replace("[Descontos]",objGeral.Records[0].Valor.toFixed(2));
+					totalGeral -= objGeral.Records[0].Valor;
+
+					//ToTalGeral
+					totalTemplate = totalTemplate.replace("[TotalGeral]",totalGeral.toFixed(2));
+
+					$(container).append(totalTemplate);
+				}
+				
+				//Dados Parcelas
+				var dadosParcelas = GeeksSQL(" Select ft.CodigoFinanceiroTitulo, ft.CodigoFinanceiroTitulo,"+
+											 " ft.Parcela , "+
+											 " convert(varchar,DataVencimento,103) as DataVencimento, "+
+											 " Valor,"+
+											 " ValorMulta+ValorJuros as ValorMultaJuros,"+
+											 " ValorDesconto, "+
+											 " ValorRealizado as ValorPagamento,"+
+											 " ISNULL(convert(varchar,DataPagamento,103),'Em Aberto') as DataPagamento, "+
+											 " FormadePagamento"+
+											 " from FinanceiroTitulo ft "+
+											 " where FormadePagamento = 'Convênio' and documentoCodigo =0"+codigoDocumento, false, url, banco, usuario);				
+				debugger;
+				
+				if (dadosParcelas.RecordsAffected > 0) {
+
+					//Insert html in var
+					var parcelasTemplate = $("#parcelasTemplate").html();
+					$(container).append(parcelasTemplate);
+					
+					for (i = 0; i < dadosParcelas.RecordsAffected; i++) {										
+						var parcelasLinhasTemplate = $("#parcelasLinhasTemplate").html();
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[Parcela]", dadosParcelas.Records[i].Parcela);
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[DataVencimento]", dadosParcelas.Records[i].DataVencimento);
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[Valor]", dadosParcelas.Records[i].Valor.toFixed(2));
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[ValorMultaJuros]", dadosParcelas.Records[i].ValorMultaJuros.toFixed(2));
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[ValorDesconto]",dadosParcelas.Records[i].ValorDesconto.toFixed(2));
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[ValorPagamento]", dadosParcelas.Records[i].ValorPagamento.toFixed(2));
+						parcelasLinhasTemplate = parcelasLinhasTemplate.replace("[DataPagamento]", dadosParcelas.Records[i].DataPagamento);
+						
+						$(container).append(parcelasLinhasTemplate);
+					}
+					
+					//Assinatura
+					var dadosAssinatura = GeeksSQL("select C.Nome, C.[Site], C.Email, CT.Telefone, IsNull((CE.Logradouro + ' ' + CE.Numero + ', '  + CE.Bairro + ' - ' + CE.Municipio + '/' + CE.UF + ' ' + CE.CEP), '') as Endereco, IsNull(C.Imagem, 'Não informado') Imagem from Contato C left join ContatoTelefone CT on CT.CodigoContato = C.CodigoContato and CT.TipoTelefone = 'Principal' left join ContatoEndereco CE on CE.CodigoContato = C.CodigoContato and CE.Grupo = 'Principal' where C.CodigoContato = (select CodigoEmpresa from Documento where CodigoDocumento = 0" + codigoDocumento + ")", false, url, banco, usuario);
+
+					var assinaturaTemplate = $("#assinaturaTemplate").html();		
+					assinaturaTemplate = assinaturaTemplate.replace("[NomeContatoTitular]",dadosTitular.Records[0].NomeContatoTitular);
+					assinaturaTemplate = assinaturaTemplate.replace("[Endereco]",dadosTitular.Records[0].Logradouro+ " "+dadosTitular.Records[0].Numero + " - " + dadosTitular.Records[0].Complemento + " " + dadosTitular.Records[0].Bairro + " " + dadosTitular.Records[0].Cidade + "/" + dadosTitular.Records[0].UF);
+					assinaturaTemplate = assinaturaTemplate.replace("[CPF]",dadosTitular.Records[0].CPF);
+					assinaturaTemplate = assinaturaTemplate.replace("[RG]",dadosTitular.Records[0].RG);
+					assinaturaTemplate = assinaturaTemplate.replace("[NomeContatoTitularAssinatura]",dadosTitular.Records[0].NomeContatoTitular);
+					
+					$(container).append(assinaturaTemplate);					
+				}
+			});	
+		</script>
+	</body>	
+</html>

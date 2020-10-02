@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Etiquetas Cartas</title>
+        <link rel="stylesheet" type="text/css" href="optidados.framework.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+        <script src="/Scripts/codigobarras.js"></script>
+        <script src="/Plugins/html2canvas.js"></script>
+		<script src="JsBarcode.all.min.js"></script>
+
+		<style type="text/css">
+			/*ESTAS CLASSES SÓ AJUDAM A VISUALIZAÇAO ANTES DA IMPRESSAO*/
+			h1, h2, h3, h4, h5, h6, p, span { padding: 0; margin: 0; font-weight: normal; overflow: hidden; }
+
+			h1 { font-size: 16px; }
+
+			h2 { font-size: 15px; }
+
+			h3 { font-size: 14px; }
+
+			h4 { font-size: 13px; }
+
+			h5 { font-size: 12px; }
+
+			h6 { font-size: 11px; }
+
+			p { font-size: 10px; }
+
+			.container-Etq {
+				position: relative;
+				float: left;
+				width: 16.5cm;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			.etiqueta {
+				position: relative;
+				float: left;
+				width: 8.25cm;
+				margin: 0.135cm 0 0.135cm 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+
+			.Etq-LadoA {
+				position: relative;
+				float: left;
+				width: 2.7cm;
+				height: 1cm;
+				margin: 0 0 0 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+
+			.Etq-LadoB {
+				position: relative;
+				float: left;
+				width: 2.65cm;
+				height: 0.93cm;
+				margin: 0 2.85cm 0 0;
+				padding: 0.07cm 0 0 0.05cm;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+
+			.Desc {
+				width: 2.63cm;
+				height: 0.58cm;
+				overflow: hidden;
+			}
+
+			.CodVal {
+				width: 2.63cm;
+				height: 0.3cm;
+				overflow: hidden;
+			}
+		</style>
+
+		<style type="text/css" media="print">
+			html, body, div, span, applet, object, iframe,
+			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+			a, abbr, acronym, address, big, cite, code,
+			del, dfn, em, img, ins, kbd, q, s, samp,
+			small, strike, strong, sub, sup, tt, var,
+			b, u, i, center,
+			dl, dt, dd, ol, ul, li,
+			fieldset, form, label, legend,
+			table, caption, tbody, tfoot, thead, tr, th, td,
+			article, aside, canvas, details, embed, 
+			figure, figcaption, footer, header, hgroup, 
+			menu, nav, output, ruby, section, summary,
+			time, mark, audio, video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article, aside, details, figcaption, figure, 
+			footer, header, hgroup, menu, nav, section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol, ul {
+				list-style: none;
+			}
+			blockquote, q {
+				quotes: none;
+			}
+			blockquote:before, blockquote:after,
+			q:before, q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+
+			h1, h2, h3, h4, h5, h6, p, span { padding: 0; margin: 0; font-weight: normal; overflow: hidden; }
+
+			h1 { font-size: 16px; }
+
+			h2 { font-size: 15px; }
+
+			h3 { font-size: 14px; }
+
+			h4 { font-size: 13px; }
+
+			h5 { font-size: 12px; }
+
+			h6 { font-size: 11px; }
+
+			p { font-size: 10px; }
+
+			.container-Etq {
+				position: relative;
+				float: left;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			.etiqueta {
+				position: relative;
+				float: left;
+				width: 8.25cm;
+				margin: 0.135cm 0 0.135cm 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+			}
+
+			.Etq-LadoA {
+				position: relative;
+				float: left;
+				width: 2.7cm;
+				height: 1cm;
+				margin: 0 0 0 0;
+				padding: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+
+			.Etq-LadoB {
+				position: relative;
+				float: left;
+				width: 2.65cm;
+				height: 0.93cm;
+				margin: 0 2.85cm 0 0;
+				padding: 0.07cm 0 0 0.05cm;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+
+			.Desc {
+				width: 2.63cm;
+				height: 0.57cm;
+				overflow: hidden;
+			}
+
+			.CodVal {
+				width: 2.63cm;
+				height: 0.3cm;
+				overflow: hidden;
+			}
+		</style>
+
+		<script id="tempEtiqueta" type="tempEtiqueta">
+			<div class="etiqueta">
+				<div class="Etq-LadoA">
+					<svg class="Barcode[###CBEtiqueta###]"></svg>
+				</div>
+
+				<div class="Etq-LadoB">
+					<p class="Desc Descricao[###CBEtiqueta###]"></p>
+					<p class="CodVal CodValor[###CBEtiqueta###]"></p>
+				</div>
+			</div>
+		</script>
+	</head>
+
+	<body>
+		<div class="container-Etq">
+			<div class="printEtiqueta"></div>
+		</div>
+
+		<script>
+			$(document).ready(function(){
+				//DB Connection
+				var banco = getParameterByName("Banco");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+				
+				//Get Info Etq
+				var numeroEtiquetasEmBranco = getParameterByName("EmBranco");
+				var CodigoPedido = getParameterByName("CodigoPedido");
+				var CodigoItem = getParameterByName("CodigoItem");
+				var Quantidade = getParameterByName("Quantidade");
+				var TabelaPreco = getParameterByName("TabelaPreco");
+
+
+				//Get Margin Page
+				var marginTop = GeeksSQL("SELECT TOP 1 IsNull(Valor, 0) Valor FROM Configuracoes WHERE Nome = 'etiqueta.carta.top'", false, url, banco, usuario).Records[0];
+				var marginRight = GeeksSQL("SELECT TOP 1 IsNull(Valor, 0) Valor FROM Configuracoes WHERE Nome = 'etiqueta.carta.right'", false, url, banco, usuario).Records[0];
+				var marginBottom = GeeksSQL("SELECT TOP 1 IsNull(Valor, 0) Valor FROM Configuracoes WHERE Nome = 'etiqueta.carta.bottom'", false, url, banco, usuario).Records[0];
+				var marginLeft = GeeksSQL("SELECT TOP 1 IsNull(Valor, 0) Valor FROM Configuracoes WHERE Nome = 'etiqueta.carta.left'", false, url, banco, usuario).Records[0];
+
+				//Tratament Margin Page
+				if(marginTop != undefined){ var mTop = (marginTop.Valor.replace(',','.')+"cm"); } else{ var mTop =("1.26cm"); }
+				if(marginRight != undefined){ var mRight =(marginRight.Valor.replace(',','.')+"cm"); } else{ var mRight =("0"); }
+				if(marginBottom != undefined){ var mBottom =(marginBottom.Valor.replace(',','.')+"cm"); } else{ var mBottom =("1.27cm"); }
+				if(marginLeft != undefined){ var mLeft =(marginLeft.Valor.replace(',','.')+"cm"); } else{ var mLeft =("2.85cm"); }
+
+				//Add Margin Page
+				var styleTag =(
+					" <style type='text/css' media='print'>"
+						+" @page {"
+							+" size: letter;"
+							+" margin-top: "+mTop+";"
+							+" margin-right: "+mRight+";"
+							+" margin-bottom: "+mBottom+";"
+							+" margin-left: "+mLeft+";"
+							+" padding: 0;"
+							+" top: 0;"
+							+" right: 0;"
+							+" bottom: 0;"
+							+" left: 0;"
+						+" }"
+					+" </style>"
+				);
+				$("head").append(styleTag);
+
+
+				//Posso imprimir etiqueta de um pedido de compra
+				if (CodigoPedido != "") {
+					var Etiquetas = GeeksSQL(
+						"Select"
+							+" I.CodigoItem,"
+							+" IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras,"
+							+" LEFT((CASE"
+								+" WHEN((I.Tipo = 'Armação') OR(I.Tipo = 'Óculos Sol') OR(I.Tipo = 'Óculos Pronto'))"
+								+" THEN(CASE"
+										+" WHEN(IsNull(I.Descricao, '') = '')"
+										+" THEN(IsNull(I.Marca, '')+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, ''))"
+										+" ELSE(IsNull(I.Descricao, ''))"
+									+" END)"
+								+" ELSE(CASE WHEN(IsNull(I.Descricao, '') = '') THEN(IsNull(I.Marca, '')+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, '')) ELSE(IsNull(I.Descricao, '')) END)"
+							+" END), 50) DescricaoCompleta,"
+							+" IsNull(I.Modelo, '') Modelo,"
+							+" IsNull(I.AmarcaoCor, '') AmarcaoCor,"
+							+" IsNull(I.Cor, '') Cor,"
+							+" IsNull(I.Tamanho, '') Tamanho,"
+							+" IsNull(I.Descricao, '') Nome,"
+							+" 'R$ '+ Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(I.CodigoItem, 6))") + ", 0), 'N2') Valor,"
+							+" IsNull(DI.Quantidade, 0) Quantidade"
+						+" From Item I"
+							+" Inner Join DocumentoItem DI on DI.CodigoItem = I.CodigoItem and DI.CodigoDocumento = 0"+CodigoPedido
+					,false ,url ,banco ,usuario);
+				}
+
+				//Posso imprimir etiqueta de um item, informando a quantidade
+				else if (CodigoItem != "") {
+					var Etiquetas = GeeksSQL(
+						"Select"
+							+" I.CodigoItem,"
+							+" IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras,"
+							+" LEFT((CASE"
+								+" WHEN((I.Tipo = 'Armação') OR(I.Tipo = 'Óculos Sol') OR(I.Tipo = 'Óculos Pronto'))"
+								+" THEN(CASE"
+										+" WHEN(IsNull(I.Descricao, '') = '')"
+										+" THEN(IsNull(I.Marca, '')+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, ''))"
+										+" ELSE(IsNull(I.Descricao, ''))"
+									+" END)"
+								+" ELSE(CASE WHEN(IsNull(I.Descricao, '') = '') THEN(IsNull(I.Marca, '')+CHAR(13)+CHAR(10)+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, '')) ELSE(IsNull(I.Descricao, '')) END)"
+							+" END), 50) DescricaoCompleta,"
+							+" IsNull(I.Modelo, '') Modelo,"
+							+" IsNull(I.AmarcaoCor, '') AmarcaoCor,"
+							+" IsNull(I.Cor, '') Cor,"
+							+" IsNull(I.Tamanho, '') Tamanho,"
+							+" IsNull(I.Descricao, '') Nome,"
+							+" 'R$ '+ Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(I.CodigoItem, 6))") + ", 0), 'N2') Valor, " + Quantidade + " Quantidade"
+						+" From Item I"
+						+" Where I.CodigoItem = "+CodigoItem
+					,false ,url ,banco ,usuario);
+				}
+
+				//Ou posso imprimir etiqueta pela tela de etiquetas
+				else {
+					var Etiquetas = GeeksSQL(
+						"Select"
+							+" E.CodigoItem,"
+							+" IsNull(SUBSTRING('000000000000' + Cast(i.CodigoBarras as varchar), LEN('000000000000' + Cast(i.CodigoBarras as varchar))-12, 13), '') CodigoBarras,"
+							+" LEFT((CASE"
+								+" WHEN((I.Tipo = 'Armação') OR(I.Tipo = 'Óculos Sol') OR(I.Tipo = 'Óculos Pronto'))"
+								+" THEN(CASE"
+										+" WHEN(IsNull(I.Descricao, '') = '')"
+										+" THEN(IsNull(I.Marca, '')+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, ''))"
+										+" ELSE(IsNull(I.Descricao, ''))"
+									+" END)"
+								+" ELSE(CASE WHEN(IsNull(I.Descricao, '') = '') THEN(IsNull(I.Marca, '')+CHAR(13)+CHAR(10)+' '+ IsNull(I.Modelo, '')+' '+ IsNull(convert(varchar, I.Tamanho), '')+' '+ IsNull(I.AmarcaoCor, '')) ELSE(IsNull(I.Descricao, '')) END)"
+							+" END), 50) DescricaoCompleta,"
+							+" IsNull(I.Modelo, '') Modelo,"
+							+" IsNull(I.AmarcaoCor, '') AmarcaoCor,"
+							+" IsNull(I.Cor, '') Cor,"
+							+" IsNull(I.Tamanho, '') Tamanho,"
+							+" IsNull(E.NomeProduto, '') Nome,"
+							+" 'R$ '+ Format(IsNull(" + (TabelaPreco == "" ? 'I.ValorVenda' : "(Select dbo.Fn_TabelaPreco_GetPreco(E.CodigoItem, 6))") + ", 0), 'N2') Valor,"
+							+" IsNull(E.QuantidadeEtiquetas, 0) Quantidade"
+						+" From Item I"
+							+" Inner Join Etiqueta E on E.CodigoItem = I.CodigoItem"
+					,false ,url ,banco ,usuario);
+				}
+
+
+				//Etiquetas em Branco
+				for(var y = 0; y < numeroEtiquetasEmBranco; y++) {
+					var etiquetasEmBranco = (
+						"<div style='"
+						+" position: relative;"
+						+" float: left;"
+						+" width: 8.25cm;"
+						+" height: 1cm;"
+						+" margin: 0.135cm 0 0.135cm 0;"
+						+" padding: 0;"
+						+" top: 0;"
+						+" right: 0;"
+						+" bottom: 0;"
+						+" left: 0;"
+						+" overflow: hidden;"
+						+" background-color: rgb(235,235,235);"
+						+" '>"
+						+" </div>"
+					);
+
+					$(".printEtiqueta").append(etiquetasEmBranco);
+				}//for etq branco
+
+
+				//Preenche dados Etiquetas
+				$(Etiquetas.Records).each(function(index, rowEtq) {
+					//Cria layout html etiqueta
+					for(var x = 0; x < rowEtq.Quantidade; x++) {
+						//Get Temp and Print
+						var tempEtiqueta = $("#tempEtiqueta").html();
+							tempEtiqueta = tempEtiqueta.replaceAll("[###CBEtiqueta###]", rowEtq.CodigoBarras);
+						
+						$(".printEtiqueta").append(tempEtiqueta);
+					}//for etq
+
+					//Codigo Barras
+					var numero = String(rowEtq.CodigoBarras);
+					var zeros = 13 - Number(numero.length);
+
+					for (var i = 0; i < zeros; i++){
+						numero = '0' + numero;
+					}
+
+					JsBarcode(
+						".Barcode"+rowEtq.CodigoBarras,
+						numero,
+						{
+							fontSize: 13,
+							textMargin: 0,
+							width: 1,
+							height: 20,
+							margin: 0,
+							marginTop: 2,
+							marginLeft: 2,
+							flat: true,
+							format: "EAN13"
+						}
+					);
+
+					//Descrição da Etiqueta
+					$(".Descricao"+rowEtq.CodigoBarras).each(function() {
+						$( this ).html(rowEtq.DescricaoCompleta);
+					});
+
+					//Codigo / Valor (caso queira add codigo do produto)
+					$(".CodValor"+rowEtq.CodigoBarras).each(function() {
+						$( this ).html(rowEtq.Valor);
+					});
+				});//rowEtq
+
+			});
+		</script>
+	</body>
+</html>

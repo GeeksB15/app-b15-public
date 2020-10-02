@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Receita</title>
+        <link rel="stylesheet" type="text/css" href="impressos.css"/>
+		<script src="/Scripts/jquery-2.1.4.js"></script>
+		<script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+		<style type="text/css">
+		
+		.prescricao-dados{
+		text-align: center;
+		}
+		</style>
+		
+    </head>
+
+	<body>
+		<div class="container">
+
+            <!--cabeçalho do impresso-->
+            <div class="pbottom-02">
+                <!--dados loja-->
+                <table class="content-table">
+                    <tr>
+                        <!--logo da loja-->
+                        <td class="logo-loja" align="center" valign="center">
+                            <img src="optsoul-exemplo.png"/>
+                        </td>
+
+                        <!--dados da loja-->
+						<td class="dados-loja">
+							<h6> <span id="fantasiaEmissor">Carregando impressão</span> </h5>
+							<h6> <span id="enderecoEmissor">-</span> </h5>
+							<h6> <span id="telefoneEmissor"></span> </h5>
+							<h6> <span id="emailEmissor">-</span> </h5>
+							<h6> <span id="siteEmissor">-</span> </h5>
+						</td>
+
+                    </tr>
+                    <tr><td class="linha-divisoria" colspan="3"></td></tr>
+                </table>
+
+
+                <!--dados cliente-->
+                <table class="content-table">
+                    <tr valign="top">
+                        <!--dados clietne-->
+                        <td class="dados-cliente">
+                            <h6>Cod. Paciente: <span id="CodigoContato">-</span> </h6>
+							<h6>Paciente: <span id="nomePaciente">-</span> </h6>
+                            <!-- <h6>Endereço: <span id="enderecoPaciente">-</span>  </h6> -->
+                            <!-- <h6>Telefone: <span id="telefonePaciente">-</span> </h6> -->
+                        </td>
+
+                        <!--data-->
+                        <td class="float-right">
+                        	<h6>Especialista: <span id="nomeMedico"></span></h6>
+                        	<h6>Data Presc.<span id="dataPrevista"></span></h6>
+                        	<!-- <h6>Valida até <span id="dataValidade"></span></h6> -->
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--.end cabeçalho do impresso-->
+
+
+            <!--bloco prescrição-->
+            <div class="pbottom-10">
+                <!--prescricao-->
+                <table class="content-table">
+                    <!--titulo da seção-->
+                    <tr>
+                        <td class="titulo-sessao" colspan="3">
+                            <h6>Prescrição</h6>
+                        </td>
+                    </tr>
+
+                    <!--dioptria-->
+                    <tr>
+                        <!--olho direito-->
+                        <td style="width: 50%;">
+                            <table class="prescricao-od">
+                                <tr>
+                                    <td></td>
+                                    <td class="prescricao-od-title" colspan="7">
+                                        <h6> Olho Direito </h6>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td class="prescricao-title"> <h6> Adc. </h6> </td>
+                                    <td class="prescricao-title"> <h6> Esf. </h6> </td>
+                                    <td class="prescricao-title"> <h6> Cil. </h6> </td>
+                                    <td class="prescricao-title"> <h6> Eixo </h6> </td>
+                                    <td class="prescricao-title"> <h6> Pris. </h6> </td>
+                                    <td class="prescricao-title"> <h6> Base </h6> </td>
+                                    <td class="prescricao-title"> <h6> DNP  </h6> </td>
+                                </tr>
+                                <tr>
+                                    <td class="prescricao-dist">  <h6> Longe </h6> </td>
+									<td class="prescricao-dados"> <h6 id=""> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongeEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongeCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongeEixo"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongePris"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongeBase"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odLongeDNP"> </h6> </td>
+                                    
+                                </tr>
+                                <tr class="medio">
+                                    <td class="prescricao-dist">  <h6> Medio </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioAdc"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioEixo"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioPris"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioBase"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odMedioDNP"> </h6> </td>
+                                </tr>
+                                <tr class="perto">
+                                    <td class="prescricao-dist">  <h6> Perto </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoAdc"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoEixo"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoPris"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoBase"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="odPertoDNP"> </h6> </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <!--olho esquerdo-->
+                        <td style="width: 50%;">
+                            <table class="prescricao-oe">
+                                <tr>
+                                    <td class="prescricao-oe-title" colspan="7">
+                                        <h6> Olho Esquerdo </h6>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="prescricao-title"> <h6 id=""> Adc. </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> Esf. </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> Cil. </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> Eixo </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> Pris. </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> Base </h6> </td>
+                                    <td class="prescricao-title"> <h6 id=""> DNP  </h6> </td>
+                                </tr>
+                                <tr>
+                                    <td class="prescricao-dados"> <h6 id=""> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongeEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongeCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongeEixo">  </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongePris">  </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongeBase">  </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeLongeDNP"> </h6> </td>
+                                </tr>
+                                <tr class="medio">
+                                    <td class="prescricao-dados"> <h6 id="oeMedioAdc"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioEixo"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioPris"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioBase"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oeMedioDNP">  </h6> </td>
+                                </tr>
+                                <tr class="perto">
+                                    <td class="prescricao-dados"> <h6 id="oePertoAdc"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoEsf"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoCil"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoEixo"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoPris"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoBase"> </h6> </td>
+                                    <td class="prescricao-dados"> <h6 id="oePertoDNP"> </h6> </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <!--observação-->
+                        <td class="box-left box-bottom box-right" colspan="3">
+                            <h6>Obs: <span id="observacao"></span> </h6>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--.end bloco prescrição-->
+
+            <div>
+            	<h5 class="text-align-center">
+            		O estabelecimento comercial para a aquisição dos óculos é de livre escolha do usuário.<br>
+					É importante trazer os seus óculos para conferência.
+				</h5>
+            </div>
+
+		</div>
+	
+		<script>
+
+			
+			$(document).ready(function(){
+
+			
+				var cod = getParameterByName("CodigoDocumento");
+				var banco = getParameterByName("BancoDeDados");
+				var url = decodeURIComponent(getParameterByName("URLServidor"));
+				var usuario = getParameterByName("CodigoUsuario");
+				var codPrescricao = getParameterByName("codPrescricao");
+				var CodigoDocumento = "";
+				
+				if(getParameterByName("codigoDocumento").length > 0){
+					CodigoDocumento = getParameterByName("codigoDocumento");
+				}else{
+					CodigoDocumento = GeeksSQL("SELECT DISTINCT CodigoDocumento from DocumentoItem where CodigoDocumentoAdicional = 0" + codPrescricao, false, url, banco, usuario).Records[0].CodigoDocumento;
+				}
+
+						
+			//Dados da Loja	
+				var oculto = getParameterByName("Oculto");
+				var dadosEmissor = GeeksSQL("select C.Nome, C.[Site], C.Email, CT.Telefone, IsNull((CE.Logradouro + ' ' + CE.Numero + ', '  + CE.Bairro + ' - ' + CE.Municipio + '/' + CE.UF + ' ' + CE.CEP), '') as Endereco, IsNull(C.Imagem, 'Não informado') Imagem from Contato C left join ContatoTelefone CT on CT.CodigoContato = C.CodigoContato and CT.TipoTelefone = 'Principal' left join ContatoEndereco CE on CE.CodigoContato = C.CodigoContato and CE.Grupo = 'Principal' where C.CodigoContato = (select CodigoEmpresa from Documento where CodigoDocumento = 0" + CodigoDocumento + ")", false, url, banco, usuario);
+
+			//Dados Emissor
+				$("#fantasiaEmissor").html(dadosEmissor.Records[0].Nome);
+				$("#emailEmissor").html(dadosEmissor.Records[0].Email);
+				$("#enderecoEmissor").html(dadosEmissor.Records[0].Endereco);
+				$("#siteEmissor").html(dadosEmissor.Records[0].Site);
+				$("#telefoneEmissor").html(dadosEmissor.Records[0].Telefone);
+		
+			//Dados do Medico 
+			var dadosMedicoPaciente = GeeksSQL("select d.CodigoDocumento, DescricaoContato Paciente, d.CodigoContato CodigoContato, IsNull((Select Nome from Contato where CodigoContato = dc.CodigoContato),'Não informado') DescricaoMedico, isnull(d.DescricaoContatoEndereco, '') Endereco, isnull(d.DescricaoContatoEnderecoEntrega, '') EnderecoEntrega, isnull(d.TelefoneContato, '') Telefone, isnull(Convert(varchar(10), d.DataHoraEmissao, 103), '') DataPrevista, isnull(Convert(varchar(10), d.DataHoraFinalizado, 103), '') as DataValidade, d.Observacao from Documento d left join DocumentoContato dc on d.CodigoDocumento = dc.CodigoDocumento and dc.Descricao = 'Medico' where d.CodigoDocumento = 0" + codPrescricao, false, url, banco, usuario);
+
+			if(dadosMedicoPaciente.Records[0] != undefined) {
+								
+			//Dados do Cliente
+				$("#CodigoContato").html(Number(dadosMedicoPaciente.Records[0].CodigoContato));
+				$("#nomePaciente").html(dadosMedicoPaciente.Records[0].Paciente);
+				
+				if(dadosMedicoPaciente.Records[0].Endereco && dadosMedicoPaciente.Records[0].Endereco.length > 0)
+				{				
+					$("#enderecoPaciente").html(dadosMedicoPaciente.Records[0].Endereco);
+				}else{
+					$("#enderecoPaciente").html(dadosMedicoPaciente.Records[0].EnderecoEntrega);
+				}				
+
+				$("#telefonePaciente").html(dadosMedicoPaciente.Records[0].Telefone); 
+				$("#nomeMedico").html(dadosMedicoPaciente.Records[0].DescricaoMedico);
+			}
+			
+			$("#dataPrevista").html(dadosMedicoPaciente.Records[0].DataPrevista == '01/01/1900' ? " " : dadosMedicoPaciente.Records[0].DataPrevista);
+			$("#dataValidade").html(dadosMedicoPaciente.Records[0].DataValidade == '01/01/1900' ? " " : dadosMedicoPaciente.Records[0].DataValidade);
+			$("#observacao").html(dadosMedicoPaciente.Records[0].Observacao);
+			
+			
+			//Informações da Receita
+			
+            var OdLonge = GeeksSQL("Select Esferico, Cilindrico, Eixo, Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = 0" + codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Longe'", false, url, banco, usuario).Records[0];
+
+            var OdMedio = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = 0" + codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Medio'", false, url, banco, usuario).Records[0];
+
+            var OdPerto = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, Prisma, Base, DIOD, DIOE from DocumentoItem where CodigoDocumento = 0" + codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Direito' and [Status] = 'Perto'", false, url, banco, usuario).Records[0];
+
+            var OeLonge = GeeksSQL("Select Esferico, Cilindrico, Eixo, Prisma, Base from DocumentoItem where CodigoDocumento = 0" + codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Longe'", false, url, banco, usuario).Records[0];
+
+            var OeMedio = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, Prisma, Base from DocumentoItem where CodigoDocumento = 0"+ codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Medio'", false, url, banco, usuario).Records[0];
+
+            var OePerto = GeeksSQL("Select Adicao, Esferico, Cilindrico, Eixo, Prisma, Base from DocumentoItem where CodigoDocumento = 0" + codPrescricao + " and TipoItem = 'Prescrição' and Operacao = 'Olho Esquerdo' and [Status] = 'Perto'", false, url, banco, usuario).Records[0];
+			
+			// Longe
+
+            $("#oeLongeEsf").html(Number(OeLonge.Esferico).toFixed(2).replace(".", ","));
+            $("#oeLongeCil").html(Number(OeLonge.Cilindrico).toFixed(2).replace(".", ","));
+            $("#oeLongeEixo").html(OeLonge.Eixo);
+            $("#oeLongePris").html(OeLonge.Prisma);
+            $("#oeLongeBase").html(OeLonge.Base);
+            $("#oeLongeDNP").html(Number(OdLonge.DIOE).toFixed(2).replace(".", ","));
+
+            $("#odLongeEsf").html(Number(OdLonge.Esferico).toFixed(2).replace(".", ","));
+            $("#odLongeCil").html(Number(OdLonge.Cilindrico).toFixed(2).replace(".", ","));
+            $("#odLongeEixo").html(OdLonge.Eixo);
+            $("#odLongePris").html(OdLonge.Prisma);
+            $("#odLongeBase").html(OdLonge.Base);
+            $("#odLongeDNP").html(Number(OdLonge.DIOD).toFixed(2).replace(".", ","));
+
+            // Médio
+
+            $("#odMedioAdc").html(Number(OdMedio.Adicao).toFixed(2).replace(".", ","));
+            $("#odMedioEsf").html(Number(OdMedio.Esferico).toFixed(2).replace(".", ","));
+            $("#odMedioCil").html(Number(OdMedio.Cilindrico).toFixed(2).replace(".", ","));
+            $("#odMedioEixo").html(OdMedio.Eixo);
+            $("#odMedioPris").html(OdMedio.Prisma);
+            $("#odMedioBase").html(OdMedio.Base);
+            $("#odMedioDNP").html(Number(OdMedio.DIOD).toFixed(2).replace(".", ","));
+
+            $("#oeMedioAdc").html(Number(OeMedio.Adicao).toFixed(2).replace(".", ","));
+            $("#oeMedioEsf").html(Number(OeMedio.Esferico).toFixed(2).replace(".", ","));
+            $("#oeMedioCil").html(Number(OeMedio.Cilindrico).toFixed(2).replace(".", ","));
+            $("#oeMedioEixo").html(OeMedio.Eixo);
+            $("#oeMedioPris").html(OeMedio.Prisma);
+            $("#oeMedioBase").html(OeMedio.Base);
+            $("#oeMedioDNP").html(Number(OdMedio.DIOE).toFixed(2).replace(".", ","));
+
+            // Perto
+
+            $("#odPertoAdc").html(Number(OdPerto.Adicao).toFixed(2).replace(".", ","));
+            $("#odPertoEsf").html(Number(OdPerto.Esferico).toFixed(2).replace(".", ","));
+            $("#odPertoCil").html(Number(OdPerto.Cilindrico).toFixed(2).replace(".", ","));
+            $("#odPertoEixo").html(OdPerto.Eixo);
+            $("#odPertoPris").html(OdPerto.Prisma);
+            $("#odPertoBase").html(OdPerto.Base);
+            $("#odPertoDNP").html(Number(OdPerto.DIOD).toFixed(2).replace(".", ","));
+
+            $("#oePertoAdc").html(Number(OePerto.Adicao).toFixed(2).replace(".", ","));
+            $("#oePertoEsf").html(Number(OePerto.Esferico).toFixed(2).replace(".", ","));
+            $("#oePertoCil").html(Number(OePerto.Cilindrico).toFixed(2).replace(".", ","));
+            $("#oePertoEixo").html(OePerto.Eixo);
+            $("#oePertoPris").html(OePerto.Prisma);
+            $("#oePertoBase").html(OePerto.Base);
+            $("#oePertoDNP").html(Number(OdPerto.DIOE).toFixed(2).replace(".", ","));      
+
+
+			//Oculta campos se vazio
+			if(OdMedio.Adicao == 0 || OeMedio.Adicao == 0 ){
+			$('.medio').hide();
+			}
+			
+			if(OdPerto.Adicao == 0 || OePerto.Adicao == 0){
+			$('.perto').hide();
+			}
+
+
+	});	
+
+		
+			</script>
+
+	</body>	
+
+</html>

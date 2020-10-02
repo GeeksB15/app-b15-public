@@ -1,0 +1,416 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Crediário</title>
+        <link rel="stylesheet" type="text/css" href="impressos.css"/>
+        <link rel="stylesheet" type="text/css" href="crediario.css"/>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/Restricted/Geeks.ERP.BasicReport.js"></script>
+        <script src="/Scripts/codigobarras.js"></script>
+        <script src="/Plugins/html2canvas.js"></script>
+
+        <style type="text/css" media="print">
+	        .botao-apagar-parte {
+	        	display: none;
+	        }
+        </style>
+
+        <style type="text/css">
+            h6, p {
+                white-space: nowrap;
+            }
+
+            .picote-cred-conv {
+                padding-top: 0.5cm;
+                padding-bottom: 0.5cm;
+                border-top: 1px dashed rgb(25,25,25);
+                border-bottom: 1px dashed rgb(25,25,25);
+            }
+        
+            .botao-apagar-parte {
+                position: relative;
+                float: left;
+                background-color: #E64949;
+                box-shadow: 2px 2px 2px grey;
+                padding: 10px;
+                border-radius: 5px;
+                color: #FFF;
+                width: 200px;
+                height: 20px;
+                margin-top: 4px;
+                margin-bottom: 25px;
+                text-align: center;
+                cursor: pointer;
+            }
+        
+            .botao-apagar-parte:hover {
+                background-color: #5BBDBC;
+            }
+        </style>
+        <script type="linhaHistoricoParcelas" id="linhaHistoricoParcelas">
+        	<tr>
+                <td class="text-align-center box-bottom box-left box-right"><p>[parcela]</p></td>
+                <td class="text-align-center box-bottom box-left box-right"><p>[dataVencimento]</p></td>
+                <td class="text-align-right  box-bottom box-left box-right"><p>[valorParcela]</p></td>
+                <td class="text-align-right  box-bottom box-left box-right"><p>[multaJuros]</p></td>
+                <td class="text-align-right  box-bottom box-left box-right"><p>[desconto]</p></td>
+                <td class="text-align-right  box-bottom box-left box-right"><p>[valorPago]</p></td>
+                <td class="text-align-center box-bottom box-left box-right"><p>[dataPagamento]</p></td>
+            </tr>
+        </script>
+
+        <script type="carne" id="carne">
+            
+            <div class="picote-cred-conv">
+            <table class="content-cred" style='page-break-inside: avoid !important;' id="zzzzzidDoCarnezzzzz">
+                <tr>
+                    <td class="crediario-via-cliente" valign="top">
+                        <table class="sub-content-table">
+                            <tr>
+                                <td class="box-bottom" colspan="2">
+
+                                    <table class="sub-content-table">
+                                        <tr>
+                                            <td class="crediario-logo-loja-td" align="center" valign="middle">
+                                                <img class="crediario-logo-loja logo" src="optsoul-exemplo.png"/>
+                                            </td>
+                                            <td>
+                                                <p class="nomeLoja">-</p>
+                                                <p class="enderecoLoja" style="white-space: normal;">-</p>
+                                                <p class="cidadeCepLoja">-</p>
+                                                <p class="telefoneLoja">-</p>
+                                                <p class="emailLoja">-</p>
+                                                <p class="siteLoja">-</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2"><h6 class="nomeCliente">-</h6></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Data compra: <span>[dataCompra]</span></p></td>
+                                <td><p>Venc. parcela: <span>[dataVencimentoParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Parcelas: <span>[totalParcelas]</span></p></td>
+                                <td><p>Nº Parcela: <span>[numeroParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Valor total da compra: <span>R$ [valorTotalCompra]</span></p>
+                                <p>Outras formas pgto.: <span>R$ [valorOutros]</span></p></td>
+                                <td><p>Valor da parcela: <span>R$ [valorParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>[valorMultaJuros]</p></td>
+                                <td><p>[valorDesconto]</p></td>
+                            </tr>
+
+                        </table>
+                    </td>
+
+                    <td class="box-right"></td>
+
+                    <td class="crediario-via-loja" valign="top">
+                        <table class="sub-content-table">
+                            <tr>
+                                <td class="box-bottom" colspan="2">
+
+                                    <table class="sub-content-table">
+                                        <tr>
+                                            <td class="crediario-logo-loja-td" align="center" valign="middle">
+                                                <img class="crediario-logo-loja logo" src="optsoul-exemplo.png"/>
+                                            </td>
+                                            <td>
+                                                <p class="nomeLoja">-</p>
+                                                <p class="enderecoLoja" style="white-space: normal;">-</p>
+                                                <p class="cidadeCepLoja">-</p>
+                                                <p class="telefoneLoja">-</p>
+                                                <p class="emailLoja">-</p>
+                                                <p class="siteLoja">-</p>
+                                            </td>
+                                            <td>
+                                                <h5>[codParcela]</h5>
+                                                <h5 id="[codigoBarrasN]">-</h5>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><h6 class="nomeCliente">-</h6></td>
+                                <td><h6 class="telefoneCliente">-</h6></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Data compra: <span>[dataCompra]</span></p></td>
+                                <td><p>Venc. parcela: <span>[dataVencimentoParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Parcelas: <span>[totalParcelas]</span></p></td>
+                                <td><p>Nº Parcela: <span>[numeroParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>Valor total da compra: <span>R$ [valorTotalCompra]</span></p>
+                                <p>Outras formas pgto.: <span>R$ [valorOutros]</span></p></td>
+                                <td><p>Valor da parcela: <span>R$ [valorParcela]</span></p></td>
+                            </tr>
+
+                            <tr>
+                                <td><p>[valorMultaJuros]</p></td>
+                                <td><p>[valorDesconto]</p></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>                
+            </table>
+            </div>
+        </script>
+
+        <script type="notaPromissoria" id="notaPromissoria">
+        	
+        	<table class="crediario-nota-promissoria" style='page-break-inside: avoid !important;' id="zzzzzidDoCarnezzzzz">
+                <tr>
+                    <td class="titulo-sessao" colspan="3">
+                        <h5>Nota Promissória</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <h6>Nº Parcela: <span>[numeroParcela]</span></h6> </td>
+                    <td class="text-align-center"> <h6>Vencimento Parcela: <span>[vencimentoParcela]</span></h6> </td>
+                    <td class="text-align-center"> <h6>[codigoParcela]</h6> </td>
+                </tr>
+                <tr>
+                    <td class="box-top" colspan="3">
+                        <p class="crediario-nota-promissoria-text" style="white-space: normal;">
+                            Ao(s) <span>[dataExtenso]</span> pagarei por esta única via de NOTA PROMISSÓRIA a <span>[nomeEmpresa]</span>, CNPJ: <span>[cnpjEmpresa]</span>, ou a sua ordem, o valor de [valorNumerico] (<span>[valorExtenso]</span>) em moeda corrente deste país, pagável na praça de [cidadeEmpresa].
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"> <h6>Emitente: <span>[nomeCliente]</span></h6> </td>
+                </tr>
+                <tr>
+                    <td> <h6>CPF: <span>[cpfCliente]</span></h6> </td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <h6>[enderecoCliente]</h6> </td>
+                </tr>
+                <tr>
+                    <td class="text-align-center"> <h6> Data da impressão: [dataImpressao] </h6></td>
+                    <td colspan="2"> <p class="assinatura">Assinatura</p></td>
+                </tr>
+            </table>
+
+        </script>
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+        <!-- Histórico de parcelas pagas -->
+            <table class="content-table box-full" style="padding: 4px;" id="tabelaHistoricoParcelas">
+
+                <tr>
+                    <td class="box-bottom" colspan="7">
+                        <table class="sub-content-table">
+                            <tr>
+                                <td><h6 class="nomeCliente">Carregando carnês...</h6></td>
+                                <td><h6 class="codigoCliente">-</h6></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><h6 class="enderecoCliente">-</h6></td>
+                            </tr>
+                            <tr>
+                                <td><h6>Tel: <span class="telefoneCliente">-</span></h6></td>
+                                <td><h6>Email: <span class="emailCliente">-</span></h6></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Parcelas</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Data Venc.</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Valor Parc. (R$)</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Multa/Juros (R$)</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Desconto (R$)</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Valor Pago (R$)</h6></td>
+                    <td class="text-align-center box-full"><h6 style="font-weight: bold;">Data do pagamento</h6></td>
+                </tr>
+                
+            </table>
+
+            <div id="notasPromissorias" style="page-break-after: always;"></div>
+
+            <!--Carnês (serão inseridos aqui embaixo)-->
+            
+        </div>
+
+        <script type="text/javascript">
+
+        function apagar(id) {
+            $("#" + id.replace("b", "")).remove();
+            $("#" + id).remove();
+        }
+
+        $(document).ready(function(){             
+
+        	// GeeksSQL("", false, url, banco, usuario);
+
+        	var CodigoFatura = getParameterByName("CodigoFatura");
+
+            var banco = getParameterByName("BancoDeDados");
+            var url = decodeURIComponent(getParameterByName("URLServidor"));
+            var usuario = getParameterByName("CodigoUsuario");
+
+            var ImprimePagos = getParameterByName("ImprimePagos");
+            var ImprimeNotaPromissoria = getParameterByName("ImprimeNP");
+
+            var DadosFatura = GeeksSQL("SELECT D.CodigoDocumento, D.CodigoContato CodigoCliente, IsNull(D.DescricaoContato, 'Cliente') NomeCliente, IsNull(C.NumeroDocumentoNacional, 'não informado') CNPJCliente, IsNull(D.EmailContato, '-') EmailCliente, IsNull(D.TelefoneContato, '-') TelefoneCliente, IsNull(D.DescricaoContatoEndereco, '-') EnderecoCliente, D.CodigoEmpresa, D.DescricaoEmpresa, IsNull(D.NumeroDocumentoEmpresa, 'não informado') CNPJEmpresa, IsNull(CE.Logradouro, '') + ', ' + IsNull(CE.Numero, 's/n') EnderecoEmpresa, CE.Municipio + ' / ' + CE.UF + ' ' + CE.CEP CidadeEmpresa, IsNull(E.[Site], '-') SiteEmpresa, IsNull(E.Email, '-') EmailEmpresa, IsNull(CE.Municipio, '(cidade não informada no cadastro do emitente)') Praca, CT.Telefone TelefoneEmpresa, D.TotalDocumento, Convert(varchar(10), D.DataHoraEmissao, 103) + ' ' + Convert(varchar(10), D.DataHoraEmissao, 108) DataHotaEmissao, CONVERT (varchar(10), CURRENT_TIMESTAMP, 103) + ' ' + CONVERT (varchar(10), CURRENT_TIMESTAMP, 108) Agora, IsNull(E.Imagem, '-') Imagem FROM Documento D INNER JOIN Contato E ON E.CodigoContato = D.CodigoEmpresa INNER join Contato C on C.CodigoContato = D.CodigoContato left JOIN ContatoEndereco CE ON CE.CodigoContato = D.CodigoEmpresa AND CE.Grupo = 'Principal' left JOIN ContatoTelefone CT ON CT.CodigoContato = D.CodigoEmpresa AND CT.TipoTelefone = 'Principal' WHERE D.CodigoDocumento = 0" + CodigoFatura, false, url, banco, usuario);
+
+            var Carne = GeeksSQL("select CodigoFinanceiroTitulo, Convert(varchar(10), DataVencimento, 103) DataVencimento, IsNull(Convert(varchar(10), DataPagamento, 103), '-') DataPagamento, Valor, ValorRealizado, ValorTotalJuros, ValorDesconto, Parcela, ValorMulta, ValorMulta + ValorTotalJuros MultaJuros from FinanceiroTitulo where DocumentoCodigo = " + CodigoFatura + " and Carne=1 order by Cast(DataVencimento as DateTime)", false, url, banco, usuario);
+
+            var ValorOutrasFormasPgto = GeeksSQL("select IsNull(Sum(ValorTotal), 0) vl from FinanceiroTitulo where DocumentoCodigo = " + CodigoFatura + " and FormadePagamento <> 'Carnê'", false, url, banco, usuario);
+
+            var numeroLinhaDocumento = 0;
+
+            $(Carne.Records).each(function(index, row) {
+
+            	if (row.DataPagamento == '-' && ImprimeNotaPromissoria == "1") { // Notas promissórias para parcelas não pagas
+
+            	numeroLinhaDocumento++;
+
+            		var textoExtensoData = "";
+            		var dataVencimentoCompleto = row.DataVencimento.split(' ');
+            		var dataVencimento = dataVencimentoCompleto[0].split('/');
+
+            		textoExtensoData = getExtensive(dataVencimento[0]) + " de " + getMonth(dataVencimento[1]) + " de " + getExtensive(dataVencimento[2]);
+            		var textoExtensoValor = getExtensive(String(row.Valor).replace(".", ","), true);
+					
+					$("#notasPromissorias").prepend("<div class='botao-apagar-parte' id='blinha" + numeroLinhaDocumento + "' onclick='apagar(this.id)'>Não quero imprimir isso!</div>");
+					
+            		$("#notasPromissorias").prepend(
+
+            			$("#notaPromissoria").html()
+            				.replaceAll("[numeroParcela]", row.Parcela)
+							.replaceAll("[vencimentoParcela]", row.DataVencimento)
+							.replaceAll("[codigoParcela]", "Cód.: " + row.CodigoFinanceiroTitulo)
+							.replaceAll("[dataExtenso]", textoExtensoData)
+                            .replaceAll("[nomeEmpresa]", DadosFatura.Records[0].DescricaoEmpresa)
+                            .replaceAll("[cidadeEmpresa]", DadosFatura.Records[0].Praca)
+							.replaceAll("[cnpjEmpresa]", DadosFatura.Records[0].CNPJEmpresa)
+							.replaceAll("[valorExtenso]", textoExtensoValor)
+							.replaceAll("[valorNumerico]", "R$ " + row.Valor.toFixed(2).replaceAll(".", ","))
+							.replaceAll("[nomeCliente]", DadosFatura.Records[0].NomeCliente)
+							.replaceAll("[cpfCliente]", DadosFatura.Records[0].CNPJCliente)
+							.replaceAll("[enderecoCliente]", DadosFatura.Records[0].EnderecoCliente)
+							.replaceAll("[dataImpressao]", DadosFatura.Records[0].Agora)
+							.replaceAll("zzzzzidDoCarnezzzzz", "linha" + numeroLinhaDocumento)
+            		);
+
+            		
+
+            	}
+				
+            	$("#tabelaHistoricoParcelas").append(
+
+            		$("#linhaHistoricoParcelas").html()
+            			.replaceAll("[parcela]", row.Parcela)
+            			.replaceAll("[dataVencimento]", row.DataVencimento)
+            			.replaceAll("[valorParcela]", (row.Valor == 0.0000 ? '.' : row.Valor.toFixed(2).replaceAll(".", ",")))
+            			.replaceAll("[multaJuros]", (row.MultaJuros == 0.000 ? '.' : row.MultaJuros.toFixed(2).replaceAll(".", ",")))
+            			.replaceAll("[desconto]", (row.ValorDesconto == 0.0000 ? '.' : row.ValorDesconto.toFixed(2).replaceAll(".", ",")))
+            			.replaceAll("[valorPago]", (row.ValorRealizado == 0.0000 ? '.' : row.ValorRealizado.toFixed(2).replaceAll(".", ",")))
+            			.replaceAll("[dataPagamento]", row.DataPagamento)
+            	);
+
+            	if (row.DataPagamento == "-" || ImprimePagos == "1") {
+
+            		numeroLinhaDocumento++;
+
+            		var totalParcelas = row.Parcela.split("/");
+
+            		$(".container").append(
+
+            			$("#carne").html()
+            				.replaceAll("[dataCompra]", DadosFatura.Records[0].DataHotaEmissao)
+            				.replaceAll("[dataVencimentoParcela]", row.DataVencimento)
+            				.replaceAll("[totalParcelas]", totalParcelas[1])
+            				.replaceAll("[numeroParcela]", row.Parcela)
+            				.replaceAll("[valorOutros]", ValorOutrasFormasPgto.Records[0].vl.toFixed(2).replaceAll(".", ","))
+            				.replaceAll("[valorTotalCompra]", DadosFatura.Records[0].TotalDocumento.toFixed(2).replaceAll(".", ","))
+            				.replaceAll("[valorParcela]", row.Valor.toFixed(2).replaceAll(".", ","))
+            				.replaceAll("[valorMultaJuros]", row.MultaJuros == 0 ? "&nbsp;" : "Multa/Juros: <span>R$ " + row.MultaJuros.toFixed(2).replaceAll(".", ",") + "</span>")
+            				.replaceAll("[valorDesconto]", row.ValorDesconto == 0 ? "&nbsp;" : "Desconto: <span>R$ "+ row.ValorDesconto.toFixed(2).replaceAll(".", ",") + "</span>")
+            				.replaceAll("[codParcela]", "Parcela Cód.: " + row.CodigoFinanceiroTitulo)
+            				.replaceAll("[codigoBarrasN]", "codigoBarras" + index)
+            				.replaceAll("[textoRecebimento]", row.DataPagamento == "-" ? "<p>Autenticação ou Carimbo<br> de Recebimento</p>" : "<p><span style='font-size:20pt'>PAGO</span><br>" + row.DataPagamento + "</p>")            				
+							.replaceAll("zzzzzidDoCarnezzzzz", "linha" + numeroLinhaDocumento)
+
+            		);
+
+            		$(".container").append("<div class='botao-apagar-parte' id='blinha" + numeroLinhaDocumento + "' onclick='apagar(this.id)'>Não quero imprimir isso!</div>");
+
+            		var numero = String(row.CodigoFinanceiroTitulo);
+					var zeros = 13 - Number(numero.length);
+
+					for (var i = 0; i < zeros; i++) 
+						numero = '0' + numero;
+
+					$("#codigoBarras" + index).css("white-space", "nowrap");
+					$("#codigoBarras" + index).css("background-color", "#fff");
+
+					$("#codigoBarras" + index).html(fbarcode(numero));
+
+					var bc = document.getElementById("codigoBarras" + index);
+					html2canvas(bc, {
+					  onrendered: function(canvas) {
+						var img = canvas.toDataURL("image/jpeg");
+							$("#codigoBarras" + index).html("");
+							$("#codigoBarras" + index).append('<img src="' + img + '"></img>');
+					    }
+					});
+
+            	}            	
+
+            });
+
+            $(".nomeCliente").html(DadosFatura.Records[0].NomeCliente);
+            $(".codigoCliente").html("Cliente Cód.: "	+ DadosFatura.Records[0].CodigoCliente);
+            $(".enderecoCliente").html(DadosFatura.Records[0].EnderecoCliente);
+            $(".telefoneCliente").html(DadosFatura.Records[0].TelefoneCliente);
+            $(".emailCliente").html(DadosFatura.Records[0].EmailCliente);
+            $(".nomeLoja").html(DadosFatura.Records[0].DescricaoEmpresa);
+            $(".enderecoLoja").html(DadosFatura.Records[0].EnderecoEmpresa);
+            $(".cidadeCepLoja").html(DadosFatura.Records[0].CidadeEmpresa);
+            $(".telefoneLoja").html(DadosFatura.Records[0].TelefoneEmpresa);
+            $(".emailLoja").html(DadosFatura.Records[0].EmailEmpresa);
+            $(".siteLoja").html(DadosFatura.Records[0].SiteEmpresa);
+
+            if (DadosFatura.Records[0].Imagem != '-') {
+            	var imagem = DadosFatura.Records[0].Imagem.split("#");
+            	$(".logo").attr("src", imagem[0]);            	
+            }         
+        });
+
+        </script>
+
+    </body>
+    
+</html>
