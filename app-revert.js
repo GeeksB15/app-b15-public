@@ -1,6 +1,6 @@
 const { spawn } = require('child_process')
 
-const cwd = '/www/app.b15.com.br'
+const cwd = '/www/app-b15-public'
 const command = 'git'
 const args = ['revert', 'HEAD']
 
