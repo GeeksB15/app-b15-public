@@ -256,20 +256,20 @@ self.__precacheManifest = [
     "url": "/js/7532b3ea.49ba8f3e.js"
   },
   {
-    "revision": "19dccb9600bba63835b5",
-    "url": "/css/app.b275fe88.css"
+    "revision": "4b10b58adcb5e0a6b67d",
+    "url": "/css/app.c13807fc.css"
   },
   {
-    "revision": "19dccb9600bba63835b5",
-    "url": "/js/app.4d7b14af.js"
+    "revision": "4b10b58adcb5e0a6b67d",
+    "url": "/js/app.2bc9be1c.js"
   },
   {
     "revision": "daf5fc7d652ecc6fd1f3",
     "url": "/js/b280b996.4b87c6d0.js"
   },
   {
-    "revision": "cfde260a1f6984a58c07",
-    "url": "/js/vendor.051edcb7.js"
+    "revision": "8ca506e544d23ecc70c5",
+    "url": "/js/vendor.b14a206b.js"
   },
   {
     "revision": "40fd8f2a77c1c42b11c2cca695f9bcef",
@@ -288,12 +288,12 @@ self.__precacheManifest = [
     "url": "/ts.worker.js"
   },
   {
-    "revision": "6536e4067e72c89cd3f1530d83e9888c",
-    "url": "/fonts/mdi.6536e406.woff2"
-  },
-  {
     "revision": "5d43a6f507961589ab369ccc6f6d301b",
     "url": "/fonts/mdi.5d43a6f5.woff"
+  },
+  {
+    "revision": "6536e4067e72c89cd3f1530d83e9888c",
+    "url": "/fonts/mdi.6536e406.woff2"
   },
   {
     "revision": "35bb8d560db5205616671eab8c4d0303",
@@ -304,84 +304,76 @@ self.__precacheManifest = [
     "url": "/img/login-background.53f5a14d.jpg"
   },
   {
-    "revision": "a1471d1d6431c893582a5f6a250db3f9",
-    "url": "/fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
+    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
+    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
   },
   {
     "revision": "e9dbbe8a693dd275c16d32feb101f1c1",
     "url": "/fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
   },
   {
+    "revision": "a1471d1d6431c893582a5f6a250db3f9",
+    "url": "/fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
+  },
+  {
     "revision": "de8b7431b74642e830af4d4f4b513ec9",
     "url": "/fonts/KFOlCnqEu92Fr1MmEU9fBBc-.de8b7431.woff"
-  },
-  {
-    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
-    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
-  },
-  {
-    "revision": "cf6613d1adf490972c557a8e318e0868",
-    "url": "/fonts/KFOlCnqEu92Fr1MmWUlfBBc-.cf6613d1.woff"
   },
   {
     "revision": "8c2ade503b34e31430d6c98aa29a52a3",
     "url": "/fonts/KFOlCnqEu92Fr1MmYUtfBBc-.8c2ade50.woff"
   },
   {
-    "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
-    "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.c38ebd3c.woff"
+    "revision": "cf6613d1adf490972c557a8e318e0868",
+    "url": "/fonts/KFOlCnqEu92Fr1MmWUlfBBc-.cf6613d1.woff"
   },
   {
     "revision": "8a9a261c8b8dfe90db11f1817a9d22e1",
     "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.8a9a261c.woff2"
   },
   {
-    "revision": "20967b06ab74a556794c555022034ebf",
-    "url": "/statics/images/baseline-control_camera-24px.svg"
+    "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
+    "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.c38ebd3c.woff"
   },
   {
-    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
-    "url": "/statics/b15-logo.png"
+    "revision": "20967b06ab74a556794c555022034ebf",
+    "url": "/statics/images/baseline-control_camera-24px.svg"
   },
   {
     "revision": "b373122373fb38c3d4bd33ec852a1762",
     "url": "/statics/avatar.jpg"
   },
   {
+    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
+    "url": "/statics/b15-logo.png"
+  },
+  {
     "revision": "8080edbe5028700a1068de03c313f3cb",
     "url": "/statics/b15_old.svg"
-  },
-  {
-    "revision": "eb937d3a176438b72726d9198711cf52",
-    "url": "/statics/b15.svg"
-  },
-  {
-    "revision": "6def98192cedc2bb8e95ea7bc7171571",
-    "url": "/statics/B15.png"
-  },
-  {
-    "revision": "f854c1c6934626454bf25132a9643071",
-    "url": "/statics/b15n.png"
-  },
-  {
-    "revision": "e27d22b3d1356e07d79f8b7815b40a47",
-    "url": "/statics/bancos/033.png"
-  },
-  {
-    "revision": "cc0ca8afa2045bdb955a9218d761f24d",
-    "url": "/statics/bancos/001.png"
-  },
-  {
-    "revision": "220456852ea7dfb346f4217ae980d4fd",
-    "url": "/statics/bancos/237.png"
   },
   {
     "revision": "4e4ec0698a14ed2cbf437dc4c7c3f9ff",
     "url": "/statics/b15-white.svg"
   },
   {
-    "revision": "bd8403fc865bb1930e1b004db3a02560",
-    "url": "/statics/bancos/341.png"
+    "revision": "6def98192cedc2bb8e95ea7bc7171571",
+    "url": "/statics/B15.png"
+  },
+  {
+    "revision": "eb937d3a176438b72726d9198711cf52",
+    "url": "/statics/b15.svg"
+  },
+  {
+    "revision": "f854c1c6934626454bf25132a9643071",
+    "url": "/statics/b15n.png"
+  },
+  {
+    "revision": "220456852ea7dfb346f4217ae980d4fd",
+    "url": "/statics/bancos/237.png"
+  },
+  {
+    "revision": "cc0ca8afa2045bdb955a9218d761f24d",
+    "url": "/statics/bancos/001.png"
   },
   {
     "revision": "0e5af070e23f4009ea064cce550a80ad",
@@ -392,6 +384,10 @@ self.__precacheManifest = [
     "url": "/statics/bronze.png"
   },
   {
+    "revision": "26fd1207f8ab0f272cda3357307d7293",
+    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Contatos.xlsx"
+  },
+  {
     "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
     "url": "/statics/banner-tocos.jpg"
   },
@@ -400,32 +396,40 @@ self.__precacheManifest = [
     "url": "/statics/banner.jpg"
   },
   {
-    "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
-    "url": "/statics/facebook.png"
-  },
-  {
-    "revision": "26fd1207f8ab0f272cda3357307d7293",
-    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Contatos.xlsx"
-  },
-  {
-    "revision": "1cb5bff095be93f42b6108ce81f7f3e2",
-    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Produtos.xlsx"
-  },
-  {
-    "revision": "d9f7d37bf8223984f25974dde4fa74d3",
-    "url": "/statics/icones.svg"
+    "revision": "bd8403fc865bb1930e1b004db3a02560",
+    "url": "/statics/bancos/341.png"
   },
   {
     "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
     "url": "/statics/icons/favicon-16x16.png"
   },
   {
-    "revision": "ecf32b0a76c7e78d540e1885eade3202",
-    "url": "/statics/icons/apple-icon-152x152.png"
+    "revision": "e27d22b3d1356e07d79f8b7815b40a47",
+    "url": "/statics/bancos/033.png"
   },
   {
     "revision": "d6dc9207b85fcdebd913aacd94d27c50",
     "url": "/statics/icons/favicon-32x32.png"
+  },
+  {
+    "revision": "1cb5bff095be93f42b6108ce81f7f3e2",
+    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Produtos.xlsx"
+  },
+  {
+    "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
+    "url": "/statics/facebook.png"
+  },
+  {
+    "revision": "d9f7d37bf8223984f25974dde4fa74d3",
+    "url": "/statics/icones.svg"
+  },
+  {
+    "revision": "ecf32b0a76c7e78d540e1885eade3202",
+    "url": "/statics/icons/apple-icon-152x152.png"
+  },
+  {
+    "revision": "2e8b093d0170badcb8bf0c1cdb967409",
+    "url": "/statics/icons/icon-256x256.png"
   },
   {
     "revision": "9e4a4fd7dfd89796e0fb380d6848e8e9",
@@ -436,60 +440,56 @@ self.__precacheManifest = [
     "url": "/statics/icons/icon-192x192.png"
   },
   {
-    "revision": "2e8b093d0170badcb8bf0c1cdb967409",
-    "url": "/statics/icons/icon-256x256.png"
+    "revision": "16a2421946ffcb0107e117fc582cbf3b",
+    "url": "/statics/images/b.png"
   },
   {
     "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
     "url": "/statics/icons/ms-icon-144x144.png"
   },
   {
-    "revision": "c47468a6d16025f2d7a20889f8e437d7",
-    "url": "/statics/images/icon-altura.svg"
-  },
-  {
-    "revision": "16a2421946ffcb0107e117fc582cbf3b",
-    "url": "/statics/images/b.png"
-  },
-  {
     "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
     "url": "/statics/icons/icon-384x384.png"
-  },
-  {
-    "revision": "965eb2461ab21475911f01aef7f677c3",
-    "url": "/statics/images/icon-diagonal.svg"
   },
   {
     "revision": "81e9039b6f838844ea0590e4d759c94f",
     "url": "/statics/icons/icon-512x512.png"
   },
   {
-    "revision": "cc55b01314683df3848d474d4363c44d",
-    "url": "/statics/images/icon-ponte.svg"
+    "revision": "965eb2461ab21475911f01aef7f677c3",
+    "url": "/statics/images/icon-diagonal.svg"
   },
   {
-    "revision": "e7816ddc22f45d293c6664dcec893cca",
-    "url": "/statics/images/icon-haste.svg"
-  },
-  {
-    "revision": "db1b1237596d8a2644acb4308844a9f1",
-    "url": "/statics/instagram.png"
-  },
-  {
-    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
-    "url": "/statics/images/icon-tamanho.svg"
+    "revision": "c47468a6d16025f2d7a20889f8e437d7",
+    "url": "/statics/images/icon-altura.svg"
   },
   {
     "revision": "580599dc1b24a2c165fdea115a7bb566",
     "url": "/statics/images/p.png"
   },
   {
-    "revision": "868095fbb941a15d6deb1288a2e4528e",
-    "url": "/statics/linkedin.png"
+    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
+    "url": "/statics/images/icon-tamanho.svg"
+  },
+  {
+    "revision": "cc55b01314683df3848d474d4363c44d",
+    "url": "/statics/images/icon-ponte.svg"
   },
   {
     "revision": "cc3e3427ecf6d8566f1f790ddf43cfe4",
     "url": "/statics/logo.png"
+  },
+  {
+    "revision": "db1b1237596d8a2644acb4308844a9f1",
+    "url": "/statics/instagram.png"
+  },
+  {
+    "revision": "868095fbb941a15d6deb1288a2e4528e",
+    "url": "/statics/linkedin.png"
+  },
+  {
+    "revision": "e7816ddc22f45d293c6664dcec893cca",
+    "url": "/statics/images/icon-haste.svg"
   },
   {
     "revision": "0c2ca756ed7d9665a606673d09862b69",
@@ -500,12 +500,12 @@ self.__precacheManifest = [
     "url": "/statics/optisoul.svg"
   },
   {
-    "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
-    "url": "/statics/optisoul-white.svg"
-  },
-  {
     "revision": "113a58ad928f458022cdc2b391c96962",
     "url": "/statics/ouro.png"
+  },
+  {
+    "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
+    "url": "/statics/optisoul-white.svg"
   },
   {
     "revision": "198e506fbee4f2d2a48af24846d6cab6",
@@ -520,12 +520,24 @@ self.__precacheManifest = [
     "url": "/statics/produto2.jpg"
   },
   {
+    "revision": "dad76da033b80facaa964db269adc0eb",
+    "url": "/statics/produto4.jpg"
+  },
+  {
+    "revision": "3aa2d0ac2aade4f0cd96be9ffbba70f5",
+    "url": "/statics/tocosbar.jpg"
+  },
+  {
     "revision": "52ffdfb2e14648d4417c1fa092ab9b9b",
     "url": "/statics/produto3.jpg"
   },
   {
-    "revision": "dad76da033b80facaa964db269adc0eb",
-    "url": "/statics/produto4.jpg"
+    "revision": "586c7ce3a202e5e83b489015b6d07440",
+    "url": "/statics/youtube.png"
+  },
+  {
+    "revision": "054a36c40c56bd6e40929c7d0b104c27",
+    "url": "/statics/twiter.png"
   },
   {
     "revision": "28ae4806e94a321c8be479265c0158a4",
@@ -536,19 +548,7 @@ self.__precacheManifest = [
     "url": "/statics/produto6.jpg"
   },
   {
-    "revision": "3aa2d0ac2aade4f0cd96be9ffbba70f5",
-    "url": "/statics/tocosbar.jpg"
-  },
-  {
-    "revision": "054a36c40c56bd6e40929c7d0b104c27",
-    "url": "/statics/twiter.png"
-  },
-  {
-    "revision": "586c7ce3a202e5e83b489015b6d07440",
-    "url": "/statics/youtube.png"
-  },
-  {
-    "revision": "745b7121356908c1049b142542b92896",
+    "revision": "df3df611425fe9b7b4454ff1d853bc49",
     "url": "/index.html"
   },
   {
