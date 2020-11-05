@@ -256,12 +256,12 @@ self.__precacheManifest = [
     "url": "/js/7532b3ea.49ba8f3e.js"
   },
   {
-    "revision": "6dcc2137de42fd594c46",
+    "revision": "410bb8c942fd5a49d448",
     "url": "/css/app.69004642.css"
   },
   {
-    "revision": "6dcc2137de42fd594c46",
-    "url": "/js/app.0177a125.js"
+    "revision": "410bb8c942fd5a49d448",
+    "url": "/js/app.b82fff5d.js"
   },
   {
     "revision": "daf5fc7d652ecc6fd1f3",
@@ -308,12 +308,12 @@ self.__precacheManifest = [
     "url": "/fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
   },
   {
-    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
-    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
-  },
-  {
     "revision": "a1471d1d6431c893582a5f6a250db3f9",
     "url": "/fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
+  },
+  {
+    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
+    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
   },
   {
     "revision": "de8b7431b74642e830af4d4f4b513ec9",
@@ -348,20 +348,16 @@ self.__precacheManifest = [
     "url": "/statics/b15_old.svg"
   },
   {
-    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
-    "url": "/statics/b15-logo.png"
-  },
-  {
     "revision": "4e4ec0698a14ed2cbf437dc4c7c3f9ff",
     "url": "/statics/b15-white.svg"
   },
   {
-    "revision": "eb937d3a176438b72726d9198711cf52",
-    "url": "/statics/b15.svg"
-  },
-  {
     "revision": "f854c1c6934626454bf25132a9643071",
     "url": "/statics/b15n.png"
+  },
+  {
+    "revision": "6def98192cedc2bb8e95ea7bc7171571",
+    "url": "/statics/B15.png"
   },
   {
     "revision": "cc0ca8afa2045bdb955a9218d761f24d",
@@ -372,24 +368,20 @@ self.__precacheManifest = [
     "url": "/statics/bancos/033.png"
   },
   {
-    "revision": "220456852ea7dfb346f4217ae980d4fd",
-    "url": "/statics/bancos/237.png"
+    "revision": "eb937d3a176438b72726d9198711cf52",
+    "url": "/statics/b15.svg"
   },
   {
     "revision": "bd8403fc865bb1930e1b004db3a02560",
     "url": "/statics/bancos/341.png"
   },
   {
-    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
-    "url": "/statics/banner-tocos.jpg"
-  },
-  {
-    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
-    "url": "/statics/banner.jpg"
-  },
-  {
     "revision": "0e5af070e23f4009ea064cce550a80ad",
     "url": "/statics/bancos/756.png"
+  },
+  {
+    "revision": "220456852ea7dfb346f4217ae980d4fd",
+    "url": "/statics/bancos/237.png"
   },
   {
     "revision": "a06a5a2378cb5df8383f9f99e2f0969f",
@@ -408,12 +400,16 @@ self.__precacheManifest = [
     "url": "/statics/downloads/B15-Importar-ou-Atualizar-Produtos.xlsx"
   },
   {
-    "revision": "5c76d258c1f54073544ba3da7f905ba8",
-    "url": "/statics/elo.jpg"
+    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
+    "url": "/statics/b15-logo.png"
   },
   {
     "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
     "url": "/statics/facebook.png"
+  },
+  {
+    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
+    "url": "/statics/banner-tocos.jpg"
   },
   {
     "revision": "d9f7d37bf8223984f25974dde4fa74d3",
@@ -424,60 +420,56 @@ self.__precacheManifest = [
     "url": "/statics/icons/apple-icon-152x152.png"
   },
   {
-    "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
-    "url": "/statics/icons/favicon-16x16.png"
+    "revision": "d6dc9207b85fcdebd913aacd94d27c50",
+    "url": "/statics/icons/favicon-32x32.png"
   },
   {
     "revision": "9e4a4fd7dfd89796e0fb380d6848e8e9",
     "url": "/statics/icons/icon-128x128.png"
   },
   {
-    "revision": "d6dc9207b85fcdebd913aacd94d27c50",
-    "url": "/statics/icons/favicon-32x32.png"
-  },
-  {
     "revision": "5dda67e10177fcb1e1b767dafa7820b9",
     "url": "/statics/icons/icon-192x192.png"
+  },
+  {
+    "revision": "5c76d258c1f54073544ba3da7f905ba8",
+    "url": "/statics/elo.jpg"
   },
   {
     "revision": "2e8b093d0170badcb8bf0c1cdb967409",
     "url": "/statics/icons/icon-256x256.png"
   },
   {
-    "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
-    "url": "/statics/icons/icon-384x384.png"
-  },
-  {
-    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
-    "url": "/statics/icons/ms-icon-144x144.png"
+    "revision": "81e9039b6f838844ea0590e4d759c94f",
+    "url": "/statics/icons/icon-512x512.png"
   },
   {
     "revision": "16a2421946ffcb0107e117fc582cbf3b",
     "url": "/statics/images/b.png"
   },
   {
+    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
+    "url": "/statics/icons/ms-icon-144x144.png"
+  },
+  {
     "revision": "c47468a6d16025f2d7a20889f8e437d7",
     "url": "/statics/images/icon-altura.svg"
-  },
-  {
-    "revision": "81e9039b6f838844ea0590e4d759c94f",
-    "url": "/statics/icons/icon-512x512.png"
-  },
-  {
-    "revision": "965eb2461ab21475911f01aef7f677c3",
-    "url": "/statics/images/icon-diagonal.svg"
   },
   {
     "revision": "e7816ddc22f45d293c6664dcec893cca",
     "url": "/statics/images/icon-haste.svg"
   },
   {
-    "revision": "cc55b01314683df3848d474d4363c44d",
-    "url": "/statics/images/icon-ponte.svg"
+    "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
+    "url": "/statics/icons/favicon-16x16.png"
   },
   {
-    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
-    "url": "/statics/images/icon-tamanho.svg"
+    "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
+    "url": "/statics/icons/icon-384x384.png"
+  },
+  {
+    "revision": "cc55b01314683df3848d474d4363c44d",
+    "url": "/statics/images/icon-ponte.svg"
   },
   {
     "revision": "580599dc1b24a2c165fdea115a7bb566",
@@ -508,12 +500,12 @@ self.__precacheManifest = [
     "url": "/statics/master.png"
   },
   {
-    "revision": "541c079e29c7233fc4668c5edf6bbcae",
-    "url": "/statics/nubank.png"
+    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
+    "url": "/statics/images/icon-tamanho.svg"
   },
   {
-    "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
-    "url": "/statics/optisoul-white.svg"
+    "revision": "541c079e29c7233fc4668c5edf6bbcae",
+    "url": "/statics/nubank.png"
   },
   {
     "revision": "fcf46f46059efbb83d3218164a54aca2",
@@ -524,8 +516,16 @@ self.__precacheManifest = [
     "url": "/statics/ouro.png"
   },
   {
-    "revision": "6def98192cedc2bb8e95ea7bc7171571",
-    "url": "/statics/B15.png"
+    "revision": "965eb2461ab21475911f01aef7f677c3",
+    "url": "/statics/images/icon-diagonal.svg"
+  },
+  {
+    "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
+    "url": "/statics/optisoul-white.svg"
+  },
+  {
+    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
+    "url": "/statics/banner.jpg"
   },
   {
     "revision": "198e506fbee4f2d2a48af24846d6cab6",
@@ -536,43 +536,43 @@ self.__precacheManifest = [
     "url": "/statics/produto.jpg"
   },
   {
-    "revision": "dad76da033b80facaa964db269adc0eb",
-    "url": "/statics/produto4.jpg"
+    "revision": "8a1b4cfd83ef6a02b0c735051f879d3f",
+    "url": "/statics/produto2.jpg"
   },
   {
     "revision": "52ffdfb2e14648d4417c1fa092ab9b9b",
     "url": "/statics/produto3.jpg"
   },
   {
-    "revision": "8a1b4cfd83ef6a02b0c735051f879d3f",
-    "url": "/statics/produto2.jpg"
-  },
-  {
-    "revision": "28ae4806e94a321c8be479265c0158a4",
-    "url": "/statics/produto5.jpg"
+    "revision": "dad76da033b80facaa964db269adc0eb",
+    "url": "/statics/produto4.jpg"
   },
   {
     "revision": "3aa2d0ac2aade4f0cd96be9ffbba70f5",
     "url": "/statics/tocosbar.jpg"
   },
   {
-    "revision": "054a36c40c56bd6e40929c7d0b104c27",
-    "url": "/statics/twiter.png"
-  },
-  {
     "revision": "1d3d60a654a1a2c5eba85b744a54819e",
     "url": "/statics/produto6.jpg"
   },
   {
-    "revision": "586c7ce3a202e5e83b489015b6d07440",
-    "url": "/statics/youtube.png"
+    "revision": "054a36c40c56bd6e40929c7d0b104c27",
+    "url": "/statics/twiter.png"
   },
   {
     "revision": "76430f89af46e47814991bbf1ebe56be",
     "url": "/statics/visa.png"
   },
   {
-    "revision": "df292556078d5ef68d4c8a3a7ecfcadc",
+    "revision": "586c7ce3a202e5e83b489015b6d07440",
+    "url": "/statics/youtube.png"
+  },
+  {
+    "revision": "28ae4806e94a321c8be479265c0158a4",
+    "url": "/statics/produto5.jpg"
+  },
+  {
+    "revision": "be45756b7f97815833f8f28664226dd7",
     "url": "/index.html"
   },
   {
