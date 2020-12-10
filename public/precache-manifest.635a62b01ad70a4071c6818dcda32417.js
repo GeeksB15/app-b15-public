@@ -280,12 +280,12 @@ self.__precacheManifest = [
     "url": "/js/a6ce66b0.0ad607fd.js"
   },
   {
-    "revision": "b1669e1231eba3617a58",
+    "revision": "4e0eaef54b8030a4d473",
     "url": "/css/app.a9639fbe.css"
   },
   {
-    "revision": "b1669e1231eba3617a58",
-    "url": "/js/app.27cee2c1.js"
+    "revision": "4e0eaef54b8030a4d473",
+    "url": "/js/app.a65a24d7.js"
   },
   {
     "revision": "daf5fc7d652ecc6fd1f3",
@@ -300,12 +300,12 @@ self.__precacheManifest = [
     "url": "/editor.worker.js"
   },
   {
-    "revision": "26283e978d6496ebc7cf1274c546f3aa",
-    "url": "/html.worker.js"
-  },
-  {
     "revision": "73ce4b5c90b70f13ea0d7ce8be4ea802",
     "url": "/css.worker.js"
+  },
+  {
+    "revision": "26283e978d6496ebc7cf1274c546f3aa",
+    "url": "/html.worker.js"
   },
   {
     "revision": "7f3304b311b6f8ac0004719ae5b75d30",
@@ -360,8 +360,8 @@ self.__precacheManifest = [
     "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.c38ebd3c.woff"
   },
   {
-    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
-    "url": "/statics/b15-logo.png"
+    "revision": "20967b06ab74a556794c555022034ebf",
+    "url": "/statics/images/baseline-control_camera-24px.svg"
   },
   {
     "revision": "b373122373fb38c3d4bd33ec852a1762",
@@ -372,20 +372,20 @@ self.__precacheManifest = [
     "url": "/statics/b15_old.svg"
   },
   {
-    "revision": "4e4ec0698a14ed2cbf437dc4c7c3f9ff",
-    "url": "/statics/b15-white.svg"
+    "revision": "0a6f3c04767bc1dc84578581a600f3e0",
+    "url": "/statics/b15-logo.png"
   },
   {
     "revision": "6def98192cedc2bb8e95ea7bc7171571",
     "url": "/statics/B15.png"
   },
   {
-    "revision": "f854c1c6934626454bf25132a9643071",
-    "url": "/statics/b15n.png"
+    "revision": "4e4ec0698a14ed2cbf437dc4c7c3f9ff",
+    "url": "/statics/b15-white.svg"
   },
   {
-    "revision": "e27d22b3d1356e07d79f8b7815b40a47",
-    "url": "/statics/bancos/033.png"
+    "revision": "f854c1c6934626454bf25132a9643071",
+    "url": "/statics/b15n.png"
   },
   {
     "revision": "cc0ca8afa2045bdb955a9218d761f24d",
@@ -396,6 +396,14 @@ self.__precacheManifest = [
     "url": "/statics/b15.svg"
   },
   {
+    "revision": "e27d22b3d1356e07d79f8b7815b40a47",
+    "url": "/statics/bancos/033.png"
+  },
+  {
+    "revision": "bd8403fc865bb1930e1b004db3a02560",
+    "url": "/statics/bancos/341.png"
+  },
+  {
     "revision": "220456852ea7dfb346f4217ae980d4fd",
     "url": "/statics/bancos/237.png"
   },
@@ -404,20 +412,20 @@ self.__precacheManifest = [
     "url": "/statics/bancos/756.png"
   },
   {
-    "revision": "bd8403fc865bb1930e1b004db3a02560",
-    "url": "/statics/bancos/341.png"
+    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
+    "url": "/statics/banner.jpg"
   },
   {
-    "revision": "cccd0c0b4a092038505279c0f9a8e7c3",
-    "url": "/statics/bronze.png"
+    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
+    "url": "/statics/banner-tocos.jpg"
   },
   {
     "revision": "a06a5a2378cb5df8383f9f99e2f0969f",
     "url": "/statics/bb.jpg"
   },
   {
-    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
-    "url": "/statics/banner-tocos.jpg"
+    "revision": "cccd0c0b4a092038505279c0f9a8e7c3",
+    "url": "/statics/bronze.png"
   },
   {
     "revision": "1cb5bff095be93f42b6108ce81f7f3e2",
@@ -428,28 +436,24 @@ self.__precacheManifest = [
     "url": "/statics/downloads/B15-Importar-ou-Atualizar-Contatos.xlsx"
   },
   {
+    "revision": "5c76d258c1f54073544ba3da7f905ba8",
+    "url": "/statics/elo.jpg"
+  },
+  {
     "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
     "url": "/statics/facebook.png"
-  },
-  {
-    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
-    "url": "/statics/banner.jpg"
-  },
-  {
-    "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
-    "url": "/statics/icons/favicon-16x16.png"
   },
   {
     "revision": "d9f7d37bf8223984f25974dde4fa74d3",
     "url": "/statics/icones.svg"
   },
   {
-    "revision": "5c76d258c1f54073544ba3da7f905ba8",
-    "url": "/statics/elo.jpg"
-  },
-  {
     "revision": "ecf32b0a76c7e78d540e1885eade3202",
     "url": "/statics/icons/apple-icon-152x152.png"
+  },
+  {
+    "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
+    "url": "/statics/icons/favicon-16x16.png"
   },
   {
     "revision": "d6dc9207b85fcdebd913aacd94d27c50",
@@ -468,24 +472,24 @@ self.__precacheManifest = [
     "url": "/statics/icons/icon-256x256.png"
   },
   {
-    "revision": "16a2421946ffcb0107e117fc582cbf3b",
-    "url": "/statics/images/b.png"
-  },
-  {
     "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
     "url": "/statics/icons/icon-384x384.png"
   },
   {
-    "revision": "20967b06ab74a556794c555022034ebf",
-    "url": "/statics/images/baseline-control_camera-24px.svg"
+    "revision": "81e9039b6f838844ea0590e4d759c94f",
+    "url": "/statics/icons/icon-512x512.png"
+  },
+  {
+    "revision": "16a2421946ffcb0107e117fc582cbf3b",
+    "url": "/statics/images/b.png"
   },
   {
     "revision": "c47468a6d16025f2d7a20889f8e437d7",
     "url": "/statics/images/icon-altura.svg"
   },
   {
-    "revision": "965eb2461ab21475911f01aef7f677c3",
-    "url": "/statics/images/icon-diagonal.svg"
+    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
+    "url": "/statics/icons/ms-icon-144x144.png"
   },
   {
     "revision": "e7816ddc22f45d293c6664dcec893cca",
@@ -496,32 +500,28 @@ self.__precacheManifest = [
     "url": "/statics/images/icon-ponte.svg"
   },
   {
-    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
-    "url": "/statics/icons/ms-icon-144x144.png"
+    "revision": "965eb2461ab21475911f01aef7f677c3",
+    "url": "/statics/images/icon-diagonal.svg"
+  },
+  {
+    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
+    "url": "/statics/images/icon-tamanho.svg"
   },
   {
     "revision": "580599dc1b24a2c165fdea115a7bb566",
     "url": "/statics/images/p.png"
   },
   {
-    "revision": "81e9039b6f838844ea0590e4d759c94f",
-    "url": "/statics/icons/icon-512x512.png"
+    "revision": "db1b1237596d8a2644acb4308844a9f1",
+    "url": "/statics/instagram.png"
   },
   {
     "revision": "6940ff1e2b951654ef43eee0fbee8f81",
     "url": "/statics/itau.png"
   },
   {
-    "revision": "db1b1237596d8a2644acb4308844a9f1",
-    "url": "/statics/instagram.png"
-  },
-  {
     "revision": "868095fbb941a15d6deb1288a2e4528e",
     "url": "/statics/linkedin.png"
-  },
-  {
-    "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
-    "url": "/statics/images/icon-tamanho.svg"
   },
   {
     "revision": "0c2ca756ed7d9665a606673d09862b69",
@@ -532,36 +532,36 @@ self.__precacheManifest = [
     "url": "/statics/master.png"
   },
   {
-    "revision": "cc3e3427ecf6d8566f1f790ddf43cfe4",
-    "url": "/statics/logo.png"
-  },
-  {
     "revision": "541c079e29c7233fc4668c5edf6bbcae",
     "url": "/statics/nubank.png"
+  },
+  {
+    "revision": "cc3e3427ecf6d8566f1f790ddf43cfe4",
+    "url": "/statics/logo.png"
   },
   {
     "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
     "url": "/statics/optisoul-white.svg"
   },
   {
-    "revision": "fcf46f46059efbb83d3218164a54aca2",
-    "url": "/statics/optisoul.svg"
-  },
-  {
     "revision": "113a58ad928f458022cdc2b391c96962",
     "url": "/statics/ouro.png"
+  },
+  {
+    "revision": "fcf46f46059efbb83d3218164a54aca2",
+    "url": "/statics/optisoul.svg"
   },
   {
     "revision": "198e506fbee4f2d2a48af24846d6cab6",
     "url": "/statics/prata.png"
   },
   {
-    "revision": "68d87602faa737c1f518d64067bfd4e5",
-    "url": "/statics/produto.jpg"
-  },
-  {
     "revision": "8a1b4cfd83ef6a02b0c735051f879d3f",
     "url": "/statics/produto2.jpg"
+  },
+  {
+    "revision": "68d87602faa737c1f518d64067bfd4e5",
+    "url": "/statics/produto.jpg"
   },
   {
     "revision": "dad76da033b80facaa964db269adc0eb",
@@ -580,6 +580,14 @@ self.__precacheManifest = [
     "url": "/statics/twiter.png"
   },
   {
+    "revision": "1d3d60a654a1a2c5eba85b744a54819e",
+    "url": "/statics/produto6.jpg"
+  },
+  {
+    "revision": "586c7ce3a202e5e83b489015b6d07440",
+    "url": "/statics/youtube.png"
+  },
+  {
     "revision": "76430f89af46e47814991bbf1ebe56be",
     "url": "/statics/visa.png"
   },
@@ -588,15 +596,7 @@ self.__precacheManifest = [
     "url": "/statics/produto5.jpg"
   },
   {
-    "revision": "586c7ce3a202e5e83b489015b6d07440",
-    "url": "/statics/youtube.png"
-  },
-  {
-    "revision": "1d3d60a654a1a2c5eba85b744a54819e",
-    "url": "/statics/produto6.jpg"
-  },
-  {
-    "revision": "79a9ad3f00c356fe3f935e4df4023a36",
+    "revision": "97a534d15857bae91c6f5c128e901052",
     "url": "/index.html"
   },
   {
