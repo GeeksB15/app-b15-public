@@ -1,12 +1,23 @@
-importScripts("/precache-manifest.15cb4d4edd38eb097817bd0be9c1a7b9.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
-
-/*
- * This file (which will be your service worker)
- * is picked up by the build system ONLY if
- * quasar.conf > pwa > workboxPluginMode is set to "InjectManifest"
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
  */
 
-workbox.core.setCacheNameDetails({ prefix: "b15" });
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+
+importScripts(
+  "/precache-manifest.6a0a9b292ec34ce1f884ba72bed7a1db.js"
+);
+
+workbox.core.setCacheNameDetails({prefix: "b15"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -16,4 +27,3 @@ workbox.core.setCacheNameDetails({ prefix: "b15" });
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
-workbox.routing.registerNavigationRoute('/index.html');
