@@ -115,25 +115,26 @@ function ExecuteLogin({ cpf, codigoClienteSistema }) {
 
   $('#hfCodigoSistema').val(sistema.CodigoSistema)
 
-  let urlRedirect = {
-    // 'https://api.b15.com.br/sql/srv2': 'https://srv2.b15.com.br/15A/Core',
-    'https://api.b15.com.br/sql/srv4': 'https://srv4.b15.com.br/15A/Core',
-    'https://api.b15.com.br/sql/srv5': 'https://srv5.b15.com.br/15A/Core',
-    'https://api.b15.com.br/sql/srv7': 'https://srv7.b15.com.br/15A/Core'
-  }
+  // let urlRedirect = {
+  //   // 'https://api.b15.com.br/sql/srv2': 'https://srv2.b15.com.br/15A/Core',
+  //   'https://api.b15.com.br/sql/srv4': 'https://srv4.b15.com.br/15A/Core',
+  //   'https://api.b15.com.br/sql/srv5': 'https://srv5.b15.com.br/15A/Core',
+  //   'https://api.b15.com.br/sql/srv7': 'https://srv7.b15.com.br/15A/Core'
+  // }
 
-  if (window.location.host.search('optisoul.b15.com.br|erp.b15.com.br') === 0) {
-    urlRedirect = {
-      // 'https://api.b15.com.br/sql/srv2': 'https://srv2.b15.com.br/15A',
-      'https://api.b15.com.br/sql/srv4': 'https://srv4.b15.com.br/15A',
-      'https://api.b15.com.br/sql/srv5': 'https://srv5.b15.com.br/15A',
-      'https://api.b15.com.br/sql/srv7': 'https://srv7.b15.com.br/15A'
-    }
-  }
+  // if (window.location.host.search('optisoul.b15.com.br|erp.b15.com.br') === 0) {
+  //   urlRedirect = {
+  //     // 'https://api.b15.com.br/sql/srv2': 'https://srv2.b15.com.br/15A',
+  //     'https://api.b15.com.br/sql/srv4': 'https://srv4.b15.com.br/15A',
+  //     'https://api.b15.com.br/sql/srv5': 'https://srv5.b15.com.br/15A',
+  //     'https://api.b15.com.br/sql/srv7': 'https://srv7.b15.com.br/15A'
+  //   }
+  // }
 
   $('#hfCodigoSistema').data('GeeksData', {
     ...sistema,
-    URLServidor: urlRedirect[sistema.URLServidor] || sistema.URLServidor
+    // URLServidor: urlRedirect[sistema.URLServidor] || sistema.URLServidor
+    URLServidor: sistema.URLServidor
   })
 
   $('#hfCodigoUsuario').data('GeeksData', usuario)
