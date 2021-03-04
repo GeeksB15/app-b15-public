@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.a614b39cbb32bb48809bf51831316a95.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+importScripts("/precache-manifest.318eee8783716bc52fd899419a4bf8de.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 /*
  * This file (which will be your service worker)
@@ -8,16 +8,10 @@ importScripts("/precache-manifest.a614b39cbb32bb48809bf51831316a95.js", "https:/
 
 workbox.core.setCacheNameDetails({ prefix: "b15" })
 
-<<<<<<< Updated upstream
-importScripts(
-  "/precache-manifest.1ae09e7186e7c4f09325c674ef572068.js"
-);
-=======
 self.__precacheManifest = [].concat(self.__precacheManifest || [])
 self.addEventListener('install', e => {
   self.skipWaiting()
 })
->>>>>>> Stashed changes
 
 workbox.precaching.suppressWarnings()
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {})
