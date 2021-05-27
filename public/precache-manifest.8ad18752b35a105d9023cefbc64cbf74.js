@@ -308,12 +308,12 @@ self.__precacheManifest = [
     "url": "/js/a6ce66b0.0ad607fd.js"
   },
   {
-    "revision": "c39c68d823f1319eeda7",
+    "revision": "10a03fbaff28e72fe045",
     "url": "/css/app.7470b6ba.css"
   },
   {
-    "revision": "c39c68d823f1319eeda7",
-    "url": "/js/app.9d606e0d.js"
+    "revision": "10a03fbaff28e72fe045",
+    "url": "/js/app.2a414025.js"
   },
   {
     "revision": "daf5fc7d652ecc6fd1f3",
@@ -340,12 +340,12 @@ self.__precacheManifest = [
     "url": "/ts.worker.js"
   },
   {
-    "revision": "5d43a6f507961589ab369ccc6f6d301b",
-    "url": "/fonts/mdi.5d43a6f5.woff"
-  },
-  {
     "revision": "6536e4067e72c89cd3f1530d83e9888c",
     "url": "/fonts/mdi.6536e406.woff2"
+  },
+  {
+    "revision": "5d43a6f507961589ab369ccc6f6d301b",
+    "url": "/fonts/mdi.5d43a6f5.woff"
   },
   {
     "revision": "35bb8d560db5205616671eab8c4d0303",
@@ -360,12 +360,8 @@ self.__precacheManifest = [
     "url": "/fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
   },
   {
-    "revision": "a1471d1d6431c893582a5f6a250db3f9",
-    "url": "/fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
-  },
-  {
-    "revision": "de8b7431b74642e830af4d4f4b513ec9",
-    "url": "/fonts/KFOlCnqEu92Fr1MmEU9fBBc-.de8b7431.woff"
+    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
+    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
   },
   {
     "revision": "cf6613d1adf490972c557a8e318e0868",
@@ -376,28 +372,28 @@ self.__precacheManifest = [
     "url": "/fonts/KFOlCnqEu92Fr1MmYUtfBBc-.8c2ade50.woff"
   },
   {
-    "revision": "bafb105baeb22d965c70fe52ba6b49d9",
-    "url": "/fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
+    "revision": "a1471d1d6431c893582a5f6a250db3f9",
+    "url": "/fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
+  },
+  {
+    "revision": "de8b7431b74642e830af4d4f4b513ec9",
+    "url": "/fonts/KFOlCnqEu92Fr1MmEU9fBBc-.de8b7431.woff"
   },
   {
     "revision": "a609dc0f334a7d4e64205247c4e8b97c",
     "url": "/fonts/codicon.a609dc0f.ttf"
   },
   {
-    "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
-    "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.c38ebd3c.woff"
-  },
-  {
     "revision": "8a9a261c8b8dfe90db11f1817a9d22e1",
     "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.8a9a261c.woff2"
   },
   {
-    "revision": "20967b06ab74a556794c555022034ebf",
-    "url": "/statics/images/baseline-control_camera-24px.svg"
+    "revision": "c38ebd3cd38c98fbd16bf31d1d24ce64",
+    "url": "/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNa.c38ebd3c.woff"
   },
   {
-    "revision": "b373122373fb38c3d4bd33ec852a1762",
-    "url": "/statics/avatar.jpg"
+    "revision": "20967b06ab74a556794c555022034ebf",
+    "url": "/statics/images/baseline-control_camera-24px.svg"
   },
   {
     "revision": "0a6f3c04767bc1dc84578581a600f3e0",
@@ -408,128 +404,128 @@ self.__precacheManifest = [
     "url": "/statics/b15-white.svg"
   },
   {
-    "revision": "f854c1c6934626454bf25132a9643071",
-    "url": "/statics/b15n.png"
-  },
-  {
-    "revision": "cc0ca8afa2045bdb955a9218d761f24d",
-    "url": "/statics/bancos/001.png"
-  },
-  {
-    "revision": "6def98192cedc2bb8e95ea7bc7171571",
-    "url": "/statics/B15.png"
-  },
-  {
-    "revision": "220456852ea7dfb346f4217ae980d4fd",
-    "url": "/statics/bancos/237.png"
-  },
-  {
     "revision": "8080edbe5028700a1068de03c313f3cb",
     "url": "/statics/b15_old.svg"
   },
   {
-    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
-    "url": "/statics/banner-tocos.jpg"
+    "revision": "b373122373fb38c3d4bd33ec852a1762",
+    "url": "/statics/avatar.jpg"
   },
   {
     "revision": "eb937d3a176438b72726d9198711cf52",
     "url": "/statics/b15.svg"
   },
   {
-    "revision": "0e5af070e23f4009ea064cce550a80ad",
-    "url": "/statics/bancos/756.png"
-  },
-  {
-    "revision": "bd8403fc865bb1930e1b004db3a02560",
-    "url": "/statics/bancos/341.png"
-  },
-  {
-    "revision": "a06a5a2378cb5df8383f9f99e2f0969f",
-    "url": "/statics/bb.jpg"
+    "revision": "6def98192cedc2bb8e95ea7bc7171571",
+    "url": "/statics/B15.png"
   },
   {
     "revision": "e27d22b3d1356e07d79f8b7815b40a47",
     "url": "/statics/bancos/033.png"
   },
   {
-    "revision": "d61d212ab7b4c252762b5eb9369e9bef",
-    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Produtos.xlsx"
+    "revision": "cc0ca8afa2045bdb955a9218d761f24d",
+    "url": "/statics/bancos/001.png"
   },
   {
-    "revision": "26fd1207f8ab0f272cda3357307d7293",
-    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Contatos.xlsx"
+    "revision": "f854c1c6934626454bf25132a9643071",
+    "url": "/statics/b15n.png"
+  },
+  {
+    "revision": "bd8403fc865bb1930e1b004db3a02560",
+    "url": "/statics/bancos/341.png"
+  },
+  {
+    "revision": "220456852ea7dfb346f4217ae980d4fd",
+    "url": "/statics/bancos/237.png"
+  },
+  {
+    "revision": "0e5af070e23f4009ea064cce550a80ad",
+    "url": "/statics/bancos/756.png"
+  },
+  {
+    "revision": "a01b6542dff2fa4e984c1895c27a6f4a",
+    "url": "/statics/banner-tocos.jpg"
   },
   {
     "revision": "5c76d258c1f54073544ba3da7f905ba8",
     "url": "/statics/elo.jpg"
   },
   {
-    "revision": "d9f7d37bf8223984f25974dde4fa74d3",
-    "url": "/statics/icones.svg"
+    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
+    "url": "/statics/banner.jpg"
   },
   {
     "revision": "cccd0c0b4a092038505279c0f9a8e7c3",
     "url": "/statics/bronze.png"
   },
   {
-    "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
-    "url": "/statics/facebook.png"
+    "revision": "a06a5a2378cb5df8383f9f99e2f0969f",
+    "url": "/statics/bb.jpg"
+  },
+  {
+    "revision": "d9f7d37bf8223984f25974dde4fa74d3",
+    "url": "/statics/icones.svg"
   },
   {
     "revision": "d00640bd8a2f1f2c0889bd3915aaea78",
     "url": "/statics/icons/favicon-16x16.png"
   },
   {
-    "revision": "ecf32b0a76c7e78d540e1885eade3202",
-    "url": "/statics/icons/apple-icon-152x152.png"
+    "revision": "26fd1207f8ab0f272cda3357307d7293",
+    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Contatos.xlsx"
   },
   {
     "revision": "d6dc9207b85fcdebd913aacd94d27c50",
     "url": "/statics/icons/favicon-32x32.png"
   },
   {
-    "revision": "66acefeaf5527d2c64c05ae1f0218b95",
-    "url": "/statics/banner.jpg"
+    "revision": "d61d212ab7b4c252762b5eb9369e9bef",
+    "url": "/statics/downloads/B15-Importar-ou-Atualizar-Produtos.xlsx"
   },
   {
-    "revision": "9e4a4fd7dfd89796e0fb380d6848e8e9",
-    "url": "/statics/icons/icon-128x128.png"
+    "revision": "ecf32b0a76c7e78d540e1885eade3202",
+    "url": "/statics/icons/apple-icon-152x152.png"
+  },
+  {
+    "revision": "05bbfe28a3036fb1f2600b241a50e3ae",
+    "url": "/statics/facebook.png"
   },
   {
     "revision": "5dda67e10177fcb1e1b767dafa7820b9",
     "url": "/statics/icons/icon-192x192.png"
   },
   {
+    "revision": "9e4a4fd7dfd89796e0fb380d6848e8e9",
+    "url": "/statics/icons/icon-128x128.png"
+  },
+  {
     "revision": "16a2421946ffcb0107e117fc582cbf3b",
     "url": "/statics/images/b.png"
-  },
-  {
-    "revision": "c47468a6d16025f2d7a20889f8e437d7",
-    "url": "/statics/images/icon-altura.svg"
-  },
-  {
-    "revision": "81e9039b6f838844ea0590e4d759c94f",
-    "url": "/statics/icons/icon-512x512.png"
   },
   {
     "revision": "2e8b093d0170badcb8bf0c1cdb967409",
     "url": "/statics/icons/icon-256x256.png"
   },
   {
-    "revision": "965eb2461ab21475911f01aef7f677c3",
-    "url": "/statics/images/icon-diagonal.svg"
+    "revision": "c47468a6d16025f2d7a20889f8e437d7",
+    "url": "/statics/images/icon-altura.svg"
   },
   {
-    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
-    "url": "/statics/icons/ms-icon-144x144.png"
+    "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
+    "url": "/statics/icons/icon-384x384.png"
   },
   {
-    "revision": "db1b1237596d8a2644acb4308844a9f1",
-    "url": "/statics/instagram.png"
+    "revision": "81e9039b6f838844ea0590e4d759c94f",
+    "url": "/statics/icons/icon-512x512.png"
   },
   {
     "revision": "e7816ddc22f45d293c6664dcec893cca",
     "url": "/statics/images/icon-haste.svg"
+  },
+  {
+    "revision": "db1b1237596d8a2644acb4308844a9f1",
+    "url": "/statics/instagram.png"
   },
   {
     "revision": "7d2a0c8e4ae2081cbb96afc794701a7e",
@@ -540,40 +536,44 @@ self.__precacheManifest = [
     "url": "/statics/images/p.png"
   },
   {
-    "revision": "6940ff1e2b951654ef43eee0fbee8f81",
-    "url": "/statics/itau.png"
+    "revision": "965eb2461ab21475911f01aef7f677c3",
+    "url": "/statics/images/icon-diagonal.svg"
+  },
+  {
+    "revision": "ff90486acf3bd7f5c7ce8ac1bf680018",
+    "url": "/statics/icons/ms-icon-144x144.png"
   },
   {
     "revision": "cc55b01314683df3848d474d4363c44d",
     "url": "/statics/images/icon-ponte.svg"
   },
   {
-    "revision": "0c2ca756ed7d9665a606673d09862b69",
-    "url": "/statics/logo-inverted.png"
-  },
-  {
-    "revision": "cc3e3427ecf6d8566f1f790ddf43cfe4",
-    "url": "/statics/logo.png"
+    "revision": "6940ff1e2b951654ef43eee0fbee8f81",
+    "url": "/statics/itau.png"
   },
   {
     "revision": "868095fbb941a15d6deb1288a2e4528e",
     "url": "/statics/linkedin.png"
   },
   {
+    "revision": "0c2ca756ed7d9665a606673d09862b69",
+    "url": "/statics/logo-inverted.png"
+  },
+  {
     "revision": "b43cc2171e99f4cc72f851c2b8f9b855",
     "url": "/statics/master.png"
   },
   {
-    "revision": "541c079e29c7233fc4668c5edf6bbcae",
-    "url": "/statics/nubank.png"
+    "revision": "cc3e3427ecf6d8566f1f790ddf43cfe4",
+    "url": "/statics/logo.png"
   },
   {
     "revision": "a9b5cfa14c3f4e1b2284f0771e987151",
     "url": "/statics/optisoul-white.svg"
   },
   {
-    "revision": "419222ae1f75e0cd2ca6ae41dd2b4a20",
-    "url": "/statics/icons/icon-384x384.png"
+    "revision": "541c079e29c7233fc4668c5edf6bbcae",
+    "url": "/statics/nubank.png"
   },
   {
     "revision": "fcf46f46059efbb83d3218164a54aca2",
@@ -596,20 +596,20 @@ self.__precacheManifest = [
     "url": "/statics/produto2.jpg"
   },
   {
-    "revision": "28ae4806e94a321c8be479265c0158a4",
-    "url": "/statics/produto5.jpg"
+    "revision": "52ffdfb2e14648d4417c1fa092ab9b9b",
+    "url": "/statics/produto3.jpg"
   },
   {
     "revision": "dad76da033b80facaa964db269adc0eb",
     "url": "/statics/produto4.jpg"
   },
   {
-    "revision": "52ffdfb2e14648d4417c1fa092ab9b9b",
-    "url": "/statics/produto3.jpg"
+    "revision": "28ae4806e94a321c8be479265c0158a4",
+    "url": "/statics/produto5.jpg"
   },
   {
-    "revision": "054a36c40c56bd6e40929c7d0b104c27",
-    "url": "/statics/twiter.png"
+    "revision": "3aa2d0ac2aade4f0cd96be9ffbba70f5",
+    "url": "/statics/tocosbar.jpg"
   },
   {
     "revision": "76430f89af46e47814991bbf1ebe56be",
@@ -620,15 +620,15 @@ self.__precacheManifest = [
     "url": "/statics/produto6.jpg"
   },
   {
-    "revision": "3aa2d0ac2aade4f0cd96be9ffbba70f5",
-    "url": "/statics/tocosbar.jpg"
-  },
-  {
     "revision": "586c7ce3a202e5e83b489015b6d07440",
     "url": "/statics/youtube.png"
   },
   {
-    "revision": "3e0b382c66e97b9667685ed6bdf25aeb",
+    "revision": "054a36c40c56bd6e40929c7d0b104c27",
+    "url": "/statics/twiter.png"
+  },
+  {
+    "revision": "f40a1eed790c68c71d80b7e7d187667f",
     "url": "/index.html"
   },
   {
