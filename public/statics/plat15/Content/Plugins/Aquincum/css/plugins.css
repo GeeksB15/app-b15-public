@@ -1,5 +1,5 @@
 
-/* # Don't forget to remove necessary styles, if you don't use any of listed plugins
+/* # Don't forget to remove necessary styles, if you don't use any of listed boot
 ================================================== */
 
 
@@ -166,7 +166,7 @@ div.jGrowl div.jGrowl-closer { padding-top: 4px; padding-bottom: 4px; cursor: po
 
 .roundDashed { width: 90px; height: 90px; }
 .roundSolid { width: 92px; height: 92px; }
-.roundSolid > .jCProgress > div.percent { width: 92px; } 
+.roundSolid > .jCProgress > div.percent { width: 92px; }
 .jCProgress { position: absolute; z-index: 99; }
 .jCProgress > div.percent { font-size: 20px; color:#6b6b6b; text-shadow: 0 1px 1px #fff; font-weight: bold; position:absolute; margin-top:35px; text-align: center; width: 90px; }
 
@@ -190,7 +190,7 @@ div.jGrowl div.jGrowl-closer { padding-top: 4px; padding-bottom: 4px; cursor: po
 .plupload_filelist li:hover { background-color: #f8f8f8; }
 .plupload_filelist_header, .plupload_filelist_footer { background: #EFEFEF; padding: 3px 0 3px 12px; color: #878787; }
 .plupload_filelist_header {	border-bottom: 1px solid #d5d5d5; }
-.plupload_filelist_footer { border-top: 1px solid #D5D5D5; line-height: 30px; vertical-align: middle; } 
+.plupload_filelist_footer { border-top: 1px solid #D5D5D5; line-height: 30px; vertical-align: middle; }
 .plupload_filelist_footer .plupload_file_size, .plupload_filelist_footer .plupload_file_status, .plupload_filelist_footer .plupload_progress, .plupload_filelist_footer .plupload_file_action { margin-top: 8px; }
 .plupload_file_name { float: left; overflow: hidden; }
 .plupload_file_status { color: #777; }
@@ -243,7 +243,7 @@ li.plupload_droptext { background: url(../images/elements/uploader/drag.png) no-
 .rightBox { float: right; }
 .fltr { position: absolute; right: 0; top: 5px; font-size: 12px; }
 .boxFilter { margin-bottom: 15px; }
-.dualControl { text-align: center; width: 90px; margin: 150px 1px; position: absolute; left: 50%; margin-left: -45px; } 
+.dualControl { text-align: center; width: 90px; margin: 150px 1px; position: absolute; left: 50%; margin-left: -45px; }
 .countLabel { color: gray; font-style:italic; margin-top: 10px; display: block; }
 .storageBox { display:none; }
 .copiedOption { background-color: Yellow; }
@@ -332,7 +332,7 @@ tr.even.gradeC td.sorting_3 { background-color: #e2e2ff; }
 .dataTables_filter input[type=text] { padding: 5px 20px 5px 7px;  margin-left: 15px; width: 180px; background: #f9f9f9; box-shadow: 0 1px 0 #fff; -webkit-box-shadow: 0 1px 0 #fff; -moz-box-shadow: 0 1px 0 #fff; border: 1px solid #d7d7d7; }
 .dataTables_info { clear: both; float: left; padding: 6px 0; }
 .tableFooter { clear: both; padding: 8px 12px; height: 36px; font-size: 11px; color: #636363; border-top: 1px solid #cdcdcd; -webkit-border-bottom-right-radius: 3px; -webkit-border-bottom-left-radius: 3px; -moz-border-radius-bottomright: 3px; -moz-border-radius-bottomleft: 3px; background: #f8f8f8; background: -moz-linear-gradient(top,  #f8f8f8 0%, #efefef 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#efefef)); background: -webkit-linear-gradient(top,  #f8f8f8 0%,#efefef 100%); background: -o-linear-gradient(top,  #f8f8f8 0%,#efefef 100%); background: -ms-linear-gradient(top,  #f8f8f8 0%,#efefef 100%); background: linear-gradient(top,  #f8f8f8 0%,#efefef 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#efefef',GradientType=0 );  }
- 
+
 .hiddenpars .tablePars { display: none; }
 .shownpars .tablePars { display: block; }
 .tablePars { border-bottom: 1px solid #D5D5D5; height: 61px; box-shadow: 0 1px 0 #fff inset; -webkit-box-shadow: 0 1px 0 #fff inset; -moz-box-shadow: 0 1px 0 #fff inset; clear: both; padding: 0 16px; font-size: 11px; color: #636363; background: url(../images/backgrounds/alt.png); }
@@ -360,7 +360,7 @@ tr.even.gradeC td.sorting_3 { background-color: #e2e2ff; }
 .paging_full_numbers a:active { outline: none }
 .paging_full_numbers a:hover { text-decoration: none; }
 .paging_full_numbers a.paginate_button, .paging_full_numbers a.paginate_active { border: 1px solid #d3d3d3; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 4px 7px; margin: 0 3px; cursor: pointer; *cursor: hand; color: #919191; font-size: 11px; box-shadow: 0 1px 0 #fff inset, 0 1px 0px #dfdfdf; -webkit-box-shadow: 0 1px 0 #fff inset, 0 1px 0px #dfdfdf; -moz-box-shadow: 0 1px 0 #fff inset, 0 1px 0px #dfdfdf;  }
-.paging_full_numbers a.paginate_button { background: #f9f9f9; background: -moz-linear-gradient(top,  #f9f9f9 0%, #eeeeee 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#eeeeee)); background: -webkit-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: -o-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: -ms-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#eeeeee',GradientType=0 ); } 
+.paging_full_numbers a.paginate_button { background: #f9f9f9; background: -moz-linear-gradient(top,  #f9f9f9 0%, #eeeeee 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9f9f9), color-stop(100%,#eeeeee)); background: -webkit-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: -o-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: -ms-linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); background: linear-gradient(top,  #f9f9f9 0%,#eeeeee 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9f9f9', endColorstr='#eeeeee',GradientType=0 ); }
 .paging_full_numbers a.paginate_button:hover { background: #f6f6f6; background: -moz-linear-gradient(top,  #f6f6f6 0%, #e8e8e8 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f6f6), color-stop(100%,#e8e8e8)); background: -webkit-linear-gradient(top,  #f6f6f6 0%,#e8e8e8 100%); background: -o-linear-gradient(top,  #f6f6f6 0%,#e8e8e8 100%); background: -ms-linear-gradient(top,  #f6f6f6 0%,#e8e8e8 100%); background: linear-gradient(top,  #f6f6f6 0%,#e8e8e8 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f6f6', endColorstr='#e8e8e8',GradientType=0 ); }
 .paging_full_numbers a.paginate_active, .paging_full_numbers a.paginate_button:active { background: #6f6f6f; color: #fff; border-color: #646464; box-shadow: 0 1px 2px #545454 inset, 0 1px 0 #fff; -webkit-box-shadow: 0 1px 2px #545454 inset, 0 1px 0 #fff; -moz-box-shadow: 0 1px 2px #545454 inset, 0 1px 0 #fff; font-weight: bold; }
 .paginate_button_disabled, .paginate_button_disabled:active  { background: #eaeaea!important; color: #c5c5c5!important; box-shadow: none!important; font-weight: normal!important; }
@@ -396,7 +396,7 @@ tr.even.gradeC td.sorting_3 { background-color: #e2e2ff; }
 .on_off .ibutton-handle-middle { background: transparent url(../images/elements/checkboxes/ibutton-slider-default.png) no-repeat scroll 50% -73px;  }
 .on_off .ibutton-padding-left, .on_off .ibutton-padding-right { position: absolute;  top: 0; z-index: 2;  background: transparent url(../images/elements/checkboxes/ibutton-slider-default.png) no-repeat scroll 0 -52px; width: 3px; height: 20px; }
 .on_off .ibutton-padding-right { background-position: 100% -52px; }
-	
+
 .ibutton-container { position: relative; height: 26px; cursor: pointer; overflow: hidden; max-width: 400px; -khtml-user-select: none; -o-user-select: none; -moz-user-select: none; -moz-user-focus: ignore;  -moz-user-input: disabled; width: 89px; }
 .ibutton-container input { position: absolute; top: 0; left: 0; filter:alpha(opacity=0); -moz-opacity: 0.0;  opacity: 0.0; -moz-user-input: enabled  !important; }
 .ibutton-handle { display: block; height: 25px; cursor: inherit; position: absolute; top: 0; left: 0; width: 0; background: transparent url(../images/elements/checkboxes/ibutton-slider-default.png) no-repeat scroll 0 -26px; z-index: 3; padding-left: 3px; width: 33px; }
@@ -431,4 +431,4 @@ div.ibutton-label-off span label { padding-right: 10px;  margin-left: -2px }
 .tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; background-position: bottom left; }
 .tipsy-se .tipsy-arrow { bottom: 0; right: 10px; background-position: bottom left; }
 .tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
-.tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }	
+.tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
