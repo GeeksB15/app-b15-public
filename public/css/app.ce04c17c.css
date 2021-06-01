@@ -6738,19 +6738,19 @@ kbd {
       text-align: center;
     }
   }*/
-.botaoAcesso[data-v-27421adc] {
+.botaoAcesso[data-v-3f8abbba] {
     font-size: 14px !important;
     padding: 0 4px;
     height: 80px !important;
     text-align: center;
 }
-.botaoAcesso .q-icon[data-v-27421adc],
-  .botaoAcesso .q-icon+div[data-v-27421adc] {
+.botaoAcesso .q-icon[data-v-3f8abbba],
+  .botaoAcesso .q-icon+div[data-v-3f8abbba] {
     display: block;
     margin: 0 auto;
     width: 100%;
 }
-.botaoAcesso .q-icon+div[data-v-27421adc] {
+.botaoAcesso .q-icon+div[data-v-3f8abbba] {
     margin: 5px auto;
     font-size: 10px;
 }
