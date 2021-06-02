@@ -6175,6 +6175,7 @@ body {
     min-height: 100vh;
 }
 
+
 /* Tags*/
 
 kbd {
@@ -6185,11 +6186,13 @@ kbd {
     padding: 1px 3px;
 }
 
+
 /* Componente: Layout*/
 
 .Layout {
     position: relative;
 }
+
 
 /*
 .Layout:before {
@@ -6212,6 +6215,7 @@ kbd {
 .Layout-aba .q-tabs-bar {
     border-color: white;
 }
+
 
 /*geral*/
 
@@ -6243,6 +6247,7 @@ kbd {
     font-weight: 700;
 }
 
+
 /* Componente: Tabela*/
 
 .Tabela {
@@ -6252,7 +6257,8 @@ kbd {
     width: 100%;
 }
 
-.Tabela td, .Tabela th {
+.Tabela td,
+.Tabela th {
     border-bottom: 2px solid #e0e1e2;
     /*padding: $spaces.sm.y $spaces.sm.x;*/
     text-align: left;
@@ -6271,7 +6277,8 @@ kbd {
     border-spacing: 0;
 }
 
-.TabelaEscura thead th, .TabelaEscura thead td {
+.TabelaEscura thead th,
+.TabelaEscura thead td {
     /*background-color: $grey-9;
   border: 1px solid $grey-8;
   padding: $spaces.xs.y $spaces.xs.x;*/
@@ -6282,22 +6289,26 @@ kbd {
     min-height: auto !important;
 }
 
+
 /*
 .q-page {
   min-height: calc(100vh - 91px) !important;
 }
 */
 
+
 /*
 .q-layout{
   min-height: auto !important;
 }*/
+
 
 /* FIXME: NÃO ESTILIZAR O QUASAR, CRIAR UTILIDADE*/
 
 .q-layout-page-container {
     padding-top: 59px !important;
 }
+
 
 /* Utilidades*/
 
@@ -6355,7 +6366,10 @@ kbd {
     min-width: 32px !important;
 }
 
-.q-menu .q-item__section, .text-tertiary i, .text-tertiary span, .text-tertiary {
+.q-menu .q-item__section,
+.text-tertiary i,
+.text-tertiary span,
+.text-tertiary {
     color: #555 !important;
     color: var(--tertiary) !important;
 }
@@ -6377,6 +6391,7 @@ kbd {
     color: #0098db !important;
 }
 
+
 /* Backgrounds */
 
 .bg-cover {
@@ -6387,6 +6402,7 @@ kbd {
 .bg-transparent {
     background: transparent !important;
 }
+
 
 /* Brand Backgrounds*/
 
@@ -6430,6 +6446,7 @@ kbd {
     background-color: #ff0000;
 }
 
+
 /* Personalizações*/
 
 .q-toolbar.bg-primary {
@@ -6439,6 +6456,7 @@ kbd {
 .q-toolbar.bg-primary .q-header {
     z-index: 2002 !important;
 }
+
 
 /* Scrollbar*/
 
@@ -6497,6 +6515,7 @@ kbd {
     cursor: pointer;
 }
 
+
 /*CaixaCard*/
 
 #CaixaCard .extratoItem {
@@ -6522,6 +6541,8 @@ kbd {
 .Autenticacao-main {
     max-width: 380px;
     width: 100%;
+    flex-direction: column;
+    display: flex;
 }
 
 .Autenticacao-main .q-field__control {
@@ -6554,15 +6575,21 @@ kbd {
     background-image: linear-gradient(to right, #0098db, #01578b);
 }
 
-.q-input, .q-field {
+.q-input,
+.q-field {
     width: 100%;
 }
 
+
 /**COMPONENTES*/
+
 /**PAGES*/
+
 /*@import "pages/pupilometro.css";*/
+
 /**LAYOUTS*/
-.AutenticacaoBancos .q-field--auto-height .q-field__control, .AutenticacaoBancos .q-field--auto-height .q-field__native {
+.AutenticacaoBancos .q-field--auto-height .q-field__control,
+.AutenticacaoBancos .q-field--auto-height .q-field__native {
     min-height: auto !important;
 }
 
@@ -6625,7 +6652,9 @@ kbd {
     .listresponsive {
         flex-direction: column;
     }
-    .listresponsive .q-item__section>div, .listresponsive .q-item__section label, .listresponsive .q-item__section {
+    .listresponsive .q-item__section>div,
+    .listresponsive .q-item__section label,
+    .listresponsive .q-item__section {
         width: 100% !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -6646,7 +6675,8 @@ kbd {
     justify-content: flex-end !important;
 }
 
-.itemcard .q-field, .itemcard label {
+.itemcard .q-field,
+.itemcard label {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
 }
@@ -6664,13 +6694,15 @@ kbd {
     margin-right: 8px;
 }
 
-.my-sticky-header-column-table th:first-child, .my-sticky-header-column-table td:first-child {
+.my-sticky-header-column-table th:first-child,
+.my-sticky-header-column-table td:first-child {
     /* bg color is important for td; just specify one */
     background-color: #fff !important;
 }
 
 @media (max-width: 768px) {
-    .my-sticky-header-column-table th:first-child, .my-sticky-header-column-table td:first-child {
+    .my-sticky-header-column-table th:first-child,
+    .my-sticky-header-column-table td:first-child {
         border-right: 1px solid rgba(0, 0, 0, 0.12);
     }
     .my-sticky-header-column-table {
@@ -6687,6 +6719,7 @@ kbd {
     /* bg color is important; just specify one */
     background: #fff;
 }
+
 
 /* this will be the loading indicator */
 
@@ -6711,7 +6744,8 @@ kbd {
     z-index: 1;
 }
 
-.my-sticky-header-column-table td:first-child, th:first-child {
+.my-sticky-header-column-table td:first-child,
+th:first-child {
     position: -webkit-sticky;
     position: sticky;
     left: 0;
