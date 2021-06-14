@@ -6772,19 +6772,19 @@ th:first-child {
       text-align: center;
     }
   }*/
-.botaoAcesso[data-v-4f55068a] {
+.botaoAcesso[data-v-58540565] {
     font-size: 14px !important;
     padding: 0 4px;
     height: 80px !important;
     text-align: center;
 }
-.botaoAcesso .q-icon[data-v-4f55068a],
-  .botaoAcesso .q-icon+div[data-v-4f55068a] {
+.botaoAcesso .q-icon[data-v-58540565],
+  .botaoAcesso .q-icon+div[data-v-58540565] {
     display: block;
     margin: 0 auto;
     width: 100%;
 }
-.botaoAcesso .q-icon+div[data-v-4f55068a] {
+.botaoAcesso .q-icon+div[data-v-58540565] {
     margin: 5px auto;
     font-size: 10px;
 }
