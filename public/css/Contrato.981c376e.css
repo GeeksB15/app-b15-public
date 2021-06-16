@@ -1,74 +1,74 @@
 
-.footerpaginacao[data-v-fcac7d8e] {
+.footerpaginacao[data-v-9e5e13ac] {
     z-index: 2;
 }
-.Lista[data-v-fcac7d8e] {
+.Lista[data-v-9e5e13ac] {
     position: relative;
 }
-.q-item-sublabel[data-v-fcac7d8e] {
+.q-item-sublabel[data-v-9e5e13ac] {
     margin: 0;
     line-height: 32px;
 }
-.q-item-main[data-v-fcac7d8e] {
+.q-item-main[data-v-9e5e13ac] {
     flex: 1 1 0 !important;
 }
-.qListaItems[data-v-fcac7d8e] {
+.qListaItems[data-v-9e5e13ac] {
     border-top: none !important;
     border-left: none !important;
     border-right: none !important;
 }
-.qListaItems[data-v-fcac7d8e]:hover {
+.qListaItems[data-v-9e5e13ac]:hover {
     background: rgba(189, 189, 189, 0.5)
 }
-#myfooter[data-v-fcac7d8e] {
+#myfooter[data-v-9e5e13ac] {
     position: fixed !important;
     z-index: 997;
 }
-#mydrawer aside.q-drawer[data-v-fcac7d8e] {
+#mydrawer aside.q-drawer[data-v-9e5e13ac] {
     position: fixed;
 
     bottom: 0 !important;
 }
-.sidecheckbox[data-v-fcac7d8e] {
+.sidecheckbox[data-v-9e5e13ac] {
     min-width: 20px;
 }
-.pointer[data-v-fcac7d8e] {
+.pointer[data-v-9e5e13ac] {
     cursor: pointer;
 }
-.itemLista .buttons[data-v-fcac7d8e] {
+.itemLista .buttons[data-v-9e5e13ac] {
     display: none;
 }
-.bordered[data-v-fcac7d8e] {
+.bordered[data-v-9e5e13ac] {
     border-top: 1px solid #e0e0e0;
 }
-.btntel[data-v-fcac7d8e]:hover {
+.btntel[data-v-9e5e13ac]:hover {
     background-color: #eee;
 }
-.itemLista[data-v-fcac7d8e]:hover {
+.itemLista[data-v-9e5e13ac]:hover {
     cursor: pointer;
 }
-.q-if[data-v-fcac7d8e]:not(.q-if-disabled):not(.q-if-error):not(.q-if-warning):before,
-  .q-if.q-if-readonly[data-v-fcac7d8e]:not(.q-if-error):not(.q-if-warning):after {
+.q-if[data-v-9e5e13ac]:not(.q-if-disabled):not(.q-if-error):not(.q-if-warning):before,
+  .q-if.q-if-readonly[data-v-9e5e13ac]:not(.q-if-error):not(.q-if-warning):after {
     color: #ccc;
 }
 @media (min-width: 990px) {
-.itemLista:hover .morevert[data-v-fcac7d8e] {
+.itemLista:hover .morevert[data-v-9e5e13ac] {
       display: none;
 }
-.itemLista .q-item-section-right[data-v-fcac7d8e] {
+.itemLista .q-item-section-right[data-v-9e5e13ac] {
       min-width: 105px;
 }
-.itemLista:hover .buttons[data-v-fcac7d8e] {
+.itemLista:hover .buttons[data-v-9e5e13ac] {
       display: inline-block;
 }
-.mydrawerFL[data-v-fcac7d8e] {
+.mydrawerFL[data-v-9e5e13ac] {
       z-index: 998 !important;
 }
-.mydrawerL[data-v-fcac7d8e] {
+.mydrawerL[data-v-9e5e13ac] {
       z-index: 997 !important;
 }
 }
-.mydrawerL .background[data-v-fcac7d8e] {
+.mydrawerL .background[data-v-9e5e13ac] {
     min-height: 100%;
     background: linear-gradient(360deg, #0397ef, #01579b);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
