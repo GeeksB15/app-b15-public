@@ -7958,24 +7958,24 @@ body[data-v-289bbb90] {
 }
 
 
-.border-bottom[data-v-a3781de4] {
+.border-bottom[data-v-619f78c9] {
     border-bottom: 1px solid #eee
 }
-.q-footer[data-v-a3781de4] {
+.q-footer[data-v-619f78c9] {
     width: 100%;
 }
-.u-campoCompacto[data-v-a3781de4] {
+.u-campoCompacto[data-v-619f78c9] {
     padding-top: 0 !important
 }
-[data-v-a3781de4]::placeholder {
+[data-v-619f78c9]::placeholder {
     color: white;
 }
-.parcelas[data-v-a3781de4] {
+.parcelas[data-v-619f78c9] {
     border: 3px solid #d6d6d6;
     padding: 0 16px 16px;
     border-radius: 5px;
 }
-.buttoens[data-v-a3781de4] {
+.buttoens[data-v-619f78c9] {
     flex-direction: column !important;
     min-height: 70px;
     justify-content: center;
@@ -7983,19 +7983,19 @@ body[data-v-289bbb90] {
     align-content: center;
     justify-items: center;
 }
-.buttoens.innermt10 .q-btn-inner[data-v-a3781de4] {
+.buttoens.innermt10 .q-btn-inner[data-v-619f78c9] {
     margin-top: 10px
 }
-.q-texto[data-v-a3781de4] {
+.q-texto[data-v-619f78c9] {
     font-size: .85rem
 }
-.buttoens .q-btn-inner[data-v-a3781de4] {
+.buttoens .q-btn-inner[data-v-619f78c9] {
     height: 60px;
 }
-.q-input.text-center input[data-v-a3781de4] {
+.q-input.text-center input[data-v-619f78c9] {
     text-align: center;
 }
-.itemcard[data-v-a3781de4] {
+.itemcard[data-v-619f78c9] {
     border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
