@@ -8176,20 +8176,25 @@ footer.q-footer[data-v-43162761] {
 }
 
 
-.q-tab.active[data-v-0959cebc] {
-    background: rgba(255, 255, 255, 0.25);
+#ModeloFinanceiro .q-carousel__prev-arrow--horizontal {
+    left: -8px !important;
 }
-.q-list-separator>.q-item-division+.q-item-division[data-v-0959cebc],
-  .q-item-division+.q-separator[data-v-0959cebc] {
-    border-top: 1px solid #01579b;
+#ModeloFinanceiro .q-carousel__next-arrow--horizontal {
+    right: -8px !important;
 }
-.q-list-highlight>.q-item.itemlista[data-v-0959cebc]:hover,
-  .q-list-link>.q-item.itemlista[data-v-0959cebc]:hover {
-    background: rgb(1 88 156)
-}
-.sidecheckbox[data-v-0959cebc] {
-    min-width: 20px;
-}
+
+  /*
+    .bg-purple-5 {
+        background: #ab47bc !important;
+    }
+
+    .bg-yellow-6 {
+        background: #ffeb3b !important;
+    }
+
+    .bg-orange-6 {
+        background: #ff9800 !important;
+    }*/
 
 
 @media (min-width: 600px) {
