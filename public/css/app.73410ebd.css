@@ -6761,14 +6761,14 @@ th:first-child {
 }
 
 
-.card[data-v-635f1dfe] {
+.card[data-v-6364dc03] {
     border-bottom: 1px solid hsla(0, 0%, 74.1%, .5);
 }
-.card[data-v-635f1dfe]:hover {
+.card[data-v-6364dc03]:hover {
     background: hsla(0, 0%, 74.1%, .5);
 }
 @media (max-width: 990px) {
-.invertedonmobile[data-v-635f1dfe] {
+.invertedonmobile[data-v-6364dc03] {
       flex-direction: column-reverse !important;
 }
 }
