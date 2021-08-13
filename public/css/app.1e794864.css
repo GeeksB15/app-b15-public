@@ -7953,6 +7953,11 @@ body[data-v-289bbb90] {
 }
 
 
+.q-expansion-item__content{
+    padding-top: 16px;
+}
+
+
 .q-field[data-v-7373484c],
   .q-field__inner[data-v-7373484c],
   .q-field--dense .q-field__control[data-v-7373484c],
@@ -8211,6 +8216,17 @@ footer.q-footer[data-v-2ceba6f3] {
 @media (min-width: 600px) {
 .card[data-v-5859cd4f] {
       min-width: 350px;
+}
+}
+
+
+.gradienteAzul[data-v-a20723fe] {
+        background-color: #0277bd;
+        background-image: linear-gradient(to right, lighten(#0277bd, 10), darken(#0277bd, 10));
+}
+@media (max-width: 768px) {
+#pontuacao[data-v-a20723fe] {
+            flex-direction: column-reverse
 }
 }
 
