@@ -8019,9 +8019,12 @@ body[data-v-289bbb90] {
 }
 .image__img {
         position: absolute;
-        height: 100%;
+        height: calc(100vh - 115px);
+        ;
         width: 100%;
         background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
 }
     /*
     .image__img:first-child {
@@ -8047,6 +8050,17 @@ body[data-v-289bbb90] {
 }
 .q-splitter--vertical>.q-splitter__separator {
         width: 3px;
+}
+@media (max-width: 990px) {
+.image__img {
+            height: calc(100vh - 151px);
+            background-size: cover;
+}
+.image.filtros,
+        #pagecoloracao {
+            min-height: calc(100vh - 151px) !important;
+            height: calc(100vh - 151px) !important;
+}
 }
 
 
