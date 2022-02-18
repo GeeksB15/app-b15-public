@@ -6772,14 +6772,14 @@ table td:last-child{
   border-right:none;
 }
 
-.card[data-v-223d9bdb] {
+.card[data-v-3d7958b3] {
     border-bottom: 1px solid hsla(0, 0%, 74.1%, .5);
 }
-.card[data-v-223d9bdb]:hover {
+.card[data-v-3d7958b3]:hover {
     background: hsla(0, 0%, 74.1%, .5);
 }
 @media (max-width: 990px) {
-.invertedonmobile[data-v-223d9bdb] {
+.invertedonmobile[data-v-3d7958b3] {
       flex-direction: column-reverse !important;
 }
 }
