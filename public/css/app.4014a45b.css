@@ -7935,19 +7935,19 @@ body[data-v-289bbb90] {
       text-align: center;
     }
   }*/
-.botaoAcesso[data-v-698f8d87] {
+.botaoAcesso[data-v-323eb02f] {
     font-size: 14px !important;
     padding: 0 4px;
     height: 80px !important;
     text-align: center;
 }
-.botaoAcesso .q-icon[data-v-698f8d87],
-  .botaoAcesso .q-icon+div[data-v-698f8d87] {
+.botaoAcesso .q-icon[data-v-323eb02f],
+  .botaoAcesso .q-icon+div[data-v-323eb02f] {
     display: block;
     margin: 0 auto;
     width: 100%;
 }
-.botaoAcesso .q-icon+div[data-v-698f8d87] {
+.botaoAcesso .q-icon+div[data-v-323eb02f] {
     margin: 5px auto;
     font-size: 10px;
 }
