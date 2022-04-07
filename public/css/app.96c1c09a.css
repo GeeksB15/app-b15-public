@@ -8324,38 +8324,38 @@ body[data-v-2fd89165] {
 }
 
 
-#mydrawerCart aside.q-drawer[data-v-dbb2b9ce],
-  #mydrawerCart aside[data-v-dbb2b9ce],
-  .mydrawerFLCart[data-v-dbb2b9ce],
-  #mydrawerCart .mydrawerFLCart[data-v-dbb2b9ce],
-  #mydrawerCart[data-v-dbb2b9ce] {
+#mydrawerCart aside.q-drawer[data-v-5156b0f4],
+  #mydrawerCart aside[data-v-5156b0f4],
+  .mydrawerFLCart[data-v-5156b0f4],
+  #mydrawerCart .mydrawerFLCart[data-v-5156b0f4],
+  #mydrawerCart[data-v-5156b0f4] {
     overflow: hidden !important;
 }
 
 
-.Club[data-v-dbb2b9ce] {
+.Club[data-v-5156b0f4] {
     position: relative;
     padding-top: 52px;
     background: white;
 }
-.Club .filters label[data-v-dbb2b9ce] {
+.Club .filters label[data-v-5156b0f4] {
     margin-top: 12px;
     color: #777;
     font-size: 14px;
 }
-.Club .filters .q-field-label[data-v-dbb2b9ce] {
+.Club .filters .q-field-label[data-v-5156b0f4] {
     color: #777;
 }
-.q-carousel-inner img[data-v-dbb2b9ce] {
+.q-carousel-inner img[data-v-5156b0f4] {
     max-width: 100% !important;
 }
-.botaoTopo[data-v-dbb2b9ce] {
+.botaoTopo[data-v-5156b0f4] {
     display: flex;
     flex-direction: column !important;
     padding: 0 4px;
     text-align: center;
 }
-.limiteTitle[data-v-dbb2b9ce] {
+.limiteTitle[data-v-5156b0f4] {
     font-size: 16px;
     line-height: 19px;
     height: 38px;
@@ -8366,76 +8366,76 @@ body[data-v-2fd89165] {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.botaoTopo i[data-v-dbb2b9ce] {
+.botaoTopo i[data-v-5156b0f4] {
     display: block;
     width: 100%;
     margin: 0 auto;
 }
-.page-produtos[data-v-dbb2b9ce] {
+.page-produtos[data-v-5156b0f4] {
     box-shadow: inset 0 0 30px 0 rgba(0, 0, 0, .25) !important;
 }
-.q-card[data-v-dbb2b9ce] {
+.q-card[data-v-5156b0f4] {
     border-radius: 8px;
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, .25) !important;
 }
-.botaoTopo div[data-v-dbb2b9ce] {
+.botaoTopo div[data-v-5156b0f4] {
     flex-direction: column !important;
 }
-.q-layout-header[data-v-dbb2b9ce] {
+.q-layout-header[data-v-5156b0f4] {
     z-index: 1 !important;
 }
-.topbar[data-v-dbb2b9ce] {
+.topbar[data-v-5156b0f4] {
     background: linear-gradient(to right, #0098db 9.38%, #0277bd 88.54%) !important;
 }
-.Club .q-layout-page-container[data-v-dbb2b9ce] {
+.Club .q-layout-page-container[data-v-5156b0f4] {
     padding-top: 0 !important;
 }
-.outrositems[data-v-dbb2b9ce] {
+.outrositems[data-v-5156b0f4] {
     /*background-color: #0277bd;*/
     background: linear-gradient(to right, #0098db 9.38%, #0277bd 88.54%) !important;
 }
-.fade-enter-active[data-v-dbb2b9ce],
-  .fade-leave-active[data-v-dbb2b9ce] {
+.fade-enter-active[data-v-5156b0f4],
+  .fade-leave-active[data-v-5156b0f4] {
     transition: opacity .5s;
 }
-.fade-enter[data-v-dbb2b9ce],
-  .fade-leave-to[data-v-dbb2b9ce] {
+.fade-enter[data-v-5156b0f4],
+  .fade-leave-to[data-v-5156b0f4] {
     opacity: 0;
 }
-.arredondadoMinibt[data-v-dbb2b9ce] {
+.arredondadoMinibt[data-v-5156b0f4] {
     border-radius: 8px !important;
 }
-.arredondadoL[data-v-dbb2b9ce] {
+.arredondadoL[data-v-5156b0f4] {
     border-radius: 8px 0 0 8px !important;
     -webkit-border-radius: 8px 0 0 8px !important;
 }
-.arredondadoLT[data-v-dbb2b9ce] {
+.arredondadoLT[data-v-5156b0f4] {
     border-radius: 8px 0 0 0 !important;
     -webkit-border-radius: 8px 0 0 0 !important;
 }
-.arredondadoT[data-v-dbb2b9ce] {
+.arredondadoT[data-v-5156b0f4] {
     border-radius: 8px 8px 0 0 !important;
     -webkit-border-radius: 8px 8px 0 0 !important;
 }
-.q-display-1[data-v-dbb2b9ce] {
+.q-display-1[data-v-5156b0f4] {
     font-size: 30px;
     line-height: 1 !important;
 }
-.q-card-title[data-v-dbb2b9ce] {
+.q-card-title[data-v-5156b0f4] {
     line-height: 1 !important;
     font-size: 16px;
 }
-.q-card a[data-v-dbb2b9ce] {
+.q-card a[data-v-5156b0f4] {
     display: block;
     height: calc(100% - 40px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.q-card a[data-v-dbb2b9ce]:hover {
+.q-card a[data-v-5156b0f4]:hover {
     cursor: pointer;
     background-color: #efefef;
 }
 @media (max-width: 768px) {
-.q-display-1[data-v-dbb2b9ce] {
+.q-display-1[data-v-5156b0f4] {
       font-size: 24px;
       line-height: 1;
 }
@@ -8445,8 +8445,8 @@ body[data-v-2fd89165] {
       font-size: 16px;
       line-height: 1;
     }*/
-.filters[data-v-dbb2b9ce],
-    .q-toolbar.cliente[data-v-dbb2b9ce] {
+.filters[data-v-5156b0f4],
+    .q-toolbar.cliente[data-v-5156b0f4] {
       flex-direction: column;
 }
 }
