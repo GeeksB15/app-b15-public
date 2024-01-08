@@ -1,1 +1,1356 @@
-String.prototype.replaceAll=function(e,t){return this.split(e).join(t)},Geeks.ERP.Prompt=function(sender,promptName,sql,structural){var _colunas=[],name="";return{Configuracao:function(e,t,o,n,r){_colunas.push({o:e,n:t,t:o,i:n,im:r})},Render:function(){with(Geeks.ERP.Prompt){var columns=new Array,defer=$.Deferred(),promptBody=$("#promptDialog_"+sender.id);if(promptBody.length<=0){promptBody=$(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format({Codigo:(sender.id,sender.id)})),$(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);var promptGrid=$("<div></div>").appendTo(promptBody);promptBody.find(".contentTop").css("display","none");var diag=promptBody.dialog({title:promptName,width:"70%",height:60*$(window).height()/100,resizable:!0,modal:!0});diag.dialog("open");var ulBotoes=$("<ul name='MenuBotoes'><ul>").prependTo(promptBody.find(".breadLine > .breadLinks")).append(Geeks.ERP.UI.Tela.MontaBotoes([{Nome:"Selecionar",Valor:"Selecionar",CodigoBotao:"P1",Icone:"icon-checkmark"},{Nome:"Cancelar",Valor:"Cancelar",CodigoBotao:"P2",Icone:"icon-minus"},{Nome:"Limpar",Valor:"Limpar",CodigoBotao:"P3",Icone:"icon-x"}],null));function getType(e){switch(e){case"Int32":case"Int64":case"Decimal":return"number";case"DateTime":return"date";case"Bit":return"boolean";default:return"string"}}var data=Geeks.ERP.Core.Connection.ExecuteSQL(sql,structural);if(data&&!data.HasError){$.each(data.Columns,(function(e,t){var o=_colunas.length>=e?_colunas[e]:{o:e,n:t.ColumnName,t:100,i:!1,im:!1};columns.push({field:t.ColumnName,type:getType(t.ColumnType),width:o.t+"px",title:o.n,hidden:!!o.i,filterable:{cell:{showOperators:!0,suggestionOperator:"contains"}}}),"number"!=getType(t.ColumnType)||o.im?o.im&&(columns[columns.length-1].template="<div style='text-align: center;'><i class='#:data."+columns[columns.length-1].field+"#'/></div>",columns[columns.length-1].filterable=!1):(columns[columns.length-1].filterable.ui=function(e){e.kendoNumericTextBox({format:"n0",decimals:0})},columns[columns.length-1].filterable.cell.template=function(e){e.element.kendoNumericTextBox({format:"n0",decimals:0})})})),promptGrid.kendoGrid({filter:"contains",columns,dataSource:{type:"json",data:data.Records,pageSize:40,page:1},filterable:{mode:"menu, row",operators:{string:{eq:"Igual",neq:"Diferente",startswith:"Começa com",endswith:"Termina com",contains:"Contenha",doesnotcontain:"Não Contenha"},number:{eq:"Igual",neq:"Diferente",gte:"Maior ou igual",gt:"Maior que",lte:"Menor ou igual",lt:"Menor que"},date:{eq:"Igual",neq:"Diferente",gte:"Posterior ou igual",gt:"Posterior a",lte:"Anterior ou igual",lt:"Anterior a"}}},groupable:!0,selectable:"single",sortable:!0,reorderable:!0,resizable:!0,height:"60%",refresh:!0,pageable:{previousNext:!0,numeric:!0,pageSize:50,pageSizes:!1,messages:{display:"mostrando {0} - {1} de {2} registros"}},dataBound:function(e){promptGrid.find(".k-grid-content").find("tr").addClass("noselect"),promptGrid.find(".k-grid-content").find("tr").unbind("dblclick"),promptGrid.find(".k-grid-content").find("tr").dblclick((function(){ulBotoes.find("a[name=btn_Selecionar]").click()}))}}),ulBotoes.find("a[name=btn_Selecionar]").click((function(){var e=promptGrid.data("kendoGrid"),t=e.dataItem(e.select());t?(diag.dialog("close"),defer.resolve(t)):jAlert("Você deve selecionar uma linha","Atenção")})),ulBotoes.find("a[name=btn_Limpar]").click((function(){defer.resolve(""),diag.dialog("close")}));var campoRetorno="";$(sender).siblings("input[name^=promptDisplay_]").length>0&&(campoRetorno=$(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_","")),""==campoRetorno&&ulBotoes.find("a[name=btn_Limpar]").hide(),ulBotoes.find("a[name=btn_Cancelar]").click((function(){defer.resolve(null),diag.dialog("close")}));var resizeFunction=function(){var e=promptBody.outerHeight();promptBody.find(".k-grid").siblings(":visible").each((function(t,o){e-=$(o).outerHeight()})),e--,e--,promptBody.find(".k-grid").height(e),promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each((function(t,o){e-=$(o).outerHeight()})),e--,promptBody.find(".k-grid-content").height(e)};resizeFunction(),promptBody.resize(resizeFunction)}else data?jAlert("Nenhum registro encontrado!","Atenção"):(diag.dialog("close"),jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list"))}else promptBody.dialog("open");return defer.promise()}},Show:function(e){$(sender).siblings("input[name^=promptDisplay_]").length>0&&(name=$(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_","")),limpar=!1,this.Render().then((function(t){if(t&&""!=t){if($(sender).siblings("input[name^=promptDisplay_]").length>0){if(!t.hasOwnProperty("Descricao")||!t.hasOwnProperty("Codigo"))return jError("Os campos padrões para este tipo de prompt estão ausentes na sentença SQL: Codigo e Descricao","Erro de Configuração"),$.Deferred().resolve();""!=name&&($(sender).siblings("input[name=promptDisplay_"+name+"]").val(t.Descricao),$(sender).siblings("input[name="+name+"]").val(t.Codigo))}e&&e(t)}else""==t&&""!=name&&($(sender).siblings("input[name=promptDisplay_"+name+"]").val(""),$(sender).siblings("input[name="+name+"]").val(""));return $.Deferred().resolve()}))}}},Geeks.ERP.PromptB=function(sender,promptName,sql,structural,filtroPermanente,filtroInicial){var _colunas=[],name="",ordenacao=" ORDER BY ",existeConfSelecionado=!1;return{Configuracao:function(e,t,o,n,r,a,i,l,d){_colunas.push({o:e,n:t,t:o,i:n,col:r,tp:a,or:i,sel:l,im:d}),i&&""!=i&&(" ORDER BY "!=ordenacao&&(ordenacao+=","),ordenacao+=_colunas.length+" "+i),1==l&&(existeConfSelecionado=!0)},Render:function(){with(Geeks.ERP.Prompt){var columns=new Array,defer=$.Deferred(),promptBody=$("#promptDialog_"+sender.id);if(promptBody.length<=0){promptBody=$(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format({Codigo:(sender.id,sender.id)}));for(var promptSearch=$(Geeks.ERP.UI.Template.Get("PromptSearchTemplate")),i=0;i<_colunas.length;i++)if(!_colunas[i].i&&_colunas[i].col.toLowerCase().indexOf("coluna")<0){var item='<li id="dropdownItem">'+'\t<label aria-disabled="false" class="dropdown-item">'+'\t\t<input name="'+_colunas[i].col+'" value="'+_colunas[i].col+'" class="dropdown-item-checkbox" '+(_colunas[i].sel==undefined&&0==existeConfSelecionado||1==_colunas[i].sel||1==_colunas[i].sel?'checked="checked"':"")+' type="checkbox"> '+_colunas[i].n+"\t</label>"+"</li>";$(promptSearch).find("[id=promptColunas]").append(item)}$(promptBody).append(promptSearch),$(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);var promptGrid=$("<div></div>").appendTo(promptBody);promptBody.find(".contentTop").css("display","none");var diag=promptBody.dialog({title:promptName,width:"70%",height:65*$(window).height()/100,resizable:!0,modal:!0});diag.dialog("open"),promptBody.css("overflow","hidden"),procurar=function(e){promptBody.find("#btnPromptProcurar").click()},promptBody.find("[id=promptInput]").tagsInput({height:"47px",width:"auto",interactive:!0,onChange:procurar,removeWithBackspace:!0,defaultText:"Procurar",placeholderColor:"#666666"}),promptBody.find("[id=promptInput_tagsinput]").css("min-width","400px"),promptBody.find("[id=promptInput_tag]").focus();var ulBotoes=$("<ul name='MenuBotoes'><ul>").prependTo(promptBody.find(".breadLine > .breadLinks")).append(Geeks.ERP.UI.Tela.MontaBotoes([{Nome:"Selecionar",Valor:"Selecionar",CodigoBotao:"P1",Icone:"icon-checkmark"},{Nome:"Cancelar",Valor:"Cancelar",CodigoBotao:"P2",Icone:"icon-minus"},{Nome:"Limpar",Valor:"Limpar",CodigoBotao:"P3",Icone:"icon-x"}],null));function getType(e){switch(e){case"Int32":case"Int64":case"Decimal":case"numero":case"moeda":return"number";case"DateTime":case"data":case"datahora":return"date";case"Bit":case"flag":return"boolean";default:return"string"}}diag.on("dialogclose",(function(e){diag.remove()}));var sentencaSql="Select * from ( "+sql+") ss ",where="",data;if(filtroPermanente&&""!=filtroPermanente&&(where+=" WHERE "+filtroPermanente),filtroInicial&&""!=filtroInicial&&(where.toLowerCase().indexOf("where")<0?where+="  WHERE "+filtroInicial:where+=" AND "+filtroInicial),sentencaSql+=where," ORDER BY "==ordenacao&&(ordenacao+="1 "),sentencaSql+=ordenacao+" OFFSET 0 ROWS FETCH NEXT 25 ROWS ONLY",sql.toLowerCase().indexOf("exec")<0?data=Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql,structural):(where="'"+where.replaceAll("'","''")+"'",data=Geeks.ERP.Core.Connection.ExecuteSQL(sql+","+where+",25",structural)),data&&!data.HasError){$.each(data.Columns,(function(e,t){var o=_colunas.length>e?_colunas[e]:{o:e,n:t.ColumnName,t:100,i:!0,im:!1};columns.push({field:t.ColumnName,type:getType(t.ColumnType),width:o.t+"px",title:o.n,hidden:!!o.i,filterable:{cell:{showOperators:!0,suggestionOperator:"contains"}}}),"number"!=getType(t.ColumnType)||o.im?o.im&&(columns[columns.length-1].template="<div style='text-align: center;'><i class='#:data."+columns[columns.length-1].field+"#'/></div>",columns[columns.length-1].filterable=!1):(columns[columns.length-1].filterable.ui=function(e){e.kendoNumericTextBox({format:"n0",decimals:0})},columns[columns.length-1].filterable.cell.template=function(e){e.element.kendoNumericTextBox({format:"n0",decimals:0})})})),promptGrid.kendoGrid({columns,dataSource:{type:"json",data:data.Records,pageSize:25,page:1},groupable:!1,selectable:"single",sortable:!0,reorderable:!0,resizable:!0,navigatable:!0,height:"50%",refresh:!0,pageable:{previousNext:!0,numeric:!0,pageSize:25,pageSizes:!1,messages:{display:"mostrando {0} - {1} de {2} registros"}},dataBound:function(e){promptGrid.find(".k-grid-content").find("tr").addClass("noselect"),promptGrid.find(".k-grid-content").find("tr").unbind("dblclick"),promptGrid.find(".k-grid-content").find("tr").dblclick((function(){ulBotoes.find("a[name=btn_Selecionar]").click()}))}}),promptGrid.data("kendoGrid").table.on("keydown",(function(e){var t=e.keyCode?e.keyCode:e.which;"13"==t?ulBotoes.find("a[name=btn_Selecionar]").click():"38"!=t&&"40"!=t||setTimeout((function(){promptGrid.data("kendoGrid").clearSelection(),promptGrid.data("kendoGrid").select($(".k-state-focused").closest("tr"))}))})),promptBody.find("[id=promptInput_tag]").on("keydown",(function(e){if("9"==(e.keyCode?e.keyCode:e.which)){e.preventDefault();var t=promptGrid.data("kendoGrid").tbody.find("tr:first");promptGrid.data("kendoGrid").select(t),promptGrid.data("kendoGrid").table.focus()}})),ulBotoes.find("a[name=btn_Selecionar]").click((function(){var e=promptGrid.data("kendoGrid"),t=e.dataItem(e.select());t?(diag.dialog("close"),defer.resolve(t)):jAlert("Você deve selecionar uma linha","Atenção")})),ulBotoes.find("a[name=btn_Limpar]").click((function(){defer.resolve(""),diag.dialog("close")}));var campoRetorno="";$(sender).siblings("input[name^=promptDisplay_]").length>0&&(campoRetorno=$(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_","")),""==campoRetorno&&ulBotoes.find("a[name=btn_Limpar]").hide(),ulBotoes.find("a[name=btn_Cancelar]").off(),ulBotoes.find("a[name=btn_Cancelar]").click((function(){defer.resolve(null),diag.dialog("close"),diag.remove()}));var resizeFunction=function(){var e=promptBody.outerHeight()-30;promptBody.find(".k-grid").siblings(":visible").each((function(t,o){e-=$(o).outerHeight()})),e--,e--,promptBody.find(".k-grid").height(e),promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each((function(t,o){e-=$(o).outerHeight()})),e--,promptBody.find(".k-grid-content").height(e)};resizeFunction(),promptBody.resize(resizeFunction),promptBody.find("a.dropdown-item-button").click((function(e){promptBody.find("[id=promptDropdownText]")[0].innerHTML=e.currentTarget.innerText,promptBody.find("[id=promptItem]").removeClass("active"),e.currentTarget.parentElement.classList.add("active")})),promptBody.find("input.dropdown-item-checkbox").click((function(){event.stopPropagation&&event.stopPropagation(),event.cancelBubble=!0})),promptBody.find("li[id=dropdownItem]").click((function(){var e=$(this);e[0].children[0].children[0].checked?e[0].children[0].children[0].checked=!1:e[0].children[0].children[0].checked=!0})),promptBody.find("#promptInput").keyup((function(e){13==e.which&&promptBody.find("#btnPromptProcurar").click()})),promptBody.find("#btnPromptProcurar").click((function(){promptBody.find("#btnPromptProcurar").focus();var e="Select * from ( "+sql+") ss ",t="",o=promptBody.find("[id=promptInput]").val();if(""!=o.trim()){var n=[];""==(n=o.split(","))[n.length-1]&&(n=n.splice(n.length-2,1)),t+=" WHERE 1=1 ";for(var r=!1,a=0;a<n.length;a++){var i=[];0==n[a].indexOf('"')?i.push(n[a].substr(1,n[a].length-2)):n[a].indexOf("/")>-1?i.push(n[a]):i=n[a].split(" "),t+="AND ( 1<>1 ",$.each(promptBody.find("input.dropdown-item-checkbox"),(function(e,o){if($(o).attr("checked")){r=!0;for(var n="",a=0;a<_colunas.length;a++)if(_colunas[a].col==o.value){n=_colunas[a].tp;break}if("numero"==n)for(var l=0;l<i.length;l++)isNaN(i[l].replace(",","."))||(t+=" OR "+o.value+" = '"+parseInt(i[l].replace(",","."))+"' ");else if("moeda"==n)for(l=0;l<i.length;l++)isNaN(i[l].replace(",","."))||(t+=" OR "+o.value+" = '"+i[l].replace(".",",")+"' ");else if("data"==n)for(l=0;l<i.length;l++)3==(p=i[l].split("/")).length&&"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0])).toString()&&(t+=" OR Convert(varchar,"+o.value+",103) = '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+"' ");else if("datahora"==n)for(l=0;l<i.length;l++)if(10==i[l].trim().length)3==(p=i[l].split("/")).length&&"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0])).toString()&&(t+=" OR ("+o.value+" >= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 00:00:00' ",t+=" AND "+o.value+" <= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 23:59:59.999') ");else{var d,p=i[l].split(" ")[0].split("/"),s=null;i[l].split(" ")[1]&&(s=i[l].split(" ")[1].split(":")),3!=p.length||3!=s.length&&s||"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0],s[0],s[1],s[2])).toString()&&(s?t+=" OR "+o.value+" = '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" "+(1==(d.getHours()+"").length?"0":"")+d.getHours()+":"+(1==(d.getMinutes()+"").length?"0":"")+d.getMinutes()+":"+(1==(d.getSeconds()+"").length?"0":"")+d.getSeconds()+"' ":(t+=" OR ("+o.value+" >= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 00:00:00' ",t+=" AND "+o.value+" <= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 23:59:59.999') "))}else if("flag"==n)for(l=0;l<i.length;l++)"Não"==i[l]?(i[l]=0,t+=" OR "+o.value+" = '"+i[l]+"' "):"Sim"==i[l]&&(i[l]=1,t+=" OR "+o.value+" = '"+i[l]+"' ");else{for(i.length>0&&(t+=" OR ( "),l=0;l<i.length;l++)l>0&&(t+=" AND "),t+=o.value+" LIKE '%"+i[l]+"%' ";i.length>0&&(t+=" ) ")}}})),t+=") "}if(filtroPermanente&&""!=filtroPermanente&&(t+=" AND "+filtroPermanente+" "),r){e.toLowerCase().indexOf("exec")<0?"Todos"!=promptBody.find("[id=promptDropdownText]")[0].innerHTML?e+=t+ordenacao+" OFFSET 0 ROWS FETCH NEXT "+promptBody.find("[id=promptDropdownText]")[0].innerHTML+" ROWS ONLY":e+=t+ordenacao:(t="'"+t.replaceAll("'","''")+"'",e=sql+","+t+","+("Todos"!=promptBody.find("[id=promptDropdownText]")[0].innerHTML?"'"+promptBody.find("[id=promptDropdownText]")[0].innerHTML+"'":"NULL")),data=Geeks.ERP.Core.Connection.ExecuteSQL(e,structural);var l=promptGrid.data("kendoGrid");l.dataSource.data(data.Records),l.refresh()}else jAlert("Nenhuma coluna selecionada para pesquisa!","Atenção")}promptBody.find("[id=promptInput_tag]").focus()}))}else data?jAlert("Nenhum registro encontrado!","Atenção"):(diag.dialog("close"),jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list"))}else promptBody.dialog("open");return defer.promise()}},Show:function(e){$(sender).siblings("input[name^=promptDisplay_]").length>0&&(name=$(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_","")),limpar=!1,this.Render().then((function(t){if(t&&""!=t){if($(sender).siblings("input[name^=promptDisplay_]").length>0){if(!t.hasOwnProperty("Descricao")||!t.hasOwnProperty("Codigo"))return jError("Os campos padrões para este tipo de prompt estão ausentes na sentença SQL: Codigo e Descricao","Erro de Configuração"),$.Deferred().resolve();""!=name&&($(sender).siblings("input[name=promptDisplay_"+name+"]").val(t.Descricao),$(sender).siblings("input[name="+name+"]").val(t.Codigo))}e&&e(t)}else""==t&&""!=name&&($(sender).siblings("input[name=promptDisplay_"+name+"]").val(""),$(sender).siblings("input[name="+name+"]").val(""));return $.Deferred().resolve()}))}}},Geeks.ERP.PromptM=function(sender,promptName,sql,structural,filtroPermanente,filtroInicial){var _colunas=[],name="",ordenacao=" ORDER BY ",existeConfSelecionado=!1;return{Configuracao:function(e,t,o,n,r,a,i,l,d){_colunas.push({o:e,n:t,t:o,i:n,col:r,tp:a,or:i,sel:l,im:d}),i&&""!=i&&(" ORDER BY "!=ordenacao&&(ordenacao+=","),ordenacao+=_colunas.length+" "+i),1==l&&(existeConfSelecionado=!0)},Render:function(){with(Geeks.ERP.Prompt){var columns=new Array,defer=$.Deferred(),promptBody=$("#promptDialog_"+sender.id);if(promptBody.length<=0){promptBody=$(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format({Codigo:(sender.id,sender.id)}));for(var promptSearch=$(Geeks.ERP.UI.Template.Get("PromptSearchTemplate")),i=0;i<_colunas.length;i++)if(!_colunas[i].i&&_colunas[i].col.toLowerCase().indexOf("coluna")<0){var item='<li id="dropdownItem">'+'\t<label aria-disabled="false" class="dropdown-item">'+'\t\t<input name="'+_colunas[i].col+'" value="'+_colunas[i].col+'" class="dropdown-item-checkbox" '+(_colunas[i].sel==undefined&&0==existeConfSelecionado||1==_colunas[i].sel||1==_colunas[i].sel?'checked="checked"':"")+' type="checkbox"> '+_colunas[i].n+"\t</label>"+"</li>";$(promptSearch).find("[id=promptColunas]").append(item)}$(promptBody).append(promptSearch),$(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);var promptGrid=$("<div></div>").appendTo(promptBody);promptBody.find(".contentTop").css("display","none");var diag=promptBody.dialog({title:promptName,width:"70%",height:65*$(window).height()/100,resizable:!0,modal:!0});diag.dialog("open"),promptBody.css("overflow","hidden"),procurar=function(e){promptBody.find("#btnPromptProcurar").click()},promptBody.find("[id=promptInput]").tagsInput({height:"47px",width:"auto",interactive:!0,onChange:procurar,removeWithBackspace:!0,defaultText:"Procurar",placeholderColor:"#666666"}),promptBody.find("[id=promptInput_tagsinput]").css("min-width","400px"),promptBody.find("[id=promptInput_tag]").focus();var ulBotoes=$("<ul name='MenuBotoes'><ul>").prependTo(promptBody.find(".breadLine > .breadLinks")).append(Geeks.ERP.UI.Tela.MontaBotoes([{Nome:"Selecionar",Valor:"Selecionar",CodigoBotao:"P1",Icone:"icon-checkmark"},{Nome:"Cancelar",Valor:"Cancelar",CodigoBotao:"P2",Icone:"icon-minus"},{Nome:"Limpar",Valor:"Limpar",CodigoBotao:"P3",Icone:"icon-x"}],null));function getType(e){switch(e){case"Int32":case"Int64":case"Decimal":case"numero":case"moeda":return"number";case"DateTime":case"data":case"datahora":return"date";case"Bit":case"flag":return"boolean";default:return"string"}}diag.on("dialogclose",(function(e){diag.remove()}));var sentencaSql="Select * from ( "+sql+") ss ",where="",data;if(filtroPermanente&&""!=filtroPermanente&&(where+=" WHERE "+filtroPermanente),filtroInicial&&""!=filtroInicial&&(where.toLowerCase().indexOf("where")<0?where+="  WHERE "+filtroInicial:where+=" AND "+filtroInicial),sentencaSql+=where," ORDER BY "==ordenacao&&(ordenacao+="1 "),sentencaSql+=ordenacao+" OFFSET 0 ROWS FETCH NEXT 25 ROWS ONLY",sql.toLowerCase().indexOf("exec")<0?data=Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql,structural):(where="'"+where.replaceAll("'","''")+"'",data=Geeks.ERP.Core.Connection.ExecuteSQL(sql+","+where+",25",structural)),data&&!data.HasError){$.each(data.Columns,(function(e,t){var o=_colunas.length>e?_colunas[e]:{o:e,n:t.ColumnName,t:100,i:!0,im:!1};columns.push({field:t.ColumnName,type:getType(t.ColumnType),width:o.t+"px",title:o.n,hidden:!!o.i,filterable:{cell:{showOperators:!0,suggestionOperator:"contains"}}}),"number"!=getType(t.ColumnType)||o.im?o.im&&(columns[columns.length-1].template="<div style='text-align: center;'><i class='#:data."+columns[columns.length-1].field+"#'/></div>",columns[columns.length-1].filterable=!1):(columns[columns.length-1].filterable.ui=function(e){e.kendoNumericTextBox({format:"n0",decimals:0})},columns[columns.length-1].filterable.cell.template=function(e){e.element.kendoNumericTextBox({format:"n0",decimals:0})})})),promptGrid.kendoGrid({columns,dataSource:{type:"json",data:data.Records,pageSize:25,page:1},groupable:!1,selectable:"multiple",sortable:!0,reorderable:!0,resizable:!0,navigatable:!0,height:"50%",refresh:!0,pageable:{previousNext:!0,numeric:!0,pageSize:25,pageSizes:!1,messages:{display:"mostrando {0} - {1} de {2} registros"}},dataBound:function(e){promptGrid.find(".k-grid-content").find("tr").addClass("noselect"),promptGrid.find(".k-grid-content").find("tr").unbind("dblclick"),promptGrid.find(".k-grid-content").find("tr").dblclick((function(){ulBotoes.find("a[name=btn_Selecionar]").click()}))}}),promptGrid.data("kendoGrid").table.on("keydown",(function(e){var t=e.keyCode?e.keyCode:e.which;"13"==t?ulBotoes.find("a[name=btn_Selecionar]").click():"38"!=t&&"40"!=t||setTimeout((function(){promptGrid.data("kendoGrid").clearSelection(),promptGrid.data("kendoGrid").select($(".k-state-focused").closest("tr"))}))})),promptBody.find("[id=promptInput_tag]").on("keydown",(function(e){if("9"==(e.keyCode?e.keyCode:e.which)){e.preventDefault();var t=promptGrid.data("kendoGrid").tbody.find("tr:first");promptGrid.data("kendoGrid").select(t),promptGrid.data("kendoGrid").table.focus()}})),ulBotoes.find("a[name=btn_Selecionar]").click((function(){var e=promptGrid.data("kendoGrid"),t=e.select();if(t){var o=[];if(t.length>0)for(var n=0;n<t.length;n++){var r=e.dataItem(t[n]);o.push(r.Codigo)}diag.dialog("close"),defer.resolve(o)}else jAlert("Você deve selecionar uma linha","Atenção")})),ulBotoes.find("a[name=btn_Limpar]").click((function(){defer.resolve(""),diag.dialog("close")}));var campoRetorno="";$(sender).siblings("input[name^=promptDisplay_]").length>0&&(campoRetorno=$(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_","")),""==campoRetorno&&ulBotoes.find("a[name=btn_Limpar]").hide(),ulBotoes.find("a[name=btn_Cancelar]").off(),ulBotoes.find("a[name=btn_Cancelar]").click((function(){defer.resolve(null),diag.dialog("close"),diag.remove()}));var resizeFunction=function(){var e=promptBody.outerHeight()-30;promptBody.find(".k-grid").siblings(":visible").each((function(t,o){e-=$(o).outerHeight()})),e--,e--,promptBody.find(".k-grid").height(e),promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each((function(t,o){e-=$(o).outerHeight()})),e--,promptBody.find(".k-grid-content").height(e)};resizeFunction(),promptBody.resize(resizeFunction),promptBody.find("a.dropdown-item-button").click((function(e){promptBody.find("[id=promptDropdownText]")[0].innerHTML=e.currentTarget.innerText,promptBody.find("[id=promptItem]").removeClass("active"),e.currentTarget.parentElement.classList.add("active")})),promptBody.find("input.dropdown-item-checkbox").click((function(){event.stopPropagation&&event.stopPropagation(),event.cancelBubble=!0})),promptBody.find("li[id=dropdownItem]").click((function(){var e=$(this);e[0].children[0].children[0].checked?e[0].children[0].children[0].checked=!1:e[0].children[0].children[0].checked=!0})),promptBody.find("#promptInput").keyup((function(e){13==e.which&&promptBody.find("#btnPromptProcurar").click()})),promptBody.find("#btnPromptProcurar").click((function(){promptBody.find("#btnPromptProcurar").focus();var e="Select * from ( "+sql+") ss ",t="",o=promptBody.find("[id=promptInput]").val();if(""!=o.trim()){var n=[];""==(n=o.split(","))[n.length-1]&&(n=n.splice(n.length-2,1)),t+=" WHERE 1=1 ";for(var r=!1,a=0;a<n.length;a++){var i=[];0==n[a].indexOf('"')?i.push(n[a].substr(1,n[a].length-2)):n[a].indexOf("/")>-1?i.push(n[a]):i=n[a].split(" "),t+="AND ( 1<>1 ",$.each(promptBody.find("input.dropdown-item-checkbox"),(function(e,o){if($(o).attr("checked")){r=!0;for(var n="",a=0;a<_colunas.length;a++)if(_colunas[a].col==o.value){n=_colunas[a].tp;break}if("numero"==n)for(var l=0;l<i.length;l++)isNaN(i[l].replace(",","."))||(t+=" OR "+o.value+" = '"+parseInt(i[l].replace(",","."))+"' ");else if("moeda"==n)for(l=0;l<i.length;l++)isNaN(i[l].replace(",","."))||(t+=" OR "+o.value+" = '"+i[l].replace(".",",")+"' ");else if("data"==n)for(l=0;l<i.length;l++)3==(p=i[l].split("/")).length&&"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0])).toString()&&(t+=" OR Convert(varchar,"+o.value+",103) = '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+"' ");else if("datahora"==n)for(l=0;l<i.length;l++)if(10==i[l].trim().length)3==(p=i[l].split("/")).length&&"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0])).toString()&&(t+=" OR ("+o.value+" >= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 00:00:00' ",t+=" AND "+o.value+" <= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 23:59:59.999') ");else{var d,p=i[l].split(" ")[0].split("/"),s=null;i[l].split(" ")[1]&&(s=i[l].split(" ")[1].split(":")),3!=p.length||3!=s.length&&s||"Invalid Date"!=(d=new Date(p[2],parseInt(p[1])-1,p[0],s[0],s[1],s[2])).toString()&&(s?t+=" OR "+o.value+" = '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" "+(1==(d.getHours()+"").length?"0":"")+d.getHours()+":"+(1==(d.getMinutes()+"").length?"0":"")+d.getMinutes()+":"+(1==(d.getSeconds()+"").length?"0":"")+d.getSeconds()+"' ":(t+=" OR ("+o.value+" >= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 00:00:00' ",t+=" AND "+o.value+" <= '"+(1==(d.getDate()+"").length?"0":"")+d.getDate()+"/"+(1==(d.getMonth()+1+"").length?"0":"")+(d.getMonth()+1)+"/"+d.getFullYear()+" 23:59:59.999') "))}else if("flag"==n)for(l=0;l<i.length;l++)"Não"==i[l]?(i[l]=0,t+=" OR "+o.value+" = '"+i[l]+"' "):"Sim"==i[l]&&(i[l]=1,t+=" OR "+o.value+" = '"+i[l]+"' ");else{for(i.length>0&&(t+=" OR ( "),l=0;l<i.length;l++)l>0&&(t+=" AND "),t+=o.value+" LIKE '%"+i[l]+"%' ";i.length>0&&(t+=" ) ")}}})),t+=") "}if(filtroPermanente&&""!=filtroPermanente&&(t+=" AND "+filtroPermanente+" "),r){e.toLowerCase().indexOf("exec")<0?"Todos"!=promptBody.find("[id=promptDropdownText]")[0].innerHTML?e+=t+ordenacao+" OFFSET 0 ROWS FETCH NEXT "+promptBody.find("[id=promptDropdownText]")[0].innerHTML+" ROWS ONLY":e+=t+ordenacao:(t="'"+t.replaceAll("'","''")+"'",e=sql+","+t+","+("Todos"!=promptBody.find("[id=promptDropdownText]")[0].innerHTML?"'"+promptBody.find("[id=promptDropdownText]")[0].innerHTML+"'":"NULL")),data=Geeks.ERP.Core.Connection.ExecuteSQL(e,structural);var l=promptGrid.data("kendoGrid");l.dataSource.data(data.Records),l.refresh()}else jAlert("Nenhuma coluna selecionada para pesquisa!","Atenção")}promptBody.find("[id=promptInput_tag]").focus()}))}else data?jAlert("Nenhum registro encontrado!","Atenção"):(diag.dialog("close"),jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list"))}else promptBody.dialog("open");return defer.promise()}},Show:function(e){this.Render().then((function(t){return e&&e(t),$.Deferred().resolve()}))}}};
+﻿String.prototype.replaceAll = function (search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
+
+Geeks.ERP.Prompt = function (sender, promptName, sql, structural) {
+    var _colunas = [];
+    var name = "";
+    return {
+        Configuracao: function (ordem, nome, tamanho, invisivel, imagem) {
+            _colunas.push({
+                o: ordem,
+                n: nome,
+                t: tamanho,
+                i: invisivel,
+                im: imagem
+            });
+        },
+        Render: function () {
+            with (Geeks.ERP.Prompt) {
+                var columns = new Array();
+                var defer = $.Deferred();
+
+                var promptBody = $("#promptDialog_" + sender.id);
+
+                if (promptBody.length <= 0) {
+                    promptBody = $(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format(
+                        {
+                            Codigo: "#promptDialog_" + sender.id ? sender.id : sender.name
+                        }));
+
+                    $(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);
+                    var promptGrid = $('<div></div>').appendTo(promptBody);
+
+                    promptBody.find(".contentTop").css("display", "none");
+
+                    var diag = promptBody.dialog({
+                        title: promptName,
+                        width: "70%",
+                        height: ($(window).height() * 60) / 100,
+                        resizable: true,
+                        modal: true
+                    });
+
+                    diag.dialog('open');
+
+                    var ulBotoes = $("<ul name='MenuBotoes'><ul>")
+                        .prependTo(promptBody.find('.breadLine > .breadLinks'))
+                        .append(Geeks.ERP.UI.Tela.MontaBotoes([
+                            {
+                                Nome: "Selecionar",
+                                Valor: "Selecionar",
+                                CodigoBotao: "P1",
+                                Icone: "icon-checkmark"
+                            },
+                            {
+                                Nome: "Cancelar",
+                                Valor: "Cancelar",
+                                CodigoBotao: "P2",
+                                Icone: "icon-minus"
+                            },
+                            {
+                                Nome: "Limpar",
+                                Valor: "Limpar",
+                                CodigoBotao: "P3",
+                                Icone: "icon-x"
+                            }
+                        ], null));
+
+                    function getType(campoType) {
+                        switch (campoType) {
+                            case "Int32":
+                                return "number";
+                            case "Int64":
+                                return "number";
+                            case "Decimal":
+                                return "number";
+                            case "DateTime":
+                                return "date";
+                            case "Bit":
+                                return "boolean";
+                            default:
+                                return "string";
+                        }
+                    }
+
+                    var data = Geeks.ERP.Core.Connection.ExecuteSQL(sql, structural);
+
+                    if (data && !data.HasError) {
+                        $.each(data.Columns, function (index, campo) {
+                            var result = _colunas.length >= index ? _colunas[index] : {
+                                o: index,
+                                n: campo.ColumnName,
+                                t: 100,
+                                i: false,
+                                im: false
+                            };
+
+                            columns.push({
+                                field: campo.ColumnName,
+                                type: getType(campo.ColumnType),
+                                width: result.t + 'px',
+                                title: result.n,
+                                hidden: ((result.i) ? true : false),
+                                filterable: {
+                                    cell: {
+                                        showOperators: true,
+                                        suggestionOperator: "contains"
+                                    },
+                                }
+                            });
+
+                            if (getType(campo.ColumnType) == "number" && !result.im) {
+                                columns[columns.length - 1].filterable.ui = function (element) {
+                                    element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                };
+
+                                columns[columns.length - 1].filterable.cell.template = function (args) {
+                                    args.element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                }
+                            } else if (result.im) {
+                                columns[columns.length - 1].template = "<div style='text-align: center;'><i class='#:data." + columns[columns.length - 1].field + "#'/></div>";
+                                columns[columns.length - 1].filterable = false;
+                            }
+                        });
+
+                        promptGrid.kendoGrid({
+                            //autoBind: true,
+                            filter: "contains",
+                            columns: columns,
+                            dataSource: {
+                                type: "json",
+                                data: data.Records,
+                                pageSize: 40,
+                                page: 1
+                            },
+                            filterable: {
+                                mode: "menu, row",
+                                operators: {
+                                    string: {
+                                        eq: "Igual",
+                                        neq: "Diferente",
+                                        startswith: "Começa com",
+                                        endswith: "Termina com",
+                                        contains: "Contenha",
+                                        doesnotcontain: "Não Contenha"
+                                    },
+                                    number: {
+                                        eq: "Igual",
+                                        neq: "Diferente",
+                                        gte: "Maior ou igual",
+                                        gt: "Maior que",
+                                        lte: "Menor ou igual",
+                                        lt: "Menor que"
+                                    },
+                                    date: {
+                                        eq: "Igual",
+                                        neq: "Diferente",
+                                        gte: "Posterior ou igual",
+                                        gt: "Posterior a",
+                                        lte: "Anterior ou igual",
+                                        lt: "Anterior a"
+                                    }
+                                }
+                            },
+                            groupable: true,
+                            selectable: "single",
+                            sortable: true,
+                            reorderable: true,
+                            resizable: true,
+                            height: "60%",
+                            refresh: true,
+                            pageable: {
+                                previousNext: true,
+                                numeric: true,
+                                pageSize: 50,
+                                pageSizes: false,
+                                messages: {
+                                    display: "mostrando {0} - {1} de {2} registros"
+                                }
+                            },
+                            dataBound: function (e) {
+                                promptGrid.find(".k-grid-content").find("tr").addClass("noselect");
+                                promptGrid.find(".k-grid-content").find("tr").unbind("dblclick");
+                                promptGrid.find(".k-grid-content").find("tr").dblclick(function () {
+                                    ulBotoes.find("a[name=btn_Selecionar]").click();
+                                });
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Selecionar]").click(function () {
+                            var grid = promptGrid.data('kendoGrid');
+                            //var column = grid.columns[0].field;
+                            var dataItem = grid.dataItem(grid.select());
+                            if (dataItem) {
+                                diag.dialog("close");
+                                defer.resolve(dataItem);
+
+                            } else {
+                                jAlert('Você deve selecionar uma linha', "Atenção");
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Limpar]").click(function () {
+                            defer.resolve("");
+                            diag.dialog("close");
+                        });
+
+                        var campoRetorno = "";
+                        if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+                            campoRetorno = $(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_", "");
+                        }
+                        if (campoRetorno == "") ulBotoes.find("a[name=btn_Limpar]").hide();
+
+                        ulBotoes.find("a[name=btn_Cancelar]").click(function () {
+                            defer.resolve(null);
+                            diag.dialog("close");
+                        });
+
+                        var resizeFunction = function () {
+                            var promptHeight = promptBody.outerHeight();
+
+                            promptBody.find(".k-grid").siblings(":visible").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptHeight--;
+                            promptBody.find(".k-grid").height(promptHeight);
+
+                            promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptBody.find(".k-grid-content").height(promptHeight);
+                        };
+
+                        resizeFunction();
+                        promptBody.resize(resizeFunction);
+
+                    } else {
+                        if (data) {
+                            jAlert("Nenhum registro encontrado!", "Atenção");
+                        } else {
+                            diag.dialog("close");
+                            jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list");
+                        }
+                    }
+                } else {
+                    promptBody.dialog('open');
+                }
+
+                return defer.promise();
+            }
+        },
+        Show: function (callbackFunction) {
+
+            if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+                name = $(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_", "");
+            }
+
+            limpar = false;
+
+            this.Render().then(function (value) {
+
+                if (value && value != "") {
+                    if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+
+                        if (!value.hasOwnProperty("Descricao") || !value.hasOwnProperty("Codigo")) {
+                            jError("Os campos padrões para este tipo de prompt estão ausentes na sentença SQL: Codigo e Descricao", "Erro de Configuração");
+
+                            return $.Deferred().resolve();
+                        }
+
+                        if (name != "") {
+                            $(sender).siblings("input[name=promptDisplay_" + name + "]").val(value.Descricao);
+                            $(sender).siblings("input[name=" + name + "]").val(value.Codigo);
+                        }
+                    }
+
+                    if (callbackFunction)
+                        callbackFunction(value);
+                }
+                else if (value == "") {
+                    if (name != "") {
+                        $(sender).siblings("input[name=promptDisplay_" + name + "]").val("");
+                        $(sender).siblings("input[name=" + name + "]").val("");
+                    }
+                }
+                return $.Deferred().resolve();
+            });
+        }
+    }
+};
+
+Geeks.ERP.PromptB = function (sender, promptName, sql, structural, filtroPermanente, filtroInicial) {
+    var _colunas = [];
+    var name = "";
+    var ordenacao = " ORDER BY "
+    var existeConfSelecionado = false;
+    return {
+        Configuracao: function (ordem, nome, tamanho, invisivel, coluna, tipo, tipoOrdenacao, selecionado, imagem) {
+            _colunas.push({
+                o: ordem,
+                n: nome,
+                t: tamanho,
+                i: invisivel,
+                col: coluna,
+                tp: tipo,
+                or: tipoOrdenacao,
+                sel: selecionado,
+                im: imagem
+            });
+            if (tipoOrdenacao && tipoOrdenacao != "") {
+                if (ordenacao != " ORDER BY ") ordenacao += ",";
+                ordenacao += _colunas.length + " " + tipoOrdenacao;
+            }
+            if (selecionado == 1) existeConfSelecionado = true;
+        },
+        Render: function () {
+            with (Geeks.ERP.Prompt) {
+                var columns = new Array();
+                var defer = $.Deferred();
+
+                var promptBody = $("#promptDialog_" + sender.id);
+
+                if (promptBody.length <= 0) {
+                    promptBody = $(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format(
+                        {
+                            Codigo: "#promptDialog_" + sender.id ? sender.id : sender.name
+                        }));
+
+                    var promptSearch = $(Geeks.ERP.UI.Template.Get("PromptSearchTemplate"));
+                    for (var i = 0; i < _colunas.length; i++) {
+                        if (!_colunas[i].i && _colunas[i].col.toLowerCase().indexOf("coluna") < 0) {
+                            var item = "<li id=\"dropdownItem\">" +
+                                "	<label aria-disabled=\"false\" class=\"dropdown-item\">" +
+                                "		<input name=\"" + _colunas[i].col + "\" value=\"" + _colunas[i].col + "\" class=\"dropdown-item-checkbox\" " +
+                                (((_colunas[i].sel == undefined && existeConfSelecionado == false) || _colunas[i].sel == true || _colunas[i].sel == 1) ? "checked=\"checked\"" : "") +
+                                " type=\"checkbox\"> " + _colunas[i].n +
+                                "	</label>" +
+                                "</li>";
+                            $(promptSearch).find("[id=promptColunas]").append(item);
+                        }
+                    }
+
+                    $(promptBody).append(promptSearch);
+                    $(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);
+                    var promptGrid = $('<div></div>').appendTo(promptBody);
+
+                    promptBody.find(".contentTop").css("display", "none");
+
+                    var diag = promptBody.dialog({
+                        title: promptName,
+                        width: "70%",
+                        height: ($(window).height() * 65) / 100,
+                        resizable: true,
+                        modal: true
+                    });
+
+                    diag.dialog('open');
+                    promptBody.css("overflow", "hidden");
+
+                    procurar = function (obj) {
+                        promptBody.find("#btnPromptProcurar").click();
+                    };
+
+                    promptBody.find("[id=promptInput]").tagsInput({
+                        'height': '47px',
+                        'width': 'auto',
+                        'interactive': true,
+                        'onChange': procurar,
+                        'removeWithBackspace': true,
+                        'defaultText': 'Procurar',
+                        'placeholderColor': '#666666'
+                    });
+                    promptBody.find("[id=promptInput_tagsinput]").css("min-width", "400px");
+                    promptBody.find("[id=promptInput_tag]").focus();
+
+                    var ulBotoes = $("<ul name='MenuBotoes'><ul>")
+                        .prependTo(promptBody.find('.breadLine > .breadLinks'))
+                        .append(Geeks.ERP.UI.Tela.MontaBotoes([
+                            {
+                                Nome: "Selecionar",
+                                Valor: "Selecionar",
+                                CodigoBotao: "P1",
+                                Icone: "icon-checkmark"
+                            },
+                            {
+                                Nome: "Cancelar",
+                                Valor: "Cancelar",
+                                CodigoBotao: "P2",
+                                Icone: "icon-minus"
+                            },
+                            {
+                                Nome: "Limpar",
+                                Valor: "Limpar",
+                                CodigoBotao: "P3",
+                                Icone: "icon-x"
+                            }
+                        ], null));
+
+                    diag.on('dialogclose', function (event) {
+                        diag.remove();
+                    });
+
+                    function getType(campoType) {
+                        switch (campoType) {
+                            case "Int32":
+                                return "number";
+                            case "Int64":
+                                return "number";
+                            case "Decimal":
+                                return "number";
+                            case "DateTime":
+                                return "date";
+                            case "Bit":
+                                return "boolean";
+                            case "numero":
+                                return "number";
+                            case "moeda":
+                                return "number";
+                            case "data":
+                                return "date";
+                            case "datahora":
+                                return "date";
+                            case "flag":
+                                return "boolean";
+                            default:
+                                return "string";
+                        }
+                    }
+
+                    //Traz apenas os 25 primeiros da sql inicial
+                    var sentencaSql = "Select * from ( " + sql + ") ss ";
+                    var where = "";
+                    if (filtroPermanente && filtroPermanente != "") {
+                        where += " WHERE " + filtroPermanente;
+                    }
+                    if (filtroInicial && filtroInicial != "") {
+                        if (where.toLowerCase().indexOf("where") < 0)
+                            where += "  WHERE " + filtroInicial;
+                        else where += " AND " + filtroInicial;
+                    }
+                    sentencaSql += where;
+                    if (ordenacao == " ORDER BY ") ordenacao += "1 ";
+                    sentencaSql += ordenacao + " OFFSET 0 ROWS FETCH NEXT 25 ROWS ONLY";
+                    var data;
+
+                    if (sql.toLowerCase().indexOf("exec") < 0)
+                        data = Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql, structural);
+                    else {
+                        where = "'" + where.replaceAll("'", "''") + "'";
+                        data = Geeks.ERP.Core.Connection.ExecuteSQL(sql + "," + where + ",25", structural);
+                    }
+
+                    if (data && !data.HasError) {
+                        $.each(data.Columns, function (index, campo) {
+                            var result = _colunas.length > index ? _colunas[index] : {
+                                o: index,
+                                n: campo.ColumnName,
+                                t: 100,
+                                i: true,
+                                im: false
+                            };
+
+                            columns.push({
+                                field: campo.ColumnName,
+                                type: getType(campo.ColumnType),
+                                width: result.t + 'px',
+                                title: result.n,
+                                hidden: ((result.i) ? true : false),
+                                filterable: {
+                                    cell: {
+                                        showOperators: true,
+                                        suggestionOperator: "contains"
+                                    },
+                                }
+                            });
+
+                            if (getType(campo.ColumnType) == "number" && !result.im) {
+                                columns[columns.length - 1].filterable.ui = function (element) {
+                                    element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                };
+
+                                columns[columns.length - 1].filterable.cell.template = function (args) {
+                                    args.element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                }
+                            } else if (result.im) {
+                                columns[columns.length - 1].template = "<div style='text-align: center;'><i class='#:data." + columns[columns.length - 1].field + "#'/></div>";
+                                columns[columns.length - 1].filterable = false;
+                            }
+                        });
+
+                        promptGrid.kendoGrid({
+                            //autoBind: true,
+                            columns: columns,
+                            dataSource: {
+                                type: "json",
+                                data: data.Records,
+                                pageSize: 25,
+                                page: 1
+                            },
+                            groupable: false,
+                            selectable: "single",
+                            sortable: true,
+                            reorderable: true,
+                            resizable: true,
+                            navigatable: true,
+                            height: "50%",
+                            refresh: true,
+                            pageable: {
+                                previousNext: true,
+                                numeric: true,
+                                pageSize: 25,
+                                pageSizes: false,
+                                messages: {
+                                    display: "mostrando {0} - {1} de {2} registros"
+                                }
+                            },
+                            dataBound: function (e) {
+                                promptGrid.find(".k-grid-content").find("tr").addClass("noselect");
+                                promptGrid.find(".k-grid-content").find("tr").unbind("dblclick");
+                                promptGrid.find(".k-grid-content").find("tr").dblclick(function () {
+                                    ulBotoes.find("a[name=btn_Selecionar]").click();
+                                });
+                            }
+                        });
+
+                        promptGrid.data("kendoGrid").table.on("keydown", function (e) {
+                            var keycode = (e.keyCode ? e.keyCode : e.which);
+                            if (keycode == '13') {
+                                //Seleciona a linha
+                                ulBotoes.find("a[name=btn_Selecionar]").click();
+                            }
+                            else if (keycode == '38' || keycode == '40') {
+                                setTimeout(function () {
+                                    promptGrid.data("kendoGrid").clearSelection();
+                                    promptGrid.data("kendoGrid").select($(".k-state-focused").closest("tr"));
+                                });
+                            }
+                        });
+
+                        promptBody.find("[id=promptInput_tag]").on("keydown", function (e) {
+                            var keycode = (e.keyCode ? e.keyCode : e.which);
+                            if (keycode == '9') {
+                                e.preventDefault();
+                                var row = promptGrid.data("kendoGrid").tbody.find("tr:first");
+                                promptGrid.data("kendoGrid").select(row);
+                                promptGrid.data("kendoGrid").table.focus();
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Selecionar]").click(function () {
+                            var grid = promptGrid.data('kendoGrid');
+                            //var column = grid.columns[0].field;
+                            var dataItem = grid.dataItem(grid.select());
+                            if (dataItem) {
+                                diag.dialog("close");
+                                defer.resolve(dataItem);
+
+                            } else {
+                                jAlert('Você deve selecionar uma linha', "Atenção");
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Limpar]").click(function () {
+                            defer.resolve("");
+                            diag.dialog("close");
+                        });
+
+                        var campoRetorno = "";
+                        if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+                            campoRetorno = $(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_", "");
+                        }
+                        if (campoRetorno == "") ulBotoes.find("a[name=btn_Limpar]").hide();
+
+                        ulBotoes.find("a[name=btn_Cancelar]").off();
+                        ulBotoes.find("a[name=btn_Cancelar]").click(function () {
+                            defer.resolve(null);
+                            diag.dialog("close");
+                            diag.remove();
+                        });
+
+                        var resizeFunction = function () {
+                            var promptHeight = promptBody.outerHeight() - 30;
+
+                            promptBody.find(".k-grid").siblings(":visible").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptHeight--;
+                            promptBody.find(".k-grid").height(promptHeight);
+
+                            promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptBody.find(".k-grid-content").height(promptHeight);
+                        };
+
+                        resizeFunction();
+                        promptBody.resize(resizeFunction);
+
+                        promptBody.find("a.dropdown-item-button").click(function (obj) {
+                            promptBody.find("[id=promptDropdownText]")[0].innerHTML = obj.currentTarget.innerText;
+                            promptBody.find("[id=promptItem]").removeClass("active");
+                            obj.currentTarget.parentElement.classList.add("active");
+                        });
+
+                        promptBody.find("input.dropdown-item-checkbox").click(function () {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            }
+                            event.cancelBubble = true;
+                        });
+
+                        promptBody.find("li[id=dropdownItem]").click(function () {
+                            var obj = $(this);
+                            if (obj[0].children[0].children[0].checked) obj[0].children[0].children[0].checked = false;
+                            else obj[0].children[0].children[0].checked = true;
+                        });
+
+                        promptBody.find("#promptInput").keyup(function (e) {
+                            if (e.which == 13) {
+                                promptBody.find("#btnPromptProcurar").click();
+                            }
+                        });
+
+                        promptBody.find("#btnPromptProcurar").click(function () {
+                            //Monta query dinamica
+                            promptBody.find("#btnPromptProcurar").focus();
+                            var sentencaSql = "Select * from ( " + sql + ") ss ";
+                            var filtroSql = "";
+                            var textoPesquisa = promptBody.find("[id=promptInput]").val();
+                            if (textoPesquisa.trim() != "") {
+                                var arrayItens = [];
+                                arrayItens = textoPesquisa.split(",");
+                                if (arrayItens[arrayItens.length - 1] == "") {
+                                    arrayItens = arrayItens.splice(arrayItens.length - 2, 1);
+                                }
+                                filtroSql += " WHERE 1=1 ";
+                                var possuiItem = false;
+                                for (var i = 0; i < arrayItens.length; i++) {
+                                    var arrayPesquisa = [];
+                                    if (arrayItens[i].indexOf("\"") == 0) arrayPesquisa.push(arrayItens[i].substr(1, (arrayItens[i].length - 2)));
+                                    else if (arrayItens[i].indexOf("/") > -1) arrayPesquisa.push(arrayItens[i]);
+                                    else arrayPesquisa = arrayItens[i].split(" ");
+
+                                    filtroSql += "AND ( 1<>1 ";
+                                    $.each(promptBody.find("input.dropdown-item-checkbox"), function (index, obj) {
+                                        if ($(obj).attr('checked')) {
+                                            possuiItem = true;
+                                            var tipo = "";
+                                            for (var i = 0; i < _colunas.length; i++) {
+                                                if (_colunas[i].col == obj.value) {
+                                                    tipo = _colunas[i].tp;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (tipo == "numero") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (!isNaN(arrayPesquisa[j].replace(",", "."))) filtroSql += " OR " + obj.value + " = '" + parseInt(arrayPesquisa[j].replace(",", ".")) + "' ";
+                                                }
+                                            }
+                                            else if (tipo == "moeda") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (!isNaN(arrayPesquisa[j].replace(",", "."))) filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j].replace(".", ",") + "' ";
+                                                }
+                                            }
+                                            else if (tipo == "data") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    var arrayData = arrayPesquisa[j].split("/");
+                                                    if (arrayData.length == 3) {
+                                                        var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0]);
+                                                        if (d.toString() != "Invalid Date") {
+                                                            filtroSql += " OR Convert(varchar," + obj.value + ",103) = '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + "' ";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (tipo == "datahora") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (arrayPesquisa[j].trim().length == 10) {
+                                                        var arrayData = arrayPesquisa[j].split("/");
+                                                        if (arrayData.length == 3) {
+                                                            var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0]);
+                                                            if (d.toString() != "Invalid Date") {
+                                                                filtroSql += " OR (" + obj.value + " >= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 00:00:00' ";
+                                                                filtroSql += " AND " + obj.value + " <= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 23:59:59.999') ";
+                                                            }
+                                                        }
+                                                    }
+                                                    else {
+                                                        var arrayData = arrayPesquisa[j].split(" ")[0].split("/");
+                                                        var arrayHora = null;
+                                                        if (arrayPesquisa[j].split(" ")[1]) arrayHora = arrayPesquisa[j].split(" ")[1].split(":");
+                                                        if (arrayData.length == 3 && (arrayHora.length == 3 || !arrayHora)) {
+                                                            var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0], arrayHora[0], arrayHora[1], arrayHora[2]);
+                                                            if (d.toString() != "Invalid Date") {
+                                                                if (arrayHora) {
+                                                                    filtroSql += " OR " + obj.value + " = '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) +
+                                                                        " " + (((d.getHours() + "").length == 1 ? "0" : "")) + d.getHours() + ":" + (((d.getMinutes() + "").length == 1 ? "0" : "")) + d.getMinutes() + ":" + (((d.getSeconds() + "").length == 1 ? "0" : "")) + d.getSeconds() + "' ";
+                                                                }
+                                                                else {
+                                                                    filtroSql += " OR (" + obj.value + " >= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 00:00:00' ";
+                                                                    filtroSql += " AND " + obj.value + " <= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 23:59:59.999') ";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (tipo == "flag") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (arrayPesquisa[j] == "Não") {
+                                                        arrayPesquisa[j] = 0;
+                                                        filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j] + "' ";
+                                                    }
+                                                    else if (arrayPesquisa[j] == "Sim") {
+                                                        arrayPesquisa[j] = 1;
+                                                        filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j] + "' ";
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                if (arrayPesquisa.length > 0) filtroSql += " OR ( ";
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (j > 0) filtroSql += " AND "
+                                                    filtroSql += obj.value + " LIKE '%" + arrayPesquisa[j] + "%' ";
+                                                }
+                                                if (arrayPesquisa.length > 0) filtroSql += " ) ";
+                                            }
+                                        }
+                                    });
+                                    filtroSql += ") "
+                                }
+
+                                //Adiciona filtro permanente
+                                if (filtroPermanente && filtroPermanente != "") {
+                                    filtroSql += " AND " + filtroPermanente + " ";
+                                }
+
+                                if (possuiItem) {
+                                    if (sentencaSql.toLowerCase().indexOf("exec") < 0) {
+                                        if (promptBody.find("[id=promptDropdownText]")[0].innerHTML != "Todos")
+                                            sentencaSql += filtroSql + ordenacao + " OFFSET 0 ROWS FETCH NEXT " + promptBody.find("[id=promptDropdownText]")[0].innerHTML + " ROWS ONLY";
+                                        else
+                                            sentencaSql += filtroSql + ordenacao;
+                                    }
+                                    else {
+                                        filtroSql = "'" + filtroSql.replaceAll("'", "''") + "'";
+                                        sentencaSql = sql + "," + filtroSql + "," +
+                                            (promptBody.find("[id=promptDropdownText]")[0].innerHTML != "Todos" ? "'" + promptBody.find("[id=promptDropdownText]")[0].innerHTML + "'" : "NULL");
+                                    }
+
+                                    data = Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql, structural);
+
+                                    var grid = promptGrid.data('kendoGrid');
+                                    var dataTable = grid.dataSource.data(data.Records);
+                                    grid.refresh();
+                                }
+                                else {
+                                    jAlert("Nenhuma coluna selecionada para pesquisa!", "Atenção");
+                                }
+                            }
+                            promptBody.find("[id=promptInput_tag]").focus();
+                        });
+
+                    } else {
+                        if (data) {
+                            jAlert("Nenhum registro encontrado!", "Atenção");
+                        } else {
+                            diag.dialog("close");
+                            jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list");
+                        }
+                    }
+                } else {
+                    promptBody.dialog('open');
+                }
+
+                return defer.promise();
+            }
+        },
+        Show: function (callbackFunction) {
+
+            if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+                name = $(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_", "");
+            }
+
+            limpar = false;
+
+            this.Render().then(function (value) {
+
+                if (value && value != "") {
+                    if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+
+                        if (!value.hasOwnProperty("Descricao") || !value.hasOwnProperty("Codigo")) {
+                            jError("Os campos padrões para este tipo de prompt estão ausentes na sentença SQL: Codigo e Descricao", "Erro de Configuração");
+
+                            return $.Deferred().resolve();
+                        }
+                        if (name != "") {
+                            $(sender).siblings("input[name=promptDisplay_" + name + "]").val(value.Descricao);
+                            $(sender).siblings("input[name=" + name + "]").val(value.Codigo);
+                        }
+                    }
+
+                    if (callbackFunction)
+                        callbackFunction(value);
+                }
+                else if (value == "") {
+                    if (name != "") {
+                        $(sender).siblings("input[name=promptDisplay_" + name + "]").val("");
+                        $(sender).siblings("input[name=" + name + "]").val("");
+                    }
+                }
+
+                return $.Deferred().resolve();
+            });
+        }
+    }
+};
+
+Geeks.ERP.PromptM = function (sender, promptName, sql, structural, filtroPermanente, filtroInicial) {
+    var _colunas = [];
+    var name = "";
+    var ordenacao = " ORDER BY "
+    var existeConfSelecionado = false;
+    return {
+        Configuracao: function (ordem, nome, tamanho, invisivel, coluna, tipo, tipoOrdenacao, selecionado, imagem) {
+            _colunas.push({
+                o: ordem,
+                n: nome,
+                t: tamanho,
+                i: invisivel,
+                col: coluna,
+                tp: tipo,
+                or: tipoOrdenacao,
+                sel: selecionado,
+                im: imagem
+            });
+            if (tipoOrdenacao && tipoOrdenacao != "") {
+                if (ordenacao != " ORDER BY ") ordenacao += ",";
+                ordenacao += _colunas.length + " " + tipoOrdenacao;
+            }
+            if (selecionado == 1) existeConfSelecionado = true;
+        },
+        Render: function () {
+            with (Geeks.ERP.Prompt) {
+                var columns = new Array();
+                var defer = $.Deferred();
+
+                var promptBody = $("#promptDialog_" + sender.id);
+
+                if (promptBody.length <= 0) {
+                    promptBody = $(Geeks.ERP.UI.Template.Get("ContentBodyTemplate").format(
+                        {
+                            Codigo: "#promptDialog_" + sender.id ? sender.id : sender.name
+                        }));
+
+                    var promptSearch = $(Geeks.ERP.UI.Template.Get("PromptSearchTemplate"));
+                    for (var i = 0; i < _colunas.length; i++) {
+                        if (!_colunas[i].i && _colunas[i].col.toLowerCase().indexOf("coluna") < 0) {
+                            var item = "<li id=\"dropdownItem\">" +
+                                "	<label aria-disabled=\"false\" class=\"dropdown-item\">" +
+                                "		<input name=\"" + _colunas[i].col + "\" value=\"" + _colunas[i].col + "\" class=\"dropdown-item-checkbox\" " +
+                                (((_colunas[i].sel == undefined && existeConfSelecionado == false) || _colunas[i].sel == true || _colunas[i].sel == 1) ? "checked=\"checked\"" : "") +
+                                " type=\"checkbox\"> " + _colunas[i].n +
+                                "	</label>" +
+                                "</li>";
+                            $(promptSearch).find("[id=promptColunas]").append(item);
+                        }
+                    }
+
+                    $(promptBody).append(promptSearch);
+                    $(promptBody).appendTo($(sender).parents("[ref=contentBody]")[0]);
+                    var promptGrid = $('<div></div>').appendTo(promptBody);
+
+                    promptBody.find(".contentTop").css("display", "none");
+
+                    var diag = promptBody.dialog({
+                        title: promptName,
+                        width: "70%",
+                        height: ($(window).height() * 65) / 100,
+                        resizable: true,
+                        modal: true
+                    });
+
+                    diag.dialog('open');
+                    promptBody.css("overflow", "hidden");
+
+                    procurar = function (obj) {
+                        promptBody.find("#btnPromptProcurar").click();
+                    };
+
+                    promptBody.find("[id=promptInput]").tagsInput({
+                        'height': '47px',
+                        'width': 'auto',
+                        'interactive': true,
+                        'onChange': procurar,
+                        'removeWithBackspace': true,
+                        'defaultText': 'Procurar',
+                        'placeholderColor': '#666666'
+                    });
+                    promptBody.find("[id=promptInput_tagsinput]").css("min-width", "400px");
+                    promptBody.find("[id=promptInput_tag]").focus();
+
+                    var ulBotoes = $("<ul name='MenuBotoes'><ul>")
+                        .prependTo(promptBody.find('.breadLine > .breadLinks'))
+                        .append(Geeks.ERP.UI.Tela.MontaBotoes([
+                            {
+                                Nome: "Selecionar",
+                                Valor: "Selecionar",
+                                CodigoBotao: "P1",
+                                Icone: "icon-checkmark"
+                            },
+                            {
+                                Nome: "Cancelar",
+                                Valor: "Cancelar",
+                                CodigoBotao: "P2",
+                                Icone: "icon-minus"
+                            },
+                            {
+                                Nome: "Limpar",
+                                Valor: "Limpar",
+                                CodigoBotao: "P3",
+                                Icone: "icon-x"
+                            }
+                        ], null));
+
+                    diag.on('dialogclose', function (event) {
+                        diag.remove();
+                    });
+
+                    function getType(campoType) {
+                        switch (campoType) {
+                            case "Int32":
+                                return "number";
+                            case "Int64":
+                                return "number";
+                            case "Decimal":
+                                return "number";
+                            case "DateTime":
+                                return "date";
+                            case "Bit":
+                                return "boolean";
+                            case "numero":
+                                return "number";
+                            case "moeda":
+                                return "number";
+                            case "data":
+                                return "date";
+                            case "datahora":
+                                return "date";
+                            case "flag":
+                                return "boolean";
+                            default:
+                                return "string";
+                        }
+                    }
+
+                    //Traz apenas os 25 primeiros da sql inicial
+                    var sentencaSql = "Select * from ( " + sql + ") ss ";
+                    var where = "";
+                    if (filtroPermanente && filtroPermanente != "") {
+                        where += " WHERE " + filtroPermanente;
+                    }
+                    if (filtroInicial && filtroInicial != "") {
+                        if (where.toLowerCase().indexOf("where") < 0)
+                            where += "  WHERE " + filtroInicial;
+                        else where += " AND " + filtroInicial;
+                    }
+                    sentencaSql += where;
+                    if (ordenacao == " ORDER BY ") ordenacao += "1 ";
+                    sentencaSql += ordenacao + " OFFSET 0 ROWS FETCH NEXT 25 ROWS ONLY";
+                    var data;
+
+                    if (sql.toLowerCase().indexOf("exec") < 0)
+                        data = Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql, structural);
+                    else {
+                        where = "'" + where.replaceAll("'", "''") + "'";
+                        data = Geeks.ERP.Core.Connection.ExecuteSQL(sql + "," + where + ",25", structural);
+                    }
+
+                    if (data && !data.HasError) {
+                        $.each(data.Columns, function (index, campo) {
+                            var result = _colunas.length > index ? _colunas[index] : {
+                                o: index,
+                                n: campo.ColumnName,
+                                t: 100,
+                                i: true,
+                                im: false
+                            };
+
+                            columns.push({
+                                field: campo.ColumnName,
+                                type: getType(campo.ColumnType),
+                                width: result.t + 'px',
+                                title: result.n,
+                                hidden: ((result.i) ? true : false),
+                                filterable: {
+                                    cell: {
+                                        showOperators: true,
+                                        suggestionOperator: "contains"
+                                    },
+                                }
+                            });
+
+                            if (getType(campo.ColumnType) == "number" && !result.im) {
+                                columns[columns.length - 1].filterable.ui = function (element) {
+                                    element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                };
+
+                                columns[columns.length - 1].filterable.cell.template = function (args) {
+                                    args.element.kendoNumericTextBox({
+                                        format: "n0",
+                                        decimals: 0
+                                    });
+                                }
+                            } else if (result.im) {
+                                columns[columns.length - 1].template = "<div style='text-align: center;'><i class='#:data." + columns[columns.length - 1].field + "#'/></div>";
+                                columns[columns.length - 1].filterable = false;
+                            }
+                        });
+
+                        promptGrid.kendoGrid({
+                            //autoBind: true,
+                            columns: columns,
+                            dataSource: {
+                                type: "json",
+                                data: data.Records,
+                                pageSize: 25,
+                                page: 1
+                            },
+                            groupable: false,
+                            selectable: "multiple",
+                            sortable: true,
+                            reorderable: true,
+                            resizable: true,
+                            navigatable: true,
+                            height: "50%",
+                            refresh: true,
+                            pageable: {
+                                previousNext: true,
+                                numeric: true,
+                                pageSize: 25,
+                                pageSizes: false,
+                                messages: {
+                                    display: "mostrando {0} - {1} de {2} registros"
+                                }
+                            },
+                            dataBound: function (e) {
+                                promptGrid.find(".k-grid-content").find("tr").addClass("noselect");
+                                promptGrid.find(".k-grid-content").find("tr").unbind("dblclick");
+                                promptGrid.find(".k-grid-content").find("tr").dblclick(function () {
+                                    ulBotoes.find("a[name=btn_Selecionar]").click();
+                                });
+                            }
+                        });
+
+                        promptGrid.data("kendoGrid").table.on("keydown", function (e) {
+                            var keycode = (e.keyCode ? e.keyCode : e.which);
+                            if (keycode == '13') {
+                                //Seleciona a linha
+                                ulBotoes.find("a[name=btn_Selecionar]").click();
+                            }
+                            else if (keycode == '38' || keycode == '40') {
+                                setTimeout(function () {
+                                    promptGrid.data("kendoGrid").clearSelection();
+                                    promptGrid.data("kendoGrid").select($(".k-state-focused").closest("tr"));
+                                });
+                            }
+                        });
+
+                        promptBody.find("[id=promptInput_tag]").on("keydown", function (e) {
+                            var keycode = (e.keyCode ? e.keyCode : e.which);
+                            if (keycode == '9') {
+                                e.preventDefault();
+                                var row = promptGrid.data("kendoGrid").tbody.find("tr:first");
+                                promptGrid.data("kendoGrid").select(row);
+                                promptGrid.data("kendoGrid").table.focus();
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Selecionar]").click(function () {
+                            var grid = promptGrid.data('kendoGrid');
+                            //var column = grid.columns[0].field;
+                            var selectedRows = grid.select();
+                            if (selectedRows) {
+                                var retorno = [];
+                                if (selectedRows.length > 0) {
+                                    for (var i = 0; i < selectedRows.length; i++) {
+                                        var selectedItem = grid.dataItem(selectedRows[i]);
+                                        retorno.push(selectedItem.Codigo);
+                                    }
+                                }
+                                diag.dialog("close");
+                                defer.resolve(retorno);
+
+                            } else {
+                                jAlert('Você deve selecionar uma linha', "Atenção");
+                            }
+                        });
+
+                        ulBotoes.find("a[name=btn_Limpar]").click(function () {
+                            defer.resolve("");
+                            diag.dialog("close");
+                        });
+
+                        var campoRetorno = "";
+                        if ($(sender).siblings("input[name^=promptDisplay_]").length > 0) {
+                            campoRetorno = $(sender).siblings("input[name^=promptDisplay_]").attr("name").replace("promptDisplay_", "");
+                        }
+                        if (campoRetorno == "") ulBotoes.find("a[name=btn_Limpar]").hide();
+
+                        ulBotoes.find("a[name=btn_Cancelar]").off();
+                        ulBotoes.find("a[name=btn_Cancelar]").click(function () {
+                            defer.resolve(null);
+                            diag.dialog("close");
+                            diag.remove();
+                        });
+
+                        var resizeFunction = function () {
+                            var promptHeight = promptBody.outerHeight() - 30;
+
+                            promptBody.find(".k-grid").siblings(":visible").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptHeight--;
+                            promptBody.find(".k-grid").height(promptHeight);
+
+                            promptBody.find(".k-grid").children(":visible").not(".k-grid-content").each(function (index, value) {
+                                promptHeight -= $(value).outerHeight();
+                            });
+
+                            promptHeight--;
+                            promptBody.find(".k-grid-content").height(promptHeight);
+                        };
+
+                        resizeFunction();
+                        promptBody.resize(resizeFunction);
+
+                        promptBody.find("a.dropdown-item-button").click(function (obj) {
+                            promptBody.find("[id=promptDropdownText]")[0].innerHTML = obj.currentTarget.innerText;
+                            promptBody.find("[id=promptItem]").removeClass("active");
+                            obj.currentTarget.parentElement.classList.add("active");
+                        });
+
+                        promptBody.find("input.dropdown-item-checkbox").click(function () {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            }
+                            event.cancelBubble = true;
+                        });
+
+                        promptBody.find("li[id=dropdownItem]").click(function () {
+                            var obj = $(this);
+                            if (obj[0].children[0].children[0].checked) obj[0].children[0].children[0].checked = false;
+                            else obj[0].children[0].children[0].checked = true;
+                        });
+
+                        promptBody.find("#promptInput").keyup(function (e) {
+                            if (e.which == 13) {
+                                promptBody.find("#btnPromptProcurar").click();
+                            }
+                        });
+
+                        promptBody.find("#btnPromptProcurar").click(function () {
+                            //Monta query dinamica
+                            promptBody.find("#btnPromptProcurar").focus();
+                            var sentencaSql = "Select * from ( " + sql + ") ss ";
+                            var filtroSql = "";
+                            var textoPesquisa = promptBody.find("[id=promptInput]").val();
+                            if (textoPesquisa.trim() != "") {
+                                var arrayItens = [];
+                                arrayItens = textoPesquisa.split(",");
+                                if (arrayItens[arrayItens.length - 1] == "") {
+                                    arrayItens = arrayItens.splice(arrayItens.length - 2, 1);
+                                }
+                                filtroSql += " WHERE 1=1 ";
+                                var possuiItem = false;
+                                for (var i = 0; i < arrayItens.length; i++) {
+                                    var arrayPesquisa = [];
+                                    if (arrayItens[i].indexOf("\"") == 0) arrayPesquisa.push(arrayItens[i].substr(1, (arrayItens[i].length - 2)));
+                                    else if (arrayItens[i].indexOf("/") > -1) arrayPesquisa.push(arrayItens[i]);
+                                    else arrayPesquisa = arrayItens[i].split(" ");
+
+                                    filtroSql += "AND ( 1<>1 ";
+                                    $.each(promptBody.find("input.dropdown-item-checkbox"), function (index, obj) {
+                                        if ($(obj).attr('checked')) {
+                                            possuiItem = true;
+                                            var tipo = "";
+                                            for (var i = 0; i < _colunas.length; i++) {
+                                                if (_colunas[i].col == obj.value) {
+                                                    tipo = _colunas[i].tp;
+                                                    break;
+                                                }
+                                            }
+
+                                            if (tipo == "numero") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (!isNaN(arrayPesquisa[j].replace(",", "."))) filtroSql += " OR " + obj.value + " = '" + parseInt(arrayPesquisa[j].replace(",", ".")) + "' ";
+                                                }
+                                            }
+                                            else if (tipo == "moeda") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (!isNaN(arrayPesquisa[j].replace(",", "."))) filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j].replace(".", ",") + "' ";
+                                                }
+                                            }
+                                            else if (tipo == "data") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    var arrayData = arrayPesquisa[j].split("/");
+                                                    if (arrayData.length == 3) {
+                                                        var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0]);
+                                                        if (d.toString() != "Invalid Date") {
+                                                            filtroSql += " OR Convert(varchar," + obj.value + ",103) = '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + "' ";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (tipo == "datahora") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (arrayPesquisa[j].trim().length == 10) {
+                                                        var arrayData = arrayPesquisa[j].split("/");
+                                                        if (arrayData.length == 3) {
+                                                            var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0]);
+                                                            if (d.toString() != "Invalid Date") {
+                                                                filtroSql += " OR (" + obj.value + " >= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 00:00:00' ";
+                                                                filtroSql += " AND " + obj.value + " <= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 23:59:59.999') ";
+                                                            }
+                                                        }
+                                                    }
+                                                    else {
+                                                        var arrayData = arrayPesquisa[j].split(" ")[0].split("/");
+                                                        var arrayHora = null;
+                                                        if (arrayPesquisa[j].split(" ")[1]) arrayHora = arrayPesquisa[j].split(" ")[1].split(":");
+                                                        if (arrayData.length == 3 && (arrayHora.length == 3 || !arrayHora)) {
+                                                            var d = new Date(arrayData[2], parseInt(arrayData[1]) - 1, arrayData[0], arrayHora[0], arrayHora[1], arrayHora[2]);
+                                                            if (d.toString() != "Invalid Date") {
+                                                                if (arrayHora) {
+                                                                    filtroSql += " OR " + obj.value + " = '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) +
+                                                                        " " + (((d.getHours() + "").length == 1 ? "0" : "")) + d.getHours() + ":" + (((d.getMinutes() + "").length == 1 ? "0" : "")) + d.getMinutes() + ":" + (((d.getSeconds() + "").length == 1 ? "0" : "")) + d.getSeconds() + "' ";
+                                                                }
+                                                                else {
+                                                                    filtroSql += " OR (" + obj.value + " >= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 00:00:00' ";
+                                                                    filtroSql += " AND " + obj.value + " <= '" + ((((d.getDate() + "").length == 1 ? "0" : "")) + d.getDate() + '/' + ((((d.getMonth() + 1) + "").length == 1 ? "0" : "")) + (d.getMonth() + 1) + '/' + d.getFullYear()) + " 23:59:59.999') ";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (tipo == "flag") {
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (arrayPesquisa[j] == "Não") {
+                                                        arrayPesquisa[j] = 0;
+                                                        filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j] + "' ";
+                                                    }
+                                                    else if (arrayPesquisa[j] == "Sim") {
+                                                        arrayPesquisa[j] = 1;
+                                                        filtroSql += " OR " + obj.value + " = '" + arrayPesquisa[j] + "' ";
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                if (arrayPesquisa.length > 0) filtroSql += " OR ( ";
+                                                for (var j = 0; j < arrayPesquisa.length; j++) {
+                                                    if (j > 0) filtroSql += " AND "
+                                                    filtroSql += obj.value + " LIKE '%" + arrayPesquisa[j] + "%' ";
+                                                }
+                                                if (arrayPesquisa.length > 0) filtroSql += " ) ";
+                                            }
+                                        }
+                                    });
+                                    filtroSql += ") "
+                                }
+
+                                //Adiciona filtro permanente
+                                if (filtroPermanente && filtroPermanente != "") {
+                                    filtroSql += " AND " + filtroPermanente + " ";
+                                }
+
+                                if (possuiItem) {
+                                    if (sentencaSql.toLowerCase().indexOf("exec") < 0) {
+                                        if (promptBody.find("[id=promptDropdownText]")[0].innerHTML != "Todos")
+                                            sentencaSql += filtroSql + ordenacao + " OFFSET 0 ROWS FETCH NEXT " + promptBody.find("[id=promptDropdownText]")[0].innerHTML + " ROWS ONLY";
+                                        else
+                                            sentencaSql += filtroSql + ordenacao;
+                                    }
+                                    else {
+                                        filtroSql = "'" + filtroSql.replaceAll("'", "''") + "'";
+                                        sentencaSql = sql + "," + filtroSql + "," +
+                                            (promptBody.find("[id=promptDropdownText]")[0].innerHTML != "Todos" ? "'" + promptBody.find("[id=promptDropdownText]")[0].innerHTML + "'" : "NULL");
+                                    }
+
+                                    data = Geeks.ERP.Core.Connection.ExecuteSQL(sentencaSql, structural);
+
+                                    var grid = promptGrid.data('kendoGrid');
+                                    var dataTable = grid.dataSource.data(data.Records);
+                                    grid.refresh();
+                                }
+                                else {
+                                    jAlert("Nenhuma coluna selecionada para pesquisa!", "Atenção");
+                                }
+                            }
+                            promptBody.find("[id=promptInput_tag]").focus();
+                        });
+
+                    } else {
+                        if (data) {
+                            jAlert("Nenhum registro encontrado!", "Atenção");
+                        } else {
+                            diag.dialog("close");
+                            jError("A rotina do prompt list retornou um dado inesperado. Verifique a sentença e as configurações do prompt list");
+                        }
+                    }
+                } else {
+                    promptBody.dialog('open');
+                }
+
+                return defer.promise();
+            }
+        },
+        Show: function (callbackFunction) {
+
+            this.Render().then(function (retorno) {
+
+                if (callbackFunction) callbackFunction(retorno);
+
+                return $.Deferred().resolve();
+            });
+        }
+    }
+};

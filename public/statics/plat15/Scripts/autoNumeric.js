@@ -1,1 +1,1298 @@
-!function(e){"use strict";function t(e,t,a){if(void 0===e.selectionStart){e.focus();var n=e.createTextRange();n.collapse(!0),n.moveEnd("character",a),n.moveStart("character",t),n.select()}else e.selectionStart=t,e.selectionEnd=a}function a(e,t){"string"==typeof e[t]&&(e[t]*=1)}function n(t,n){!function(t,a){e.each(a,(function(e,n){"function"==typeof n?a[e]=n(t,a,e):"function"==typeof t.autoNumeric[n]&&(a[e]=t.autoNumeric[n](t,a,e))}))}(t,n),n.oEvent=null,n.tagList=["b","caption","cite","code","dd","del","div","dfn","dt","em","h1","h2","h3","h4","h5","h6","ins","kdb","label","li","output","p","q","s","sample","span","strong","td","th","u","var"];var i=n.vMax.toString().split("."),r=n.vMin||0===n.vMin?n.vMin.toString().split("."):[];if(a(n,"vMax"),a(n,"vMin"),a(n,"mDec"),n.mDec="CHF"===n.mRound?"2":n.mDec,n.allowLeading=!0,n.aNeg=n.vMin<0?"-":"",i[0]=i[0].replace("-",""),r[0]=r[0].replace("-",""),n.mInt=Math.max(i[0].length,r[0].length,1),null===n.mDec){var o=0,s=0;i[1]&&(o=i[1].length),r[1]&&(s=r[1].length),n.mDec=Math.max(o,s)}null===n.altDec&&n.mDec>0&&("."===n.aDec&&","!==n.aSep?n.altDec=",":","===n.aDec&&"."!==n.aSep&&(n.altDec="."));var u=n.aNeg?"([-\\"+n.aNeg+"]?)":"(-?)";n.aNegRegAutoStrip=u,n.skipFirstAutoStrip=new RegExp(u+"[^-"+(n.aNeg?"\\"+n.aNeg:"")+"\\"+n.aDec+"\\d].*?(\\d|\\"+n.aDec+"\\d)"),n.skipLastAutoStrip=new RegExp("(\\d\\"+n.aDec+"?)[^\\"+n.aDec+"\\d]\\D*$");var l="-"+n.aNum+"\\"+n.aDec;return n.allowedAutoStrip=new RegExp("[^"+l+"]","gi"),n.numRegAutoStrip=new RegExp(u+"(?:\\"+n.aDec+"?(\\d+\\"+n.aDec+"\\d+)|(\\d*(?:\\"+n.aDec+"\\d*)?))"),n}function i(e,t,a){if(t.aSign)for(;e.indexOf(t.aSign)>-1;)e=e.replace(t.aSign,"");e=(e=(e=e.replace(t.skipFirstAutoStrip,"$1$2")).replace(t.skipLastAutoStrip,"$1")).replace(t.allowedAutoStrip,""),t.altDec&&(e=e.replace(t.altDec,t.aDec));var n=e.match(t.numRegAutoStrip);if(e=n?[n[1],n[2],n[3]].join(""):"",("allow"===t.lZero||"keep"===t.lZero)&&"strip"!==a){var i=[],r="";-1!==(i=e.split(t.aDec))[0].indexOf("-")&&(r="-",i[0]=i[0].replace("-","")),i[0].length>t.mInt&&"0"===i[0].charAt(0)&&(i[0]=i[0].slice(1)),e=r+i.join(t.aDec)}if(a&&"deny"===t.lZero||a&&"allow"===t.lZero&&!1===t.allowLeading){var o="^"+t.aNegRegAutoStrip+"0*(\\d"+("leading"===a?")":"|$)");o=new RegExp(o),e=e.replace(o,"$1$2")}return e}function r(e,t,a){return t=t.split(","),"set"===a||"focusout"===a?(e=e.replace("-",""),e=t[0]+e+t[1]):"get"!==a&&"focusin"!==a&&"pageLoad"!==a||e.charAt(0)!==t[0]||(e=(e=e.replace(t[0],"-")).replace(t[1],"")),e}function o(e,t,a){if(t&&a){var n=e.split(t);n[1]&&n[1].length>a&&(a>0?(n[1]=n[1].substring(0,a),e=n.join(t)):e=n[0])}return e}function s(e,t,a){return t&&"."!==t&&(e=e.replace(t,".")),a&&"-"!==a&&(e=e.replace(a,"-")),e.match(/\d/)||(e+="0"),e}function u(e,t){if(e){var a=+e;if(a<1e-6&&a>-1)(e=+e)<1e-6&&e>0&&(e=(e=(e+10).toString()).substring(1)),e<0&&e>-1&&(e="-"+(e=(e-10).toString()).substring(2)),e=e.toString();else{var n=e.split(".");void 0!==n[1]&&(0==+n[1]?e=n[0]:(n[1]=n[1].replace(/0*$/,""),e=n.join(".")))}}return"keep"===t.lZero?e:e.replace(/^0*(\d)/,"$1")}function l(e,t,a){return a&&"-"!==a&&(e=e.replace("-",a)),t&&"."!==t&&(e=e.replace(".",t)),e}function c(t,a){var n=+(t=s(t=o(t=i(t,a),a.aDec,a.mDec),a.aDec,a.aNeg));return"set"===a.oEvent&&(n<a.vMin||n>a.vMax)&&e.error("The value ("+n+") from the 'set' method falls outside of the vMin / vMax range"),n>=a.vMin&&n<=a.vMax}function h(e,t,a){return""===e||e===t.aNeg?"zero"===t.wEmpty?e+"0":"sign"===t.wEmpty||a?e+t.aSign:e:null}function p(e,t){var a=(e=i(e,t)).replace(",","."),n=h(e,t,!0);if(null!==n)return n;var o="";o=2===t.dGroup?/(\d)((\d)(\d{2}?)+)$/:4===t.dGroup?/(\d)((\d{4}?)+)$/:/(\d)((\d{3}?)+)$/;var s=e.split(t.aDec);t.altDec&&1===s.length&&(s=e.split(t.altDec));var u=s[0];if(t.aSep)for(;o.test(u);)u=u.replace(o,"$1"+t.aSep+"$2");if(0!==t.mDec&&s.length>1?(s[1].length>t.mDec&&(s[1]=s[1].substring(0,t.mDec)),e=u+t.aDec+s[1]):e=u,t.aSign){var l=-1!==e.indexOf(t.aNeg);e=e.replace(t.aNeg,""),e="p"===t.pSign?t.aSign+e:e+t.aSign,l&&(e=t.aNeg+e)}return"set"===t.oEvent&&a<0&&null!==t.nBracket&&(e=r(e,t.nBracket,t.oEvent)),e}function g(e,t){e=""===e?"0":e.toString(),a(t,"mDec"),"CHF"===t.mRound&&(e=(Math.round(20*e)/20).toString());var n="",i=0,r="",o="boolean"==typeof t.aPad||null===t.aPad?t.aPad?t.mDec:0:+t.aPad,s=function(e){var t=0===o?/(\.(?:\d*[1-9])?)0*$/:1===o?/(\.\d(?:\d*[1-9])?)0*$/:new RegExp("(\\.\\d{"+o+"}(?:\\d*[1-9])?)0*$");return e=e.replace(t,"$1"),0===o&&(e=e.replace(/\.$/,"")),e};"-"===e.charAt(0)&&(r="-",e=e.replace("-","")),e.match(/^\d/)||(e="0"+e),"-"===r&&0==+e&&(r=""),(+e>0&&"keep"!==t.lZero||e.length>0&&"allow"===t.lZero)&&(e=e.replace(/^0*(\d)/,"$1"));var u=e.lastIndexOf("."),l=-1===u?e.length-1:u,c=e.length-1-l;if(c<=t.mDec){if(n=e,c<o){-1===u&&(n+=".");for(var h="000000";c<o;)n+=h=h.substring(0,o-c),c+=h.length}else c>o?n=s(n):0===c&&0===o&&(n=n.replace(/\.$/,""));if("CHF"!==t.mRound)return 0==+n?n:r+n;"CHF"===t.mRound&&(u=n.lastIndexOf("."),e=n)}var p=u+t.mDec,g=+e.charAt(p+1),d=e.substring(0,p+1).split(""),f="."===e.charAt(p)?e.charAt(p-1)%2:e.charAt(p)%2,v=!0;if(1!==f&&(f=0===f&&e.substring(p+2,e.length)>0?1:0),g>4&&"S"===t.mRound||g>4&&"A"===t.mRound&&""===r||g>5&&"A"===t.mRound&&"-"===r||g>5&&"s"===t.mRound||g>5&&"a"===t.mRound&&""===r||g>4&&"a"===t.mRound&&"-"===r||g>5&&"B"===t.mRound||5===g&&"B"===t.mRound&&1===f||g>0&&"C"===t.mRound&&""===r||g>0&&"F"===t.mRound&&"-"===r||g>0&&"U"===t.mRound||"CHF"===t.mRound)for(i=d.length-1;i>=0;i-=1)if("."!==d[i]){if("CHF"===t.mRound&&d[i]<=2&&v){d[i]=0,v=!1;break}if("CHF"===t.mRound&&d[i]<=7&&v){d[i]=5,v=!1;break}if("CHF"===t.mRound&&v?(d[i]=10,v=!1):d[i]=+d[i]+1,d[i]<10)break;i>0&&(d[i]="0")}return 0==+(n=s((d=d.slice(0,p+1)).join("")))?n:r+n}function d(t,a){this.settings=a,this.that=t,this.$that=e(t),this.formatted=!1,this.settingsClone=n(this.$that,this.settings),this.value=t.value}function f(t){return"string"==typeof t&&(t="#"+(t=t.replace(/\[/g,"\\[").replace(/\]/g,"\\]")).replace(/(:|\.)/g,"\\$1")),e(t)}function v(e,t,a){var n=e.data("autoNumeric");n||(n={},e.data("autoNumeric",n));var i=n.holder;return(void 0===i&&t||a)&&(i=new d(e.get(0),t),n.holder=i),i}d.prototype={init:function(e){this.value=this.that.value,this.settingsClone=n(this.$that,this.settings),this.ctrlKey=e.ctrlKey,this.cmdKey=e.metaKey,this.shiftKey=e.shiftKey,this.selection=function(e){var t={};if(void 0===e.selectionStart){e.focus();var a=document.selection.createRange();t.length=a.text.length,a.moveStart("character",-e.value.length),t.end=a.text.length,t.start=t.end-t.length}else t.start=e.selectionStart,t.end=e.selectionEnd,t.length=t.end-t.start;return t}(this.that),"keydown"!==e.type&&"keyup"!==e.type||(this.kdCode=e.keyCode),this.which=e.which,this.processed=!1,this.formatted=!1},setSelection:function(e,a,n){e=Math.max(e,0),a=Math.min(a,this.that.value.length),this.selection={start:e,end:a,length:a-e},(void 0===n||n)&&t(this.that,e,a)},setPosition:function(e,t){this.setSelection(e,e,t)},getBeforeAfter:function(){var e=this.value;return[e.substring(0,this.selection.start),e.substring(this.selection.end,e.length)]},getBeforeAfterStriped:function(){var e=this.getBeforeAfter();return e[0]=i(e[0],this.settingsClone),e[1]=i(e[1],this.settingsClone),e},normalizeParts:function(e,t){var a=this.settingsClone;t=i(t,a),""!==(e=i(e,a,!!t.match(/^\d/)||"leading"))&&e!==a.aNeg||"deny"!==a.lZero||t>""&&(t=t.replace(/^0*(\d)/,"$1"));var n=e+t;if(a.aDec){var r=n.match(new RegExp("^"+a.aNegRegAutoStrip+"\\"+a.aDec));r&&(n=(e=e.replace(r[1],r[1]+"0"))+t)}return"zero"!==a.wEmpty||n!==a.aNeg&&""!==n||(e+="0"),[e,t]},setValueParts:function(e,t){var a=this.settingsClone,n=this.normalizeParts(e,t),i=n.join(""),r=n[0].length;return!!c(i,a)&&(r>(i=o(i,a.aDec,a.mDec)).length&&(r=i.length),this.value=i,this.setPosition(r,!1),!0)},signPosition:function(){var e=this.settingsClone,t=e.aSign,a=this.that;if(t){var n=t.length;if("p"===e.pSign)return e.aNeg&&a.value&&a.value.charAt(0)===e.aNeg?[1,n+1]:[0,n];var i=a.value.length;return[i-n,i]}return[1e3,-1]},expandSelectionOnSign:function(e){var t=this.signPosition(),a=this.selection;a.start<t[1]&&a.end>t[0]&&((a.start<t[0]||a.end>t[1])&&this.value.substring(Math.max(a.start,t[0]),Math.min(a.end,t[1])).match(/^\s*$/)?a.start<t[0]?this.setSelection(a.start,t[0],e):this.setSelection(t[1],a.end,e):this.setSelection(Math.min(a.start,t[0]),Math.max(a.end,t[1]),e))},checkPaste:function(){if(void 0!==this.valuePartsBeforePaste){var e=this.getBeforeAfter(),t=this.valuePartsBeforePaste;delete this.valuePartsBeforePaste,e[0]=e[0].substr(0,t[0].length)+i(e[0].substr(t[0].length),this.settingsClone),this.setValueParts(e[0],e[1])||(this.value=t.join(""),this.setPosition(t[0].length,!1))}},skipAllways:function(e){var t=this.kdCode,a=this.which,n=this.ctrlKey,i=this.cmdKey,r=this.shiftKey;if((n||i)&&"keyup"===e.type&&void 0!==this.valuePartsBeforePaste||r&&45===t)return this.checkPaste(),!1;if(t>=112&&t<=123||t>=91&&t<=93||t>=9&&t<=31||t<8&&(0===a||a===t)||144===t||145===t||45===t)return!0;if((n||i)&&65===t)return!0;if((n||i)&&(67===t||86===t||88===t))return"keydown"===e.type&&this.expandSelectionOnSign(),86!==t&&45!==t||("keydown"===e.type||"keypress"===e.type?void 0===this.valuePartsBeforePaste&&(this.valuePartsBeforePaste=this.getBeforeAfter()):this.checkPaste()),"keydown"===e.type||"keypress"===e.type||67===t;if(n||i)return!0;if(37===t||39===t){var o=this.settingsClone.aSep,s=this.selection.start,u=this.that.value;return"keydown"===e.type&&o&&!this.shiftKey&&(37===t&&u.charAt(s-2)===o?this.setPosition(s-1):39===t&&u.charAt(s+1)===o&&this.setPosition(s+1)),!0}return t>=34&&t<=40},processAllways:function(){var e;return(8===this.kdCode||46===this.kdCode)&&(this.selection.length?(this.expandSelectionOnSign(!1),e=this.getBeforeAfterStriped(),this.setValueParts(e[0],e[1])):(e=this.getBeforeAfterStriped(),8===this.kdCode?e[0]=e[0].substring(0,e[0].length-1):e[1]=e[1].substring(1,e[1].length),this.setValueParts(e[0],e[1])),!0)},processKeypress:function(){var e=this.settingsClone,t=String.fromCharCode(this.which),a=this.getBeforeAfterStriped(),n=a[0],i=a[1];return t===e.aDec||e.altDec&&t===e.altDec||("."===t||","===t)&&110===this.kdCode?!e.mDec||!e.aDec||(e.aNeg&&i.indexOf(e.aNeg)>-1||n.indexOf(e.aDec)>-1||i.indexOf(e.aDec)>0||(0===i.indexOf(e.aDec)&&(i=i.substr(1)),this.setValueParts(n+e.aDec,i)),!0):"-"===t||"+"===t?!e.aNeg||(""===n&&i.indexOf(e.aNeg)>-1&&(n=e.aNeg,i=i.substring(1,i.length)),n=n.charAt(0)===e.aNeg?n.substring(1,n.length):"-"===t?e.aNeg+n:n,this.setValueParts(n,i),!0):!(t>="0"&&t<="9"&&(e.aNeg&&""===n&&i.indexOf(e.aNeg)>-1&&(n=e.aNeg,i=i.substring(1,i.length)),e.vMax<=0&&e.vMin<e.vMax&&-1===this.value.indexOf(e.aNeg)&&"0"!==t&&(n=e.aNeg+n),this.setValueParts(n+t,i),0))},formatQuick:function(){var e=this.settingsClone,t=this.getBeforeAfterStriped(),a=this.value;if((""===e.aSep||""!==e.aSep&&-1===a.indexOf(e.aSep))&&(""===e.aSign||""!==e.aSign&&-1===a.indexOf(e.aSign))){var n=[],i="";(n=a.split(e.aDec))[0].indexOf("-")>-1&&(i="-",n[0]=n[0].replace("-",""),t[0]=t[0].replace("-","")),n[0].length>e.mInt&&"0"===t[0].charAt(0)&&(t[0]=t[0].slice(1)),t[0]=i+t[0]}var r=p(this.value,this.settingsClone),o=r.length;if(r){for(var s=t[0].split(""),u=0;u<s.length;u+=1)s[u].match("\\d")||(s[u]="\\"+s[u]);var l=new RegExp("^.*?"+s.join(".*?")),c=r.match(l);c?(0===(o=c[0].length)&&r.charAt(0)!==e.aNeg||1===o&&r.charAt(0)===e.aNeg)&&e.aSign&&"p"===e.pSign&&(o=this.settingsClone.aSign.length+("-"===r.charAt(0)?1:0)):e.aSign&&"s"===e.pSign&&(o-=e.aSign.length)}this.that.value=r,this.setPosition(o),this.formatted=!0}};var m={init:function(a){return this.each((function(){var n=e(this),o=n.data("autoNumeric"),u=n.data();if("object"==typeof o)return this;if((o=e.extend({},{aNum:"0123456789",aSep:",",dGroup:"3",aDec:".",altDec:null,aSign:"",pSign:"p",vMax:"9999999999999.99",vMin:"0.00",mDec:null,mRound:"S",aPad:!0,nBracket:null,wEmpty:"empty",lZero:"allow",aForm:!0,onSomeEvent:function(){}},u,a)).aDec===o.aSep)return e.error("autoNumeric will not function properly when the decimal character aDec: '"+o.aDec+"' and thousand separator aSep: '"+o.aSep+"' are the same character"),this;n.data("autoNumeric",o),o.runOnce=!1;var d=v(n,o);if(-1===e.inArray(n.prop("tagName").toLowerCase(),o.tagList)&&"input"!==n.prop("tagName").toLowerCase())return e.error("The <"+n.prop("tagName").toLowerCase()+"> is not supported by autoNumeric()"),this;if(!1===o.runOnce&&o.aForm){if(n.is("input[type=text], input[type=hidden], input[type=tel], input:not([type])")){var f=!0;""===n[0].value&&"empty"===o.wEmpty&&(n[0].value="",f=!1),""===n[0].value&&"sign"===o.wEmpty&&(n[0].value=o.aSign,f=!1),f&&n.autoNumeric("set",n.val())}-1!==e.inArray(n.prop("tagName").toLowerCase(),o.tagList)&&""!==n.text()&&n.autoNumeric("set",n.text())}o.runOnce=!0,n.is("input[type=text], input[type=hidden], input[type=tel], input:not([type])")&&(n.on("keydown.autoNumeric",(function(t){return(d=v(n)).settings.aDec===d.settings.aSep?(e.error("autoNumeric will not function properly when the decimal character aDec: '"+d.settings.aDec+"' and thousand separator aSep: '"+d.settings.aSep+"' are the same character"),this):d.that.readOnly?(d.processed=!0,!0):(d.init(t),d.settings.oEvent="keydown",d.skipAllways(t)?(d.processed=!0,!0):d.processAllways()?(d.processed=!0,d.formatQuick(),t.preventDefault(),!1):(d.formatted=!1,!0))})),n.on("keypress.autoNumeric",(function(e){var t=v(n),a=t.processed;return t.init(e),t.settings.oEvent="keypress",!!t.skipAllways(e)||(a?(e.preventDefault(),!1):t.processAllways()||t.processKeypress()?(t.formatQuick(),e.preventDefault(),!1):void(t.formatted=!1))})),n.on("keyup.autoNumeric",(function(e){var a=v(n);a.init(e),a.settings.oEvent="keyup";var i=a.skipAllways(e);return a.kdCode=0,delete a.valuePartsBeforePaste,n[0].value===a.settings.aSign&&("s"===a.settings.pSign?t(this,0,0):t(this,a.settings.aSign.length,a.settings.aSign.length)),!!i||""===this.value||void(a.formatted||a.formatQuick())})),n.on("focusin.autoNumeric",(function(){var e=v(n);if(e.settingsClone.oEvent="focusin",null!==e.settingsClone.nBracket){var a=n.val();n.val(r(a,e.settingsClone.nBracket,e.settingsClone.oEvent))}e.inVal=n.val();var i=h(e.inVal,e.settingsClone,!0);null!==i&&(n.val(i),"s"===e.settings.pSign?t(this,0,0):t(this,e.settings.aSign.length,e.settings.aSign.length))})),n.on("focusout.autoNumeric",(function(){var e=v(n),t=e.settingsClone,a=n.val(),o=a;e.settingsClone.oEvent="focusout";var u="";"allow"===t.lZero&&(t.allowLeading=!1,u="leading"),""!==a&&(a=null===h(a=i(a,t,u),t)&&c(a,t,n[0])?l(a=g(a=s(a,t.aDec,t.aNeg),t),t.aDec,t.aNeg):"");var d=h(a,t,!1);null===d&&(d=p(a,t)),d!==o&&n.val(d),d!==e.inVal&&(n.change(),delete e.inVal),null!==t.nBracket&&n.autoNumeric("get")<0&&(e.settingsClone.oEvent="focusout",n.val(r(n.val(),t.nBracket,t.oEvent)))})))}))},destroy:function(){return e(this).each((function(){var t=e(this);t.off(".autoNumeric"),t.removeData("autoNumeric")}))},update:function(t){return e(this).each((function(){var a=f(e(this)),n=a.data("autoNumeric");if("object"!=typeof n)return e.error("You must initialize autoNumeric('init', {options}) prior to calling the 'update' method"),this;var i=a.autoNumeric("get");return v(a,n=e.extend(n,t),!0),n.aDec===n.aSep?(e.error("autoNumeric will not function properly when the decimal character aDec: '"+n.aDec+"' and thousand separator aSep: '"+n.aSep+"' are the same character"),this):(a.data("autoNumeric",n),""!==a.val()||""!==a.text()?a.autoNumeric("set",i):void 0)}))},set:function(t){if(null!==t)return e(this).each((function(){var a=f(e(this)),n=a.data("autoNumeric"),o=t.toString(),s=t.toString();return"object"!=typeof n?(e.error("You must initialize autoNumeric('init', {options}) prior to calling the 'set' method"),this):(s!==a.attr("value")&&"input"===a.prop("tagName").toLowerCase()&&!1===n.runOnce&&(o=i(o=null!==n.nBracket?r(a.val(),n.nBracket,"pageLoad"):o,n)),s!==a.attr("value")&&s!==a.text()||!1!==n.runOnce||(o=o.replace(",",".")),e.isNumeric(+o)?(o=u(o,n),n.oEvent="set",o.toString(),""!==o&&(o=g(o,n)),c(o=l(o,n.aDec,n.aNeg),n)||(o=g("",n)),o=p(o,n),a.is("input[type=text], input[type=hidden], input[type=tel], input:not([type])")?a.val(o):-1!==e.inArray(a.prop("tagName").toLowerCase(),n.tagList)?a.text(o):(e.error("The <"+a.prop("tagName").toLowerCase()+"> is not supported by autoNumeric()"),!1)):"")}))},get:function(){var t=f(e(this)),a=t.data("autoNumeric");if("object"!=typeof a)return e.error("You must initialize autoNumeric('init', {options}) prior to calling the 'get' method"),this;a.oEvent="get";var n="";if(t.is("input[type=text], input[type=hidden], input[type=tel], input:not([type])"))n=t.eq(0).val();else{if(-1===e.inArray(t.prop("tagName").toLowerCase(),a.tagList))return e.error("The <"+t.prop("tagName").toLowerCase()+"> is not supported by autoNumeric()"),!1;n=t.eq(0).text()}return""===n&&"empty"===a.wEmpty||n===a.aSign&&("sign"===a.wEmpty||"empty"===a.wEmpty)?"":(null!==a.nBracket&&""!==n&&(n=r(n,a.nBracket,a.oEvent)),(a.runOnce||!1===a.aForm)&&(n=i(n,a)),0==+(n=s(n,a.aDec,a.aNeg))&&"keep"!==a.lZero&&(n="0"),"keep"===a.lZero?n:n=u(n,a))},getString:function(){for(var t=!1,a=f(e(this)),n=a.serialize(),i=n.split("&"),r=e("form").index(a),o=0;o<i.length;o+=1){var s=i[o].split("="),u=e("form:eq("+r+') input[name="'+decodeURIComponent(s[0])+'"]');"object"==typeof u.data("autoNumeric")&&null!==s[1]&&(s[1]=u.autoNumeric("get"),i[o]=s.join("="),t=!0)}return!0===t?i.join("&"):n},getArray:function(){var t=!1,a=f(e(this)),n=a.serializeArray(),i=e("form").index(a);return e.each(n,(function(a,n){var r=e("form:eq("+i+') input[name="'+decodeURIComponent(n.name)+'"]');"object"==typeof r.data("autoNumeric")&&(""!==n.value&&(n.value=r.autoNumeric("get").toString()),t=!0)})),!0===t?n:this},getSettings:function(){return f(e(this)).eq(0).data("autoNumeric")}};e.fn.autoNumeric=function(t){return m[t]?m[t].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof t&&t?void e.error('Method "'+t+'" is not supported by autoNumeric()'):m.init.apply(this,arguments)}}(jQuery);
+﻿/**
+* autoNumeric.js
+* @author: Bob Knothe
+* @author: Sokolov Yura
+* @version: 1.9.26 - 2014-10-07 GMT 2:00 PM
+*
+* Created by Robert J. Knothe on 2010-10-25. Please report any bugs to https://github.com/BobKnothe/autoNumeric
+* Created by Sokolov Yura on 2010-11-07
+*
+* Copyright (c) 2011 Robert J. Knothe http://www.decorplanit.com/plugin/
+*
+* The MIT License (http://www.opensource.org/licenses/mit-license.php)
+*
+* Permission is hereby granted, free of charge, to any person
+* obtaining a copy of this software and associated documentation
+* files (the "Software"), to deal in the Software without
+* restriction, including without limitation the rights to use,
+* copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following
+* conditions:
+*
+* The above copyright notice and this permission notice shall be
+* included in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+* OTHER DEALINGS IN THE SOFTWARE.
+*/
+(function ($) {
+    "use strict";
+    /*jslint browser: true*/
+    /*global jQuery: false*/
+    /* Cross browser routine for getting selected range/cursor position
+     */
+    function getElementSelection(that) {
+        var position = {};
+        if (that.selectionStart === undefined) {
+            that.focus();
+            var select = document.selection.createRange();
+            position.length = select.text.length;
+            select.moveStart('character', -that.value.length);
+            position.end = select.text.length;
+            position.start = position.end - position.length;
+        } else {
+            position.start = that.selectionStart;
+            position.end = that.selectionEnd;
+            position.length = position.end - position.start;
+        }
+        return position;
+    }
+    /**
+     * Cross browser routine for setting selected range/cursor position
+     */
+    function setElementSelection(that, start, end) {
+        if (that.selectionStart === undefined) {
+            that.focus();
+            var r = that.createTextRange();
+            r.collapse(true);
+            r.moveEnd('character', end);
+            r.moveStart('character', start);
+            r.select();
+        } else {
+            that.selectionStart = start;
+            that.selectionEnd = end;
+        }
+    }
+    /**
+     * run callbacks in parameters if any
+     * any parameter could be a callback:
+     * - a function, which invoked with jQuery element, parameters and this parameter name and returns parameter value
+     * - a name of function, attached to $(selector).autoNumeric.functionName(){} - which was called previously
+     */
+    function runCallbacks($this, settings) {
+        /**
+         * loops through the settings object (option array) to find the following
+         * k = option name example k=aNum
+         * val = option value example val=0123456789
+         */
+        $.each(settings, function (k, val) {
+            if (typeof val === 'function') {
+                settings[k] = val($this, settings, k);
+            } else if (typeof $this.autoNumeric[val] === 'function') {
+                /**
+                 * calls the attached function from the html5 data example: data-a-sign="functionName"
+                 */
+                settings[k] = $this.autoNumeric[val]($this, settings, k);
+            }
+        });
+    }
+    function convertKeyToNumber(settings, key) {
+        if (typeof (settings[key]) === 'string') {
+            settings[key] *= 1;
+        }
+    }
+    /**
+     * Preparing user defined options for further usage
+     * merge them with defaults appropriately
+     */
+    function autoCode($this, settings) {
+        runCallbacks($this, settings);
+        settings.oEvent = null;
+        settings.tagList = ['b', 'caption', 'cite', 'code', 'dd', 'del', 'div', 'dfn', 'dt', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ins', 'kdb', 'label', 'li', 'output', 'p', 'q', 's', 'sample', 'span', 'strong', 'td', 'th', 'u', 'var'];
+        var vmax = settings.vMax.toString().split('.'),
+            vmin = (!settings.vMin && settings.vMin !== 0) ? [] : settings.vMin.toString().split('.');
+        convertKeyToNumber(settings, 'vMax');
+        convertKeyToNumber(settings, 'vMin');
+        convertKeyToNumber(settings, 'mDec'); /** set mDec if not defined by user */
+        settings.mDec = (settings.mRound === 'CHF') ? '2' : settings.mDec;
+        settings.allowLeading = true;
+        settings.aNeg = settings.vMin < 0 ? '-' : '';
+        vmax[0] = vmax[0].replace('-', '');
+        vmin[0] = vmin[0].replace('-', '');
+        settings.mInt = Math.max(vmax[0].length, vmin[0].length, 1);
+        if (settings.mDec === null) {
+            var vmaxLength = 0,
+                vminLength = 0;
+            if (vmax[1]) {
+                vmaxLength = vmax[1].length;
+            }
+            if (vmin[1]) {
+                vminLength = vmin[1].length;
+            }
+            settings.mDec = Math.max(vmaxLength, vminLength);
+        } /** set alternative decimal separator key */
+        if (settings.altDec === null && settings.mDec > 0) {
+            if (settings.aDec === '.' && settings.aSep !== ',') {
+                settings.altDec = ',';
+            } else if (settings.aDec === ',' && settings.aSep !== '.') {
+                settings.altDec = '.';
+            }
+        }
+        /** cache regexps for autoStrip */
+        var aNegReg = settings.aNeg ? '([-\\' + settings.aNeg + ']?)' : '(-?)';
+        settings.aNegRegAutoStrip = aNegReg;
+        settings.skipFirstAutoStrip = new RegExp(aNegReg + '[^-' + (settings.aNeg ? '\\' + settings.aNeg : '') + '\\' + settings.aDec + '\\d]' + '.*?(\\d|\\' + settings.aDec + '\\d)');
+        settings.skipLastAutoStrip = new RegExp('(\\d\\' + settings.aDec + '?)[^\\' + settings.aDec + '\\d]\\D*$');
+        var allowed = '-' + settings.aNum + '\\' + settings.aDec;
+        settings.allowedAutoStrip = new RegExp('[^' + allowed + ']', 'gi');
+        settings.numRegAutoStrip = new RegExp(aNegReg + '(?:\\' + settings.aDec + '?(\\d+\\' + settings.aDec + '\\d+)|(\\d*(?:\\' + settings.aDec + '\\d*)?))');
+        return settings;
+    }
+    /**
+     * strip all unwanted characters and leave only a number alert
+     */
+    function autoStrip(s, settings, strip_zero) {
+        if (settings.aSign) { /** remove currency sign */
+            while (s.indexOf(settings.aSign) > -1) {
+                s = s.replace(settings.aSign, '');
+            }
+        }
+        s = s.replace(settings.skipFirstAutoStrip, '$1$2'); /** first replace anything before digits */
+        s = s.replace(settings.skipLastAutoStrip, '$1'); /** then replace anything after digits */
+        s = s.replace(settings.allowedAutoStrip, ''); /** then remove any uninterested characters */
+        if (settings.altDec) {
+            s = s.replace(settings.altDec, settings.aDec);
+        } /** get only number string */
+        var m = s.match(settings.numRegAutoStrip);
+        s = m ? [m[1], m[2], m[3]].join('') : '';
+        if ((settings.lZero === 'allow' || settings.lZero === 'keep') && strip_zero !== 'strip') {
+            var parts = [],
+                nSign = '';
+            parts = s.split(settings.aDec);
+            if (parts[0].indexOf('-') !== -1) {
+                nSign = '-';
+                parts[0] = parts[0].replace('-', '');
+            }
+            if (parts[0].length > settings.mInt && parts[0].charAt(0) === '0') { /** strip leading zero if need */
+                parts[0] = parts[0].slice(1);
+            }
+            s = nSign + parts.join(settings.aDec);
+        }
+        if ((strip_zero && settings.lZero === 'deny') || (strip_zero && settings.lZero === 'allow' && settings.allowLeading === false)) {
+            var strip_reg = '^' + settings.aNegRegAutoStrip + '0*(\\d' + (strip_zero === 'leading' ? ')' : '|$)');
+            strip_reg = new RegExp(strip_reg);
+            s = s.replace(strip_reg, '$1$2');
+        }
+        return s;
+    }
+    /**
+     * places or removes brackets on negative values
+     */
+    function negativeBracket(s, nBracket, oEvent) { /** oEvent = settings.oEvent */
+        nBracket = nBracket.split(',');
+        if (oEvent === 'set' || oEvent === 'focusout') {
+            s = s.replace('-', '');
+            s = nBracket[0] + s + nBracket[1];
+        } else if ((oEvent === 'get' || oEvent === 'focusin' || oEvent === 'pageLoad') && s.charAt(0) === nBracket[0]) {
+            s = s.replace(nBracket[0], '-');
+            s = s.replace(nBracket[1], '');
+        }
+        return s;
+    }
+    /**
+     * truncate decimal part of a number
+     */
+    function truncateDecimal(s, aDec, mDec) {
+        if (aDec && mDec) {
+            var parts = s.split(aDec);
+            /** truncate decimal part to satisfying length
+             * cause we would round it anyway */
+            if (parts[1] && parts[1].length > mDec) {
+                if (mDec > 0) {
+                    parts[1] = parts[1].substring(0, mDec);
+                    s = parts.join(aDec);
+                } else {
+                    s = parts[0];
+                }
+            }
+        }
+        return s;
+    }
+    /**
+     * prepare number string to be converted to real number
+     */
+    function fixNumber(s, aDec, aNeg) {
+        if (aDec && aDec !== '.') {
+            s = s.replace(aDec, '.');
+        }
+        if (aNeg && aNeg !== '-') {
+            s = s.replace(aNeg, '-');
+        }
+        if (!s.match(/\d/)) {
+            s += '0';
+        }
+        return s;
+    }
+    /**
+     * function to handle numbers less than 0 that are stored in Exponential notation ex: .0000001 stored as 1e-7
+     */
+    function checkValue(value, settings) {
+        if (value) {
+            var checkSmall = +value;
+            if (checkSmall < 0.000001 && checkSmall > -1) {
+                value = +value;
+                if (value < 0.000001 && value > 0) {
+                    value = (value + 10).toString();
+                    value = value.substring(1);
+                }
+                if (value < 0 && value > -1) {
+                    value = (value - 10).toString();
+                    value = '-' + value.substring(2);
+                }
+                value = value.toString();
+            } else {
+                var parts = value.split('.');
+                if (parts[1] !== undefined) {
+                    if (+parts[1] === 0) {
+                        value = parts[0];
+                    } else {
+                        parts[1] = parts[1].replace(/0*$/, '');
+                        value = parts.join('.');
+                    }
+                }
+            }
+        }
+        return (settings.lZero === 'keep') ? value : value.replace(/^0*(\d)/, '$1');
+    }
+    /**
+     * prepare real number to be converted to our format
+     */
+    function presentNumber(s, aDec, aNeg) {
+        if (aNeg && aNeg !== '-') {
+            s = s.replace('-', aNeg);
+        }
+        if (aDec && aDec !== '.') {
+            s = s.replace('.', aDec);
+        }
+        return s;
+    }
+    /**
+     * checking that number satisfy format conditions
+     * and lays between settings.vMin and settings.vMax
+     * and the string length does not exceed the digits in settings.vMin and settings.vMax
+     */
+    function autoCheck(s, settings) {
+        s = autoStrip(s, settings);
+        s = truncateDecimal(s, settings.aDec, settings.mDec);
+        s = fixNumber(s, settings.aDec, settings.aNeg);
+        var value = +s;
+        if (settings.oEvent === 'set' && (value < settings.vMin || value > settings.vMax)) {
+            $.error("The value (" + value + ") from the 'set' method falls outside of the vMin / vMax range");
+        }
+        return value >= settings.vMin && value <= settings.vMax;
+    }
+    /**
+     * private function to check for empty value
+     */
+    function checkEmpty(iv, settings, signOnEmpty) {
+        if (iv === '' || iv === settings.aNeg) {
+            if (settings.wEmpty === 'zero') {
+                return iv + '0';
+            }
+            if (settings.wEmpty === 'sign' || signOnEmpty) {
+                return iv + settings.aSign;
+            }
+            return iv;
+        }
+        return null;
+    }
+    /**
+     * private function that formats our number
+     */
+    function autoGroup(iv, settings) {
+        iv = autoStrip(iv, settings);
+        var testNeg = iv.replace(',', '.'),
+            empty = checkEmpty(iv, settings, true);
+        if (empty !== null) {
+            return empty;
+        }
+        var digitalGroup = '';
+        if (settings.dGroup === 2) {
+            digitalGroup = /(\d)((\d)(\d{2}?)+)$/;
+        } else if (settings.dGroup === 4) {
+            digitalGroup = /(\d)((\d{4}?)+)$/;
+        } else {
+            digitalGroup = /(\d)((\d{3}?)+)$/;
+        } /** splits the string at the decimal string */
+        var ivSplit = iv.split(settings.aDec);
+        if (settings.altDec && ivSplit.length === 1) {
+            ivSplit = iv.split(settings.altDec);
+        } /** assigns the whole number to the a varibale (s) */
+        var s = ivSplit[0];
+        if (settings.aSep) {
+            while (digitalGroup.test(s)) { /** re-inserts the thousand sepparator via a regualer expression */
+                s = s.replace(digitalGroup, '$1' + settings.aSep + '$2');
+            }
+        }
+        if (settings.mDec !== 0 && ivSplit.length > 1) {
+            if (ivSplit[1].length > settings.mDec) {
+                ivSplit[1] = ivSplit[1].substring(0, settings.mDec);
+            } /** joins the whole number with the deciaml value */
+            iv = s + settings.aDec + ivSplit[1];
+        } else { /** if whole numbers only */
+            iv = s;
+        }
+        if (settings.aSign) {
+            var has_aNeg = iv.indexOf(settings.aNeg) !== -1;
+            iv = iv.replace(settings.aNeg, '');
+            iv = settings.pSign === 'p' ? settings.aSign + iv : iv + settings.aSign;
+            if (has_aNeg) {
+                iv = settings.aNeg + iv;
+            }
+        }
+        if (settings.oEvent === 'set' && testNeg < 0 && settings.nBracket !== null) { /** removes the negative sign and places brackets */
+            iv = negativeBracket(iv, settings.nBracket, settings.oEvent);
+        }
+        return iv;
+    }
+    /**
+     * round number after setting by pasting or $().autoNumericSet()
+     * private function for round the number
+     * please note this handled as text - JavaScript math function can return inaccurate values
+     * also this offers multiple rounding methods that are not easily accomplished in JavaScript
+     */
+    function autoRound(iv, settings) { /** value to string */
+        iv = (iv === '') ? '0' : iv.toString();
+        convertKeyToNumber(settings, 'mDec'); /** set mDec to number needed when mDec set by 'update method */
+        if (settings.mRound === 'CHF') {
+            iv = (Math.round(iv * 20) / 20).toString();
+        }
+        var ivRounded = '',
+            i = 0,
+            nSign = '',
+            rDec = (typeof (settings.aPad) === 'boolean' || settings.aPad === null) ? (settings.aPad ? settings.mDec : 0) : +settings.aPad;
+        var truncateZeros = function (ivRounded) { /** truncate not needed zeros */
+            var regex = (rDec === 0) ? (/(\.(?:\d*[1-9])?)0*$/) : rDec === 1 ? (/(\.\d(?:\d*[1-9])?)0*$/) : new RegExp('(\\.\\d{' + rDec + '}(?:\\d*[1-9])?)0*$');
+            ivRounded = ivRounded.replace(regex, '$1'); /** If there are no decimal places, we don't need a decimal point at the end */
+            if (rDec === 0) {
+                ivRounded = ivRounded.replace(/\.$/, '');
+            }
+            return ivRounded;
+        };
+        if (iv.charAt(0) === '-') { /** Checks if the iv (input Value)is a negative value */
+            nSign = '-';
+            iv = iv.replace('-', ''); /** removes the negative sign will be added back later if required */
+        }
+        if (!iv.match(/^\d/)) { /** append a zero if first character is not a digit (then it is likely to be a dot)*/
+            iv = '0' + iv;
+        }
+        if (nSign === '-' && +iv === 0) { /** determines if the value is zero - if zero no negative sign */
+            nSign = '';
+        }
+        if ((+iv > 0 && settings.lZero !== 'keep') || (iv.length > 0 && settings.lZero === 'allow')) { /** trims leading zero's if needed */
+            iv = iv.replace(/^0*(\d)/, '$1');
+        }
+        var dPos = iv.lastIndexOf('.'), /** virtual decimal position */
+            vdPos = (dPos === -1) ? iv.length - 1 : dPos, /** checks decimal places to determine if rounding is required */
+            cDec = (iv.length - 1) - vdPos; /** check if no rounding is required */
+        if (cDec <= settings.mDec) {
+            ivRounded = iv; /** check if we need to pad with zeros */
+            if (cDec < rDec) {
+                if (dPos === -1) {
+                    ivRounded += '.';
+                }
+                var zeros = '000000';
+                while (cDec < rDec) {
+                    zeros = zeros.substring(0, rDec - cDec);
+                    ivRounded += zeros;
+                    cDec += zeros.length;
+                }
+            } else if (cDec > rDec) {
+                ivRounded = truncateZeros(ivRounded);
+            } else if (cDec === 0 && rDec === 0) {
+                ivRounded = ivRounded.replace(/\.$/, '');
+            }
+            if (settings.mRound !== 'CHF') {
+                return (+ivRounded === 0) ? ivRounded : nSign + ivRounded;
+            }
+            if (settings.mRound === 'CHF') {
+                dPos = ivRounded.lastIndexOf('.');
+                iv = ivRounded;
+            }
+
+        } /** rounded length of the string after rounding */
+        var rLength = dPos + settings.mDec,
+            tRound = +iv.charAt(rLength + 1),
+            ivArray = iv.substring(0, rLength + 1).split(''),
+            odd = (iv.charAt(rLength) === '.') ? (iv.charAt(rLength - 1) % 2) : (iv.charAt(rLength) % 2),
+            onePass = true;
+        if (odd !== 1) {
+            odd = (odd === 0 && (iv.substring(rLength + 2, iv.length) > 0)) ? 1 : 0;
+        }
+        if ((tRound > 4 && settings.mRound === 'S') || /** Round half up symmetric */
+                (tRound > 4 && settings.mRound === 'A' && nSign === '') || /** Round half up asymmetric positive values */
+                (tRound > 5 && settings.mRound === 'A' && nSign === '-') || /** Round half up asymmetric negative values */
+                (tRound > 5 && settings.mRound === 's') || /** Round half down symmetric */
+                (tRound > 5 && settings.mRound === 'a' && nSign === '') || /** Round half down asymmetric positive values */
+                (tRound > 4 && settings.mRound === 'a' && nSign === '-') || /** Round half down asymmetric negative values */
+                (tRound > 5 && settings.mRound === 'B') || /** Round half even "Banker's Rounding" */
+                (tRound === 5 && settings.mRound === 'B' && odd === 1) || /** Round half even "Banker's Rounding" */
+                (tRound > 0 && settings.mRound === 'C' && nSign === '') || /** Round to ceiling toward positive infinite */
+                (tRound > 0 && settings.mRound === 'F' && nSign === '-') || /** Round to floor toward negative infinite */
+                (tRound > 0 && settings.mRound === 'U') ||
+                (settings.mRound === 'CHF')) { /** round up away from zero */
+            for (i = (ivArray.length - 1); i >= 0; i -= 1) { /** Round up the last digit if required, and continue until no more 9's are found */
+                if (ivArray[i] !== '.') {
+                    if (settings.mRound === 'CHF' && ivArray[i] <= 2 && onePass) {
+                        ivArray[i] = 0;
+                        onePass = false;
+                        break;
+                    }
+                    if (settings.mRound === 'CHF' && ivArray[i] <= 7 && onePass) {
+                        ivArray[i] = 5;
+                        onePass = false;
+                        break;
+                    }
+                    if (settings.mRound === 'CHF' && onePass) {
+                        ivArray[i] = 10;
+                        onePass = false;
+                    } else {
+                        ivArray[i] = +ivArray[i] + 1;
+                    }
+                    if (ivArray[i] < 10) {
+                        break;
+                    }
+                    if (i > 0) {
+                        ivArray[i] = '0';
+                    }
+                }
+            }
+        }
+        ivArray = ivArray.slice(0, rLength + 1); /** Reconstruct the string, converting any 10's to 0's */
+        ivRounded = truncateZeros(ivArray.join('')); /** return rounded value */
+        return (+ivRounded === 0) ? ivRounded : nSign + ivRounded;
+    }
+    /**
+     * Holder object for field properties
+     */
+    function AutoNumericHolder(that, settings) {
+        this.settings = settings;
+        this.that = that;
+        this.$that = $(that);
+        this.formatted = false;
+        this.settingsClone = autoCode(this.$that, this.settings);
+        this.value = that.value;
+    }
+    AutoNumericHolder.prototype = {
+        init: function (e) {
+            this.value = this.that.value;
+            this.settingsClone = autoCode(this.$that, this.settings);
+            this.ctrlKey = e.ctrlKey;
+            this.cmdKey = e.metaKey;
+            this.shiftKey = e.shiftKey;
+            this.selection = getElementSelection(this.that); /** keypress event overwrites meaningful value of e.keyCode */
+            if (e.type === 'keydown' || e.type === 'keyup') {
+                this.kdCode = e.keyCode;
+            }
+            this.which = e.which;
+            this.processed = false;
+            this.formatted = false;
+        },
+        setSelection: function (start, end, setReal) {
+            start = Math.max(start, 0);
+            end = Math.min(end, this.that.value.length);
+            this.selection = {
+                start: start,
+                end: end,
+                length: end - start
+            };
+            if (setReal === undefined || setReal) {
+                setElementSelection(this.that, start, end);
+            }
+        },
+        setPosition: function (pos, setReal) {
+            this.setSelection(pos, pos, setReal);
+        },
+        getBeforeAfter: function () {
+            var value = this.value,
+                left = value.substring(0, this.selection.start),
+                right = value.substring(this.selection.end, value.length);
+            return [left, right];
+        },
+        getBeforeAfterStriped: function () {
+            var parts = this.getBeforeAfter();
+            parts[0] = autoStrip(parts[0], this.settingsClone);
+            parts[1] = autoStrip(parts[1], this.settingsClone);
+            return parts;
+        },
+        /**
+         * strip parts from excess characters and leading zeroes
+         */
+        normalizeParts: function (left, right) {
+            var settingsClone = this.settingsClone;
+            right = autoStrip(right, settingsClone); /** if right is not empty and first character is not aDec, */
+            /** we could strip all zeros, otherwise only leading */
+            var strip = right.match(/^\d/) ? true : 'leading';
+            left = autoStrip(left, settingsClone, strip); /** prevents multiple leading zeros from being entered */
+            if ((left === '' || left === settingsClone.aNeg) && settingsClone.lZero === 'deny') {
+                if (right > '') {
+                    right = right.replace(/^0*(\d)/, '$1');
+                }
+            }
+            var new_value = left + right; /** insert zero if has leading dot */
+            if (settingsClone.aDec) {
+                var m = new_value.match(new RegExp('^' + settingsClone.aNegRegAutoStrip + '\\' + settingsClone.aDec));
+                if (m) {
+                    left = left.replace(m[1], m[1] + '0');
+                    new_value = left + right;
+                }
+            } /** insert zero if number is empty and io.wEmpty == 'zero' */
+            if (settingsClone.wEmpty === 'zero' && (new_value === settingsClone.aNeg || new_value === '')) {
+                left += '0';
+            }
+            return [left, right];
+        },
+        /**
+         * set part of number to value keeping position of cursor
+         */
+        setValueParts: function (left, right) {
+            var settingsClone = this.settingsClone,
+                parts = this.normalizeParts(left, right),
+                new_value = parts.join(''),
+                position = parts[0].length;
+            if (autoCheck(new_value, settingsClone)) {
+                new_value = truncateDecimal(new_value, settingsClone.aDec, settingsClone.mDec);
+                if (position > new_value.length) {
+                    position = new_value.length;
+                }
+                this.value = new_value;
+                this.setPosition(position, false);
+                return true;
+            }
+            return false;
+        },
+        /**
+         * helper function for expandSelectionOnSign
+         * returns sign position of a formatted value
+         */
+        signPosition: function () {
+            var settingsClone = this.settingsClone,
+                aSign = settingsClone.aSign,
+                that = this.that;
+            if (aSign) {
+                var aSignLen = aSign.length;
+                if (settingsClone.pSign === 'p') {
+                    var hasNeg = settingsClone.aNeg && that.value && that.value.charAt(0) === settingsClone.aNeg;
+                    return hasNeg ? [1, aSignLen + 1] : [0, aSignLen];
+                }
+                var valueLen = that.value.length;
+                return [valueLen - aSignLen, valueLen];
+            }
+            return [1000, -1];
+        },
+        /**
+         * expands selection to cover whole sign
+         * prevents partial deletion/copying/overwriting of a sign
+         */
+        expandSelectionOnSign: function (setReal) {
+            var sign_position = this.signPosition(),
+                selection = this.selection;
+            if (selection.start < sign_position[1] && selection.end > sign_position[0]) { /** if selection catches something except sign and catches only space from sign */
+                if ((selection.start < sign_position[0] || selection.end > sign_position[1]) && this.value.substring(Math.max(selection.start, sign_position[0]), Math.min(selection.end, sign_position[1])).match(/^\s*$/)) { /** then select without empty space */
+                    if (selection.start < sign_position[0]) {
+                        this.setSelection(selection.start, sign_position[0], setReal);
+                    } else {
+                        this.setSelection(sign_position[1], selection.end, setReal);
+                    }
+                } else { /** else select with whole sign */
+                    this.setSelection(Math.min(selection.start, sign_position[0]), Math.max(selection.end, sign_position[1]), setReal);
+                }
+            }
+        },
+        /**
+         * try to strip pasted value to digits
+         */
+        checkPaste: function () {
+            if (this.valuePartsBeforePaste !== undefined) {
+                var parts = this.getBeforeAfter(),
+                    oldParts = this.valuePartsBeforePaste;
+                delete this.valuePartsBeforePaste; /** try to strip pasted value first */
+                parts[0] = parts[0].substr(0, oldParts[0].length) + autoStrip(parts[0].substr(oldParts[0].length), this.settingsClone);
+                if (!this.setValueParts(parts[0], parts[1])) {
+                    this.value = oldParts.join('');
+                    this.setPosition(oldParts[0].length, false);
+                }
+            }
+        },
+        /**
+         * process pasting, cursor moving and skipping of not interesting keys
+         * if returns true, further processing is not performed
+         */
+        skipAllways: function (e) {
+            var kdCode = this.kdCode,
+                which = this.which,
+                ctrlKey = this.ctrlKey,
+                cmdKey = this.cmdKey,
+                shiftKey = this.shiftKey; /** catch the ctrl up on ctrl-v */
+            if (((ctrlKey || cmdKey) && e.type === 'keyup' && this.valuePartsBeforePaste !== undefined) || (shiftKey && kdCode === 45)) {
+                this.checkPaste();
+                return false;
+            }
+            /** codes are taken from http://www.cambiaresearch.com/c4/702b8cd1-e5b0-42e6-83ac-25f0306e3e25/Javascript-Char-Codes-Key-Codes.aspx
+             * skip Fx keys, windows keys, other special keys
+             */
+            if ((kdCode >= 112 && kdCode <= 123) || (kdCode >= 91 && kdCode <= 93) || (kdCode >= 9 && kdCode <= 31) || (kdCode < 8 && (which === 0 || which === kdCode)) || kdCode === 144 || kdCode === 145 || kdCode === 45) {
+                return true;
+            }
+            if ((ctrlKey || cmdKey) && kdCode === 65) { /** if select all (a=65)*/
+                return true;
+            }
+            if ((ctrlKey || cmdKey) && (kdCode === 67 || kdCode === 86 || kdCode === 88)) { /** if copy (c=67) paste (v=86) or cut (x=88) */
+                if (e.type === 'keydown') {
+                    this.expandSelectionOnSign();
+                }
+                if (kdCode === 86 || kdCode === 45) { /** try to prevent wrong paste */
+                    if (e.type === 'keydown' || e.type === 'keypress') {
+                        if (this.valuePartsBeforePaste === undefined) {
+                            this.valuePartsBeforePaste = this.getBeforeAfter();
+                        }
+                    } else {
+                        this.checkPaste();
+                    }
+                }
+                return e.type === 'keydown' || e.type === 'keypress' || kdCode === 67;
+            }
+            if (ctrlKey || cmdKey) {
+                return true;
+            }
+            if (kdCode === 37 || kdCode === 39) { /** jump over thousand separator */
+                var aSep = this.settingsClone.aSep,
+                    start = this.selection.start,
+                    value = this.that.value;
+                if (e.type === 'keydown' && aSep && !this.shiftKey) {
+                    if (kdCode === 37 && value.charAt(start - 2) === aSep) {
+                        this.setPosition(start - 1);
+                    } else if (kdCode === 39 && value.charAt(start + 1) === aSep) {
+                        this.setPosition(start + 1);
+                    }
+                }
+                return true;
+            }
+            if (kdCode >= 34 && kdCode <= 40) {
+                return true;
+            }
+            return false;
+        },
+        /**
+         * process deletion of characters
+         * returns true if processing performed
+         */
+        processAllways: function () {
+            var parts; /** process backspace or delete */
+            if (this.kdCode === 8 || this.kdCode === 46) {
+                if (!this.selection.length) {
+                    parts = this.getBeforeAfterStriped();
+                    if (this.kdCode === 8) {
+                        parts[0] = parts[0].substring(0, parts[0].length - 1);
+                    } else {
+                        parts[1] = parts[1].substring(1, parts[1].length);
+                    }
+                    this.setValueParts(parts[0], parts[1]);
+                } else {
+                    this.expandSelectionOnSign(false);
+                    parts = this.getBeforeAfterStriped();
+                    this.setValueParts(parts[0], parts[1]);
+                }
+                return true;
+            }
+            return false;
+        },
+        /**
+         * process insertion of characters
+         * returns true if processing performed
+         */
+        processKeypress: function () {
+            var settingsClone = this.settingsClone,
+                cCode = String.fromCharCode(this.which),
+                parts = this.getBeforeAfterStriped(),
+                left = parts[0],
+                right = parts[1]; /** start rules when the decimal character key is pressed */
+            /** always use numeric pad dot to insert decimal separator */
+            if (cCode === settingsClone.aDec || (settingsClone.altDec && cCode === settingsClone.altDec) || ((cCode === '.' || cCode === ',') && this.kdCode === 110)) { /** do not allow decimal character if no decimal part allowed */
+                if (!settingsClone.mDec || !settingsClone.aDec) {
+                    return true;
+                } /** do not allow decimal character before aNeg character */
+                if (settingsClone.aNeg && right.indexOf(settingsClone.aNeg) > -1) {
+                    return true;
+                } /** do not allow decimal character if other decimal character present */
+                if (left.indexOf(settingsClone.aDec) > -1) {
+                    return true;
+                }
+                if (right.indexOf(settingsClone.aDec) > 0) {
+                    return true;
+                }
+                if (right.indexOf(settingsClone.aDec) === 0) {
+                    right = right.substr(1);
+                }
+                this.setValueParts(left + settingsClone.aDec, right);
+                return true;
+            }
+            /**
+             * start rule on negative sign & prevent minus if not allowed
+             */
+            if (cCode === '-' || cCode === '+') {
+                if (!settingsClone.aNeg) {
+                    return true;
+                } /** caret is always after minus */
+                if (left === '' && right.indexOf(settingsClone.aNeg) > -1) {
+                    left = settingsClone.aNeg;
+                    right = right.substring(1, right.length);
+                } /** change sign of number, remove part if should */
+                if (left.charAt(0) === settingsClone.aNeg) {
+                    left = left.substring(1, left.length);
+                } else {
+                    left = (cCode === '-') ? settingsClone.aNeg + left : left;
+                }
+                this.setValueParts(left, right);
+                return true;
+            } /** digits */
+            if (cCode >= '0' && cCode <= '9') { /** if try to insert digit before minus */
+                if (settingsClone.aNeg && left === '' && right.indexOf(settingsClone.aNeg) > -1) {
+                    left = settingsClone.aNeg;
+                    right = right.substring(1, right.length);
+                }
+                if (settingsClone.vMax <= 0 && settingsClone.vMin < settingsClone.vMax && this.value.indexOf(settingsClone.aNeg) === -1 && cCode !== '0') {
+                    left = settingsClone.aNeg + left;
+                }
+                this.setValueParts(left + cCode, right);
+                return true;
+            } /** prevent any other character */
+            return true;
+        },
+        /**
+         * formatting of just processed value with keeping of cursor position
+         */
+        formatQuick: function () {
+            var settingsClone = this.settingsClone,
+                parts = this.getBeforeAfterStriped(),
+                leftLength = this.value;
+            if ((settingsClone.aSep === '' || (settingsClone.aSep !== '' && leftLength.indexOf(settingsClone.aSep) === -1)) && (settingsClone.aSign === '' || (settingsClone.aSign !== '' && leftLength.indexOf(settingsClone.aSign) === -1))) {
+                var subParts = [],
+                    nSign = '';
+                subParts = leftLength.split(settingsClone.aDec);
+                if (subParts[0].indexOf('-') > -1) {
+                    nSign = '-';
+                    subParts[0] = subParts[0].replace('-', '');
+                    parts[0] = parts[0].replace('-', '');
+                }
+                if (subParts[0].length > settingsClone.mInt && parts[0].charAt(0) === '0') { /** strip leading zero if need */
+                    parts[0] = parts[0].slice(1);
+                }
+                parts[0] = nSign + parts[0];
+            }
+            var value = autoGroup(this.value, this.settingsClone),
+                position = value.length;
+            if (value) {
+                /** prepare regexp which searches for cursor position from unformatted left part */
+                var left_ar = parts[0].split(''),
+                    i = 0;
+                for (i; i < left_ar.length; i += 1) { /** thanks Peter Kovari */
+                    if (!left_ar[i].match('\\d')) {
+                        left_ar[i] = '\\' + left_ar[i];
+                    }
+                }
+                var leftReg = new RegExp('^.*?' + left_ar.join('.*?'));
+                /** search cursor position in formatted value */
+                var newLeft = value.match(leftReg);
+                if (newLeft) {
+                    position = newLeft[0].length;
+                    /** if we are just before sign which is in prefix position */
+                    if (((position === 0 && value.charAt(0) !== settingsClone.aNeg) || (position === 1 && value.charAt(0) === settingsClone.aNeg)) && settingsClone.aSign && settingsClone.pSign === 'p') {
+                        /** place caret after prefix sign */
+                        position = this.settingsClone.aSign.length + (value.charAt(0) === '-' ? 1 : 0);
+                    }
+                } else if (settingsClone.aSign && settingsClone.pSign === 's') {
+                    /** if we could not find a place for cursor and have a sign as a suffix */
+                    /** place carret before suffix currency sign */
+                    position -= settingsClone.aSign.length;
+                }
+            }
+            this.that.value = value;
+            this.setPosition(position);
+            this.formatted = true;
+        }
+    };
+    /** thanks to Anthony & Evan C */
+    function autoGet(obj) {
+        if (typeof obj === 'string') {
+            obj = obj.replace(/\[/g, "\\[").replace(/\]/g, "\\]");
+            obj = '#' + obj.replace(/(:|\.)/g, '\\$1');
+            /** obj = '#' + obj.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1'); */
+            /** possible modification to replace the above 2 lines */
+        }
+        return $(obj);
+    }
+
+    function getHolder($that, settings, update) {
+        var data = $that.data('autoNumeric');
+        if (!data) {
+            data = {};
+            $that.data('autoNumeric', data);
+        }
+        var holder = data.holder;
+        if ((holder === undefined && settings) || update) {
+            holder = new AutoNumericHolder($that.get(0), settings);
+            data.holder = holder;
+        }
+        return holder;
+    }
+    var methods = {
+        init: function (options) {
+            return this.each(function () {
+                var $this = $(this),
+                    settings = $this.data('autoNumeric'), /** attempt to grab 'autoNumeric' settings, if they don't exist returns "undefined". */
+                    tagData = $this.data(); /** attempt to grab HTML5 data, if they don't exist we'll get "undefined".*/
+                if (typeof settings !== 'object') { /** If we couldn't grab settings, create them from defaults and passed options. */
+                    var defaults = {
+                        /** allowed numeric values
+                         * please do not modify
+                         */
+                        aNum: '0123456789',
+                        /** allowed thousand separator characters
+                         * comma = ','
+                         * period "full stop" = '.'
+                         * apostrophe is escaped = '\''
+                         * space = ' '
+                         * none = ''
+                         * NOTE: do not use numeric characters
+                         */
+                        aSep: ',',
+                        /** digital grouping for the thousand separator used in Format
+                         * dGroup: '2', results in 99,99,99,999 common in India for values less than 1 billion and greater than -1 billion
+                         * dGroup: '3', results in 999,999,999 default
+                         * dGroup: '4', results in 9999,9999,9999 used in some Asian countries
+                         */
+                        dGroup: '3',
+                        /** allowed decimal separator characters
+                         * period "full stop" = '.'
+                         * comma = ','
+                         */
+                        aDec: '.',
+                        /** allow to declare alternative decimal separator which is automatically replaced by aDec
+                         * developed for countries the use a comma ',' as the decimal character
+                         * and have keyboards\numeric pads that have a period 'full stop' as the decimal characters (Spain is an example)
+                         */
+                        altDec: null,
+                        /** allowed currency symbol
+                         * Must be in quotes aSign: '$', a space is allowed aSign: '$ '
+                         */
+                        aSign: '',
+                        /** placement of currency sign
+                         * for prefix pSign: 'p',
+                         * for suffix pSign: 's',
+                         */
+                        pSign: 'p',
+                        /** maximum possible value
+                         * value must be enclosed in quotes and use the period for the decimal point
+                         * value must be larger than vMin
+                         */
+                        vMax: '9999999999999.99',
+                        /** minimum possible value
+                         * value must be enclosed in quotes and use the period for the decimal point
+                         * value must be smaller than vMax
+                         */
+                        vMin: '0.00',
+                        /** max number of decimal places = used to override decimal places set by the vMin & vMax values
+                         * value must be enclosed in quotes example mDec: '3',
+                         * This can also set the value via a call back function mDec: 'css:#
+                         */
+                        mDec: null,
+                        /** method used for rounding
+                         * mRound: 'S', Round-Half-Up Symmetric (default)
+                         * mRound: 'A', Round-Half-Up Asymmetric
+                         * mRound: 's', Round-Half-Down Symmetric (lower case s)
+                         * mRound: 'a', Round-Half-Down Asymmetric (lower case a)
+                         * mRound: 'B', Round-Half-Even "Bankers Rounding"
+                         * mRound: 'U', Round Up "Round-Away-From-Zero"
+                         * mRound: 'D', Round Down "Round-Toward-Zero" - same as truncate
+                         * mRound: 'C', Round to Ceiling "Toward Positive Infinity"
+                         * mRound: 'F', Round to Floor "Toward Negative Infinity"
+                         */
+                        mRound: 'S',
+                        /** controls decimal padding
+                         * aPad: true - always Pad decimals with zeros
+                         * aPad: false - does not pad with zeros.
+                         * aPad: `some number` - pad decimals with zero to number different from mDec
+                         * thanks to Jonas Johansson for the suggestion
+                         */
+                        aPad: true,
+                        /** places brackets on negative value -$ 999.99 to (999.99)
+                         * visible only when the field does NOT have focus the left and right symbols should be enclosed in quotes and seperated by a comma
+                         * nBracket: null, nBracket: '(,)', nBracket: '[,]', nBracket: '<,>' or nBracket: '{,}'
+                         */
+                        nBracket: null,
+                        /** Displayed on empty string
+                         * wEmpty: 'empty', - input can be blank
+                         * wEmpty: 'zero', - displays zero
+                         * wEmpty: 'sign', - displays the currency sign
+                         */
+                        wEmpty: 'empty',
+                        /** controls leading zero behavior
+                         * lZero: 'allow', - allows leading zeros to be entered. Zeros will be truncated when entering additional digits. On focusout zeros will be deleted.
+                         * lZero: 'deny', - allows only one leading zero on values less than one
+                         * lZero: 'keep', - allows leading zeros to be entered. on fousout zeros will be retained.
+                         */
+                        lZero: 'allow',
+                        /** determine if the default value will be formatted on page ready.
+                         * true = automatically formats the default value on page ready
+                         * false = will not format the default value
+                         */
+                        aForm: true,
+                        /** future use */
+                        onSomeEvent: function () {}
+                    };
+                    settings = $.extend({}, defaults, tagData, options); /** Merge defaults, tagData and options */
+                    if (settings.aDec === settings.aSep) {
+                        $.error("autoNumeric will not function properly when the decimal character aDec: '" + settings.aDec + "' and thousand separator aSep: '" + settings.aSep + "' are the same character");
+                        return this;
+                    }
+                    $this.data('autoNumeric', settings); /** Save our new settings */
+                } else {
+                    return this;
+                }
+                settings.runOnce = false;
+                var holder = getHolder($this, settings);
+                if ($.inArray($this.prop('tagName').toLowerCase(), settings.tagList) === -1 && $this.prop('tagName').toLowerCase() !== 'input') {
+                    $.error("The <" + $this.prop('tagName').toLowerCase() + "> is not supported by autoNumeric()");
+                    return this;
+                }
+                if (settings.runOnce === false && settings.aForm) {/** routine to format default value on page load */
+                    if ($this.is('input[type=text], input[type=hidden], input[type=tel], input:not([type])')) {
+                        var setValue = true;
+                        if ($this[0].value === '' && settings.wEmpty === 'empty') {
+                            $this[0].value = '';
+                            setValue = false;
+                        }
+                        if ($this[0].value === '' && settings.wEmpty === 'sign') {
+                            $this[0].value = settings.aSign;
+                            setValue = false;
+                        }
+                        if (setValue) {
+                            $this.autoNumeric('set', $this.val());
+                        }
+                    }
+                    if ($.inArray($this.prop('tagName').toLowerCase(), settings.tagList) !== -1 && $this.text() !== '') {
+                        $this.autoNumeric('set', $this.text());
+                    }
+                }
+                settings.runOnce = true;
+                if ($this.is('input[type=text], input[type=hidden], input[type=tel], input:not([type])')) { /**added hidden type */
+                    $this.on('keydown.autoNumeric', function (e) {
+                        holder = getHolder($this);
+                        if (holder.settings.aDec === holder.settings.aSep) {
+                            $.error("autoNumeric will not function properly when the decimal character aDec: '" + holder.settings.aDec + "' and thousand separator aSep: '" + holder.settings.aSep + "' are the same character");
+                            return this;
+                        }
+                        if (holder.that.readOnly) {
+                            holder.processed = true;
+                            return true;
+                        }
+                        /** The below streamed code / comment allows the "enter" keydown to throw a change() event */
+                        /** if (e.keyCode === 13 && holder.inVal !== $this.val()){
+                            $this.change();
+                            holder.inVal = $this.val();
+                        }*/
+                        holder.init(e);
+                        holder.settings.oEvent = 'keydown';
+                        if (holder.skipAllways(e)) {
+                            holder.processed = true;
+                            return true;
+                        }
+                        if (holder.processAllways()) {
+                            holder.processed = true;
+                            holder.formatQuick();
+                            e.preventDefault();
+                            return false;
+                        }
+                        holder.formatted = false;
+                        return true;
+                    });
+                    $this.on('keypress.autoNumeric', function (e) {
+                        var holder = getHolder($this),
+                            processed = holder.processed;
+                        holder.init(e);
+                        holder.settings.oEvent = 'keypress';
+                        if (holder.skipAllways(e)) {
+                            return true;
+                        }
+                        if (processed) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        if (holder.processAllways() || holder.processKeypress()) {
+                            holder.formatQuick();
+                            e.preventDefault();
+                            return false;
+                        }
+                        holder.formatted = false;
+                    });
+                    $this.on('keyup.autoNumeric', function (e) {
+                        var holder = getHolder($this);
+                        holder.init(e);
+                        holder.settings.oEvent = 'keyup';
+                        var skip = holder.skipAllways(e);
+                        holder.kdCode = 0;
+                        delete holder.valuePartsBeforePaste;
+                        if ($this[0].value === holder.settings.aSign) { /** added to properly place the caret when only the currency is present */
+                            if (holder.settings.pSign === 's') {
+                                setElementSelection(this, 0, 0);
+                            } else {
+                                setElementSelection(this, holder.settings.aSign.length, holder.settings.aSign.length);
+                            }
+                        }
+                        if (skip) {
+                            return true;
+                        }
+                        if (this.value === '') {
+                            return true;
+                        }
+                        if (!holder.formatted) {
+                            holder.formatQuick();
+                        }
+                    });
+                    $this.on('focusin.autoNumeric', function () {
+                        var holder = getHolder($this);
+                        holder.settingsClone.oEvent = 'focusin';
+                        if (holder.settingsClone.nBracket !== null) {
+                            var checkVal = $this.val();
+                            $this.val(negativeBracket(checkVal, holder.settingsClone.nBracket, holder.settingsClone.oEvent));
+                        }
+                        holder.inVal = $this.val();
+                        var onempty = checkEmpty(holder.inVal, holder.settingsClone, true);
+                        if (onempty !== null) {
+                            $this.val(onempty);
+                            if (holder.settings.pSign === 's') {
+                                setElementSelection(this, 0, 0);
+                            } else {
+                                setElementSelection(this, holder.settings.aSign.length, holder.settings.aSign.length);
+                            }
+                        }
+                    });
+                    $this.on('focusout.autoNumeric', function () {
+                        var holder = getHolder($this),
+                            settingsClone = holder.settingsClone,
+                            value = $this.val(),
+                            origValue = value;
+                        holder.settingsClone.oEvent = 'focusout';
+                        var strip_zero = ''; /** added to control leading zero */
+                        if (settingsClone.lZero === 'allow') { /** added to control leading zero */
+                            settingsClone.allowLeading = false;
+                            strip_zero = 'leading';
+                        }
+                        if (value !== '') {
+                            value = autoStrip(value, settingsClone, strip_zero);
+                            if (checkEmpty(value, settingsClone) === null && autoCheck(value, settingsClone, $this[0])) {
+                                value = fixNumber(value, settingsClone.aDec, settingsClone.aNeg);
+                                value = autoRound(value, settingsClone);
+                                value = presentNumber(value, settingsClone.aDec, settingsClone.aNeg);
+                            } else {
+                                value = '';
+                            }
+                        }
+                        var groupedValue = checkEmpty(value, settingsClone, false);
+                        if (groupedValue === null) {
+                            groupedValue = autoGroup(value, settingsClone);
+                        }
+                        if (groupedValue !== origValue) {
+                            $this.val(groupedValue);
+                        }
+                        if (groupedValue !== holder.inVal) {
+                            $this.change();
+                            delete holder.inVal;
+                        }
+                        if (settingsClone.nBracket !== null && $this.autoNumeric('get') < 0) {
+                            holder.settingsClone.oEvent = 'focusout';
+                            $this.val(negativeBracket($this.val(), settingsClone.nBracket, settingsClone.oEvent));
+                        }
+                    });
+                }
+            });
+        },
+        /** method to remove settings and stop autoNumeric() */
+        destroy: function () {
+            return $(this).each(function () {
+                var $this = $(this);
+                $this.off('.autoNumeric');
+                $this.removeData('autoNumeric');
+            });
+        },
+        /** method to update settings - can call as many times */
+        update: function (options) {
+            return $(this).each(function () {
+                var $this = autoGet($(this)),
+                    settings = $this.data('autoNumeric');
+                if (typeof settings !== 'object') {
+                    $.error("You must initialize autoNumeric('init', {options}) prior to calling the 'update' method");
+                    return this;
+                }
+                var strip = $this.autoNumeric('get');
+                settings = $.extend(settings, options);
+                getHolder($this, settings, true);
+                if (settings.aDec === settings.aSep) {
+                    $.error("autoNumeric will not function properly when the decimal character aDec: '" + settings.aDec + "' and thousand separator aSep: '" + settings.aSep + "' are the same character");
+                    return this;
+                }
+                $this.data('autoNumeric', settings);
+                if ($this.val() !== '' || $this.text() !== '') {
+                    return $this.autoNumeric('set', strip);
+                }
+                return;
+            });
+        },
+        /** returns a formatted strings for "input:text" fields Uses jQuery's .val() method*/
+        set: function (valueIn) {
+            if (valueIn === null) {
+                return;
+            }
+            return $(this).each(function () {
+                var $this = autoGet($(this)),
+                    settings = $this.data('autoNumeric'),
+                    value = valueIn.toString(),
+                    testValue = valueIn.toString();
+                if (typeof settings !== 'object') {
+                    $.error("You must initialize autoNumeric('init', {options}) prior to calling the 'set' method");
+                    return this;
+                }
+                /** routine to handle page re-load from back button */
+                if (testValue !== $this.attr('value') && $this.prop('tagName').toLowerCase() === 'input' && settings.runOnce === false) {
+                    value = (settings.nBracket !== null) ? negativeBracket($this.val(), settings.nBracket, 'pageLoad') : value;
+                    value = autoStrip(value, settings);
+                }
+               /** allows locale decimal separator to be a comma */
+                if ((testValue === $this.attr('value') || testValue === $this.text()) && settings.runOnce === false) {
+                    value = value.replace(',', '.');
+                }
+                /** returns a empty string if the value being 'set' contains non-numeric characters and or more than decimal point (full stop) and will not be formatted */
+                if (!$.isNumeric(+value)) {
+                    return '';
+                }
+                value = checkValue(value, settings);
+                settings.oEvent = 'set';
+                value.toString();
+                if (value !== '') {
+                    value = autoRound(value, settings);
+                }
+                value = presentNumber(value, settings.aDec, settings.aNeg);
+                if (!autoCheck(value, settings)) {
+                    value = autoRound('', settings);
+                }
+                value = autoGroup(value, settings);
+                if ($this.is('input[type=text], input[type=hidden], input[type=tel], input:not([type])')) { /**added hidden type */
+                    return $this.val(value);
+                }
+                if ($.inArray($this.prop('tagName').toLowerCase(), settings.tagList) !== -1) {
+                    return $this.text(value);
+                }
+                $.error("The <" + $this.prop('tagName').toLowerCase() + "> is not supported by autoNumeric()");
+                return false;
+            });
+        },
+        /** method to get the unformatted value from a specific input field, returns a numeric value */
+        get: function () {
+            var $this = autoGet($(this)),
+                settings = $this.data('autoNumeric');
+            if (typeof settings !== 'object') {
+                $.error("You must initialize autoNumeric('init', {options}) prior to calling the 'get' method");
+                return this;
+            }
+            settings.oEvent = 'get';
+            var getValue = '';
+            /** determine the element type then use .eq(0) selector to grab the value of the first element in selector */
+            if ($this.is('input[type=text], input[type=hidden], input[type=tel], input:not([type])')) { /**added hidden type */
+                getValue = $this.eq(0).val();
+            } else if ($.inArray($this.prop('tagName').toLowerCase(), settings.tagList) !== -1) {
+                getValue = $this.eq(0).text();
+            } else {
+                $.error("The <" + $this.prop('tagName').toLowerCase() + "> is not supported by autoNumeric()");
+                return false;
+            }
+            if ((getValue === '' && settings.wEmpty === 'empty') || (getValue === settings.aSign && (settings.wEmpty === 'sign' || settings.wEmpty === 'empty'))) {
+                return '';
+            }
+            if (settings.nBracket !== null && getValue !== '') {
+                getValue = negativeBracket(getValue, settings.nBracket, settings.oEvent);
+            }
+            if (settings.runOnce || settings.aForm === false) {
+                getValue = autoStrip(getValue, settings);
+            }
+            getValue = fixNumber(getValue, settings.aDec, settings.aNeg);
+            if (+getValue === 0 && settings.lZero !== 'keep') {
+                getValue = '0';
+            }
+            if (settings.lZero === 'keep') {
+                return getValue;
+            }
+            getValue = checkValue(getValue, settings);
+            return getValue; /** returned Numeric String */
+        },
+        /** method to get the unformatted value from multiple fields */
+        getString: function () {
+            var isAutoNumeric = false,
+                $this = autoGet($(this)),
+                str = $this.serialize(),
+                parts = str.split('&'),
+                formIndex = $('form').index($this),
+                i = 0;
+            for (i; i < parts.length; i += 1) {
+                var miniParts = parts[i].split('='),
+                    $field = $('form:eq(' + formIndex + ') input[name="' + decodeURIComponent(miniParts[0]) + '"]'),
+                    settings = $field.data('autoNumeric');
+                if (typeof settings === 'object') {
+                    if (miniParts[1] !== null) {
+                        miniParts[1] = $field.autoNumeric('get');
+                        parts[i] = miniParts.join('=');
+                        isAutoNumeric = true;
+                    }
+                }
+            }
+            if (isAutoNumeric === true) {
+                return parts.join('&');
+            }
+            return str;
+        },
+        /** method to get the unformatted value from multiple fields */
+        getArray: function () {
+            var isAutoNumeric = false,
+                $this = autoGet($(this)),
+                formFields = $this.serializeArray(),
+                formIndex = $('form').index($this);
+            /*jslint unparam: true*/
+            $.each(formFields, function (i, field) {
+                var $field = $('form:eq(' + formIndex + ') input[name="' + decodeURIComponent(field.name) + '"]'),
+                    settings = $field.data('autoNumeric');
+                if (typeof settings === 'object') {
+                    if (field.value !== '') {
+                        field.value = $field.autoNumeric('get').toString();
+                    }
+                    isAutoNumeric = true;
+                }
+            });
+            /*jslint unparam: false*/
+            if (isAutoNumeric === true) {
+                return formFields;
+            }
+            return this;
+        },
+        /** returns the settings object for those who need to look under the hood */
+        getSettings: function () {
+            var $this = autoGet($(this));
+            return $this.eq(0).data('autoNumeric');
+        }
+    };
+    $.fn.autoNumeric = function (method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        }
+        if (typeof method === 'object' || !method) {
+            return methods.init.apply(this, arguments);
+        }
+        $.error('Method "' + method + '" is not supported by autoNumeric()');
+    };
+}(jQuery));

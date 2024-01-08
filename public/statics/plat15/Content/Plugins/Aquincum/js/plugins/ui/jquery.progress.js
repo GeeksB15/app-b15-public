@@ -1,1 +1,54 @@
-$(document).ready((function(){jQuery.fn.anim_progressbar=function(e){var r=36e5,n=864e5,t={start:new Date,finish:(new Date).setTime((new Date).getTime()+6e4),interval:1},a=jQuery.extend(t,e),i=this;return this.each((function(){var e=a.finish-a.start;$(i).children(".pbar").progressbar();var t=setInterval((function(){var s=a.finish-new Date,h=new Date-a.start,l=parseInt(s/n),c=parseInt((s-l*n)/r),d=parseInt((s-l*n-c*r)/6e4),p=parseInt((s-l*n-6e4*d-c*r)/1e3),b=h>0?h/e*100:0;$(i).children(".percent").html("<b>"+b.toFixed(1)+"%</b>"),$(i).children(".elapsed").html(l+" days "+c+"h:"+d+"m:"+p+"s</b>"),$(i).children(".pbar").children(".ui-progressbar-value").css("width",b+"%"),b>=100&&(clearInterval(t),$(i).children(".percent").html("<b>100%</b>"),$(i).children(".elapsed").html("Finished"))}),a.interval)}))}}));
+$(document).ready(function(){
+    jQuery.fn.anim_progressbar = function (aOptions) {
+        // def values
+        var iCms = 1000;
+        var iMms = 60 * iCms;
+        var iHms = 3600 * iCms;
+        var iDms = 24 * 3600 * iCms;
+
+        // def options
+        var aDefOpts = {
+            start: new Date(), // now
+            finish: new Date().setTime(new Date().getTime() + 60 * iCms), // now + 60 sec
+            interval: 1
+        }
+        var aOpts = jQuery.extend(aDefOpts, aOptions);
+        var vPb = this;
+
+        // each progress bar
+        return this.each(
+            function() {
+                var iDuration = aOpts.finish - aOpts.start;
+
+                // calling original progressbar
+                $(vPb).children('.pbar').progressbar();
+
+                // looping process
+                var vInterval = setInterval(
+                    function(){
+                        var iLeftMs = aOpts.finish - new Date(); // left time in MS
+                        var iElapsedMs = new Date() - aOpts.start, // elapsed time in MS
+                            iDays = parseInt(iLeftMs / iDms), // elapsed days
+                            iHours = parseInt((iLeftMs - (iDays * iDms)) / iHms), // elapsed hours
+                            iMin = parseInt((iLeftMs - (iDays * iDms) - (iHours * iHms)) / iMms), // elapsed minutes
+                            iSec = parseInt((iLeftMs - (iDays * iDms) - (iMin * iMms) - (iHours * iHms)) / iCms), // elapsed seconds
+                            iPerc = (iElapsedMs > 0) ? iElapsedMs / iDuration * 100 : 0; // percentages
+
+                        // display current positions and progress
+                        $(vPb).children('.percent').html('<b>'+iPerc.toFixed(1)+'%</b>');
+                        $(vPb).children('.elapsed').html(iDays+' days '+iHours+'h:'+iMin+'m:'+iSec+'s</b>');
+                        $(vPb).children('.pbar').children('.ui-progressbar-value').css('width', iPerc+'%');
+
+                        // in case of Finish
+                        if (iPerc >= 100) {
+                            clearInterval(vInterval);
+                            $(vPb).children('.percent').html('<b>100%</b>');
+                            $(vPb).children('.elapsed').html('Finished');
+                        }
+                    } ,aOpts.interval
+                );
+            }
+        );
+    }
+
+});

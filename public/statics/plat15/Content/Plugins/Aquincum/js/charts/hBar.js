@@ -1,1 +1,102 @@
-$((function(){for(var a,o=[],r=0;r<=4;r+=1)o.push([parseInt(30*Math.random()),r]);var t=[];for(r=0;r<=4;r+=1)t.push([parseInt(30*Math.random()),r]);var e=[];for(r=0;r<=4;r+=1)e.push([parseInt(30*Math.random()),r]);var i=new Array;i.push({data:o,bars:{horizontal:!0,show:!0,barWidth:.2,order:1}}),i.push({data:t,bars:{horizontal:!0,show:!0,barWidth:.2,order:2}}),i.push({data:e,bars:{horizontal:!0,show:!0,barWidth:.2,order:3}}),$.plot($("#placeholder1_h"),i,{grid:{hoverable:!0}}),$("#placeholder1_h").bind("plothover",(function(o,r,t){if(t){if(a!=t.datapoint){a=t.datapoint,$(".tooltip").remove();var e=t.datapoint[0];if(t.series.bars.order)for(var i=0;i<t.series.data.length;i++)t.series.data[i][3]==t.datapoint[0]&&(e=t.series.data[i][0]);var s=t.datapoint[1];!function(a,o,r,t){$('<div id="tooltip3" class="tooltip">'+r+"</div>").css({position:"absolute",display:"none",top:o-35,left:a-5,"z-index":"9999",color:"#fff","font-size":"11px",opacity:.8}).prependTo("body").show()}(t.pageX+5,t.pageY+5,e+" = "+s)}}else $(".tooltip").remove(),a=null}))}));
+$(function () {
+    var previousPoint;
+ 
+
+    //Display horizontal graph
+    var d1_h = [];
+    for (var i = 0; i <= 4; i += 1)
+        d1_h.push([parseInt(Math.random() * 30),i ]);
+
+    var d2_h = [];
+    for (var i = 0; i <= 4; i += 1)
+        d2_h.push([parseInt(Math.random() * 30),i ]);
+
+    var d3_h = [];
+    for (var i = 0; i <= 4; i += 1)
+        d3_h.push([ parseInt(Math.random() * 30),i]);
+                
+    var ds_h = new Array();
+    ds_h.push({
+        data:d1_h,
+        bars: {
+            horizontal:true, 
+            show: true, 
+            barWidth: 0.2, 
+            order: 1,
+        }
+    });
+ds_h.push({
+    data:d2_h,
+    bars: {
+        horizontal:true, 
+        show: true, 
+        barWidth: 0.2, 
+        order: 2
+    }
+});
+ds_h.push({
+    data:d3_h,
+    bars: {
+        horizontal:true, 
+        show: true, 
+        barWidth: 0.2, 
+        order: 3
+    }
+});
+
+    //tooltip function
+    function showTooltip(x, y, contents, areAbsoluteXY) {
+        var rootElt = 'body';
+	
+        $('<div id="tooltip3" class="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y - 35,
+            left: x - 5,
+			'z-index': '9999',
+			'color': '#fff',
+			'font-size': '11px',
+            opacity: 0.8
+        }).prependTo(rootElt).show();
+    }
+
+$.plot($("#placeholder1_h"), ds_h, {
+    grid:{
+        hoverable:true
+    }
+});
+
+//add tooltip event
+$("#placeholder1_h").bind("plothover", function (event, pos, item) {
+    if (item) {
+        if (previousPoint != item.datapoint) {
+            previousPoint = item.datapoint;
+ 
+            //delete de prГ©cГ©dente tooltip
+            $('.tooltip').remove();
+ 
+            var x = item.datapoint[0];
+ 
+            //All the bars concerning a same x value must display a tooltip with this value and not the shifted value
+            if(item.series.bars.order){
+                for(var i=0; i < item.series.data.length; i++){
+                    if(item.series.data[i][3] == item.datapoint[0])
+                        x = item.series.data[i][0];
+                }
+            }
+ 
+            var y = item.datapoint[1];
+ 
+            showTooltip(item.pageX+5, item.pageY+5,x + " = " + y);
+ 
+        }
+    }
+    else {
+        $('.tooltip').remove();
+        previousPoint = null;
+    }
+ 
+});
+
+ 
+});

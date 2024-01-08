@@ -1,1 +1,70 @@
-$((function(){var a=[];function t(){for(a.length>0&&(a=a.slice(1));a.length<200;){var t=(a.length>0?a[a.length-1]:50)+10*Math.random()-5;t<0&&(t=0),t>100&&(t=100),a.push(t)}for(var e=[],i=0;i<a.length;++i)e.push([i,a[i]]);return e}var e=1e3;$("#updateInterval").val(e).change((function(){var a=$(this).val();a&&!isNaN(+a)&&((e=+a)<1&&(e=1),e>2e3&&(e=2e3),$(this).val(""+e))}));var i=$.plot($(".updating"),[t()],{yaxis:{min:0,max:100},xaxis:{min:0,max:100},colors:["#aed267"],series:{lines:{lineWidth:2,fill:!0,fillColor:{colors:[{opacity:.4},{opacity:0}]},steps:!1}}});!function a(){i.setData([t()]),i.draw(),setTimeout(a,e)}()}));
+	/* Lines with autodrowing */
+
+	$(function () {
+		// we use an inline data source in the example, usually data would
+		// be fetched from a server
+		var data = [], totalPoints = 200;
+		function getRandomData() {
+			if (data.length > 0)
+				data = data.slice(1);
+	
+			// do a random walk
+			while (data.length < totalPoints) {
+				var prev = data.length > 0 ? data[data.length - 1] : 50;
+				var y = prev + Math.random() * 10 - 5;
+				if (y < 0)
+					y = 0;
+				if (y > 100)
+					y = 100;
+				data.push(y);
+			}
+	
+			// zip the generated y values with the x values
+			var res = [];
+			for (var i = 0; i < data.length; ++i)
+				res.push([i, data[i]])
+			return res;
+		}
+	
+		// setup control widget
+		var updateInterval = 1000;
+		$("#updateInterval").val(updateInterval).change(function () {
+			var v = $(this).val();
+			if (v && !isNaN(+v)) {
+				updateInterval = +v;
+				if (updateInterval < 1)
+					updateInterval = 1;
+				if (updateInterval > 2000)
+					updateInterval = 2000;
+				$(this).val("" + updateInterval);
+			}
+		});
+	
+		// setup plot
+		var options = {
+			yaxis: { min: 0, max: 100 },
+			xaxis: { min: 0, max: 100 },
+			colors: ["#aed267"],
+			series: {
+					   lines: { 
+							lineWidth: 2, 
+							fill: true,
+							fillColor: { colors: [ { opacity: 0.4 }, { opacity: 0 } ] },
+							//"#dcecf9"
+							steps: false
+	
+						}
+				   }
+		};
+		var plot = $.plot($(".updating"), [ getRandomData() ], options);
+	
+		function update() {
+			plot.setData([ getRandomData() ]);
+			// since the axes don't change, we don't need to call plot.setupGrid()
+			plot.draw();
+			
+			setTimeout(update, updateInterval);
+		}
+	
+		update();
+	});

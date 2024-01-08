@@ -1,8 +1,0 @@
-/*!
- CLEditor Table Plugin v1.0.3
- http://premiumsoftware.net/cleditor
- requires CLEditor v1.2.2 or later
- 
- Copyright 2010, Chris Landowski, Premium Software, LLC
- Dual licensed under the MIT or GPL Version 2 licenses.
-*/

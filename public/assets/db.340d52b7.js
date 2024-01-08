@@ -1,0 +1,1 @@
+import{b as r,Y as o,Z as i,$ as l}from"./index.c3a09d8d.js";var b=r(async({app:a})=>{await o.usuario.inicializaLogado(),a.config.globalProperties.$db=o,globalThis.$db=o,a.config.globalProperties.$erp=i,globalThis.$erp=i,a.config.globalProperties.$plataforma=l,globalThis.$plataforma=l});export{b as default};

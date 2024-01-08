@@ -1,0 +1,1 @@
+import{b as s,ag as l}from"./index.c3a09d8d.js";var a=s(({app:o})=>{o.config.globalProperties.$utils=l,globalThis.$utils=l});export{a as default};
