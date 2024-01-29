@@ -1,0 +1,1 @@
+import{_ as o,o as a,d as r}from"./index.870f25bc.js";const s={components:{},data(){return{data:""}}},t={class:"compras row"};function e(c,n,p,_,d,m){return a(),r("div",t,"compras")}var f=o(s,[["render",e]]);export{f as default};
